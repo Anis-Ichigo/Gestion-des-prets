@@ -1,77 +1,89 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>entretien</title>
-		<meta charset="utf-8"/>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-	    <link rel="stylesheet" href="Style.css"/>
-		<script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
-		<link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
-		</head>
-	<body>
-		<main>
-			<menu>
-				<a href="Index.html"><img src="images/logo.jpg" alt="logo" ></a>
-				<ul>
-					<li><a href ="reservation.html"><i class="far fa-plus-square"></i></a></li>
-					<li><a href ="myreservations.html"><i class="fas fa-ticket-alt"></i></a></li>
-					<li><a href ="entretien.html"><i class="fi-rr-settings"></i></a></li>
-					<li><a href ="profil.html"><i class="fas fa-users"></i></a></li>
-					<li><a href ="forum.html"><i class="far fa-comment-dots"></i></a></li>
-					<li><a href ="valider_reservation.html"><i class="far fa-check-square"></i></a></li>
-					<li><a href ="suivi_prets.html"><i class="far fa-handshake"></i></a></li>
-					<li><a href ="Statistiques.html"><i class="fi-rr-stats"></i></a></li>
-				</ul>
-			</menu>
-			<div class="contenu">
-				<h1>Entretien</h1>
 
-				<ul class="nav nav-tabs">
-					<li class="nav-item">
-					  <a class="nav-link active" aria-current="page" href="#">Mise a jour du parc</a>
-					</li>
-					<li class="nav-item">
-					  <a class="nav-link" href="RAZ.html">RAZ des machines </a>
-					</li>
-					<li class="nav-item">
-					  <a class="nav-link" href="SAV.html">SAV</a>
-					</li>
-				  </ul>
-			</div>
-			<div class="tableau">
-				<Table class="table table-striped table-hover">
-					<TR>
-						<TD>
-							Numéro du materiel 
-						</TD>
-						<TD>
-							Date de retour 
-						</TD>
-						<TD>
-							Etat *
-						</TD>
-						<TD>
-							Problème   
-						</TD>
-					</TR>
-					<TR>
-						<TD>
-							N122342546567
-						</TD>
-						<TD>
-							12/02/2021
-						</TD>
-						<TD>
-							Dispo *
-						</TD>
-						<TD>
-							panne  
-						</TD>
-					</TR>
-				</Table>
-				ajouter fonction ajout/suppression de materiel 
-				Classer le materiel par type (les pc , les cles 4g , les tablettes...)
-			</div>
-		</main>
-	</body>
+<head>
+	<title>entretien</title>
+	<meta charset="utf-8" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+	<link rel="stylesheet" href="Style.css" />
+	<script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
+	<link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+</head>
+
+<body>
+	<main>
+		<menu>
+			<a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
+			<ul>
+				<li><a href="reservation.html"><i class="far fa-plus-square"></i></a></li>
+				<li><a href="myreservations.html"><i class="fas fa-ticket-alt"></i></a></li>
+				<li><a href="entretien.html"><i class="fi-rr-settings"></i></a></li>
+				<li><a href="profil.html"><i class="fas fa-users"></i></a></li>
+				<li><a href="forum.html"><i class="far fa-comment-dots"></i></a></li>
+				<li><a href="valider_reservation.html"><i class="far fa-check-square"></i></a></li>
+				<li><a href="suivi_prets.html"><i class="far fa-handshake"></i></a></li>
+				<li><a href="Statistiques.html"><i class="fi-rr-stats"></i></a></li>
+			</ul>
+		</menu>
+		<div class="contenu">
+			<h1>Entretien</h1>
+
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Mise a jour du parc</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="RAZ.html">RAZ des machines </a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="SAV.html">SAV</a>
+				</li>
+			</ul>
+		</div>
+		<div class="tableau">
+			<Table class="table table-striped table-hover">
+				<TR>
+					<td>
+
+					</td>
+					<TD>
+						Numéro du materiel
+					</TD>
+					<TD>
+						Date de retour
+					</TD>
+					<TD>
+						Etat *
+					</TD>
+					<TD>
+						Problème
+					</TD>
+				</TR>
+				<TR>
+					<td>
+						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					</td>
+					<TD>
+						N122342546567
+					</TD>
+					<TD>
+						12/02/2021
+					</TD>
+					<TD>
+						Dispo *
+					</TD>
+					<TD>
+						panne
+					</TD>
+				</TR>
+			</Table>
+			<p>ajouter fonction ajout/suppression de materiel
+			Classer le materiel par type (les pc , les cles 4g , les tablettes...)</p>
+			<button type="button" class="btn btn-primary">Ajouter</button>
+			<button type="button" class="btn btn-secondary">Supprimer</button>
+		</div>
+	</main>
+</body>
+
 </html>
