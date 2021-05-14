@@ -26,7 +26,7 @@
         </div>
 
         <div class="contenu">
-            <h1>Réservation du matériel ajouter piece jointe carte etudiant + carte d'identité </h1>
+            <h1>Réservation du matériel</h1>
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -65,118 +65,114 @@
                                 <label for="nom">Email:</label>
                             </TD>
                             <TD>
-                                <INPUT type="text" name="adremail" " required>(*)
-				</TD>
-				
-			</TR>
-			<TR>
-				<TD>
-					<label for=" nom ">Adresse:</label>
-							</TD>
-							<TD>
-								<INPUT type="text " name="adresse " title="ex: 8 rue des troubadours " style="width:400px; "
-									required>(*)
-							</TD>
+                                <INPUT type="text" name="adremail" required>(*)
+                            </TD>
 
-						</TR>
-						<TR>
-							<TD>
-								<label for="nom ">Tel:</label>
-							</TD>
-							<TD>
-								<INPUT type="tel " name="prénom " title="ex: 0612345678 " required>(*)
-							</TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for=" nom ">Adresse:</label>
+                            </TD>
+                            <TD>
+                                <INPUT type=" text " name=" adresse " title=" ex: 8 rue des troubadours " style=" width:400px; " required>(*)
+                            </TD>
 
-						</TR>
-						<TR>
-							<TD>
-								<label for="besoin ">Votre demande concerne :</label>
-							</TD>
-							<TD>
-								<SELECT id="besoin " name="besoin " size="1 ">
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for=" nom ">Tel:</label>
+                            </TD>
+                            <TD>
+                                <INPUT type=" tel " name=" prénom " title=" ex: 0612345678 " required>(*)
+                            </TD>
+
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for=" besoin ">Votre demande concerne :</label>
+                            </TD>
+                            <TD>
+                                <SELECT id=" besoin " name=" besoin " size=" 1 ">
 									<OPTION>Un PC</OPTION>
 									<OPTION>Une Tablette</OPTION>
 									<OPTION>Une clé 4G</OPTION>
 									<OPTION>Le reste boucle php pour faire affficher</OPTION>
 								</SELECT> (*)
-							</TD>
+                            </TD>
 
-						</TR>
+                        </TR>
 
-						<TR>
-							<TD>
-								<label for="priorite ">Vous êtes :</label>
-							</TD>
-							<TD>
-								<SELECT id="priorite " name="priorite " size="1 ">
+                        <TR>
+                            <TD>
+                                <label for=" priorite ">Vous êtes :</label>
+                            </TD>
+                            <TD>
+                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
 									<OPTION>Etudiant</OPTION>
 									<OPTION>Enseignant</OPTION>
 									<OPTION>Administratif</OPTION>
 								</SELECT>
-							</TD>
-						</TR>
-						<TR>
-							<TD>
-								<label for="priorite ">Formation:</label>
-							</TD>
-							<TD>
-								<SELECT id="priorite " name="priorite " size="1 ">
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for=" priorite ">Formation:</label>
+                            </TD>
+                            <TD>
+                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
 									<OPTION>boucle php pour afficher les formations</OPTION>
-								</SELECT>
-								(javascript pour afficher un des deux)
-							</TD>
-
-							<TD>
-								<label for="priorite "> Ou Secretariat:</label>
-							</TD>
-							<TD>
-								<SELECT id="priorite " name="priorite " size="1 ">
+								</SELECT> (javascript pour afficher un des deux)
+                            </TD>
+                            <TD>
+                                <label for=" priorite "> Ou Secretariat:</label>
+                            </TD>
+                            <TD>
+                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
 									<OPTION>boucle php pour afficher les secretariats</OPTION>
 								</SELECT>
-							</TD>
-						</TR>
-						<TR>
-							<TD valign="top ">
-								<label for="description ">Description :</label>
-							</TD>
-							<TD>
-								<textarea cols="60 " rows="10 "></textarea>
-							</TD>
-						</TR>
-						<TR>
-							<TD>
-							</TD>
-							<TD>
-								(*)
-							</TD>
-						</TR>
+                            </TD>
+                        </TR>
+                        <tr>
+                            <td>
+                                Carte d'identité :
+                            </td>
+                            <TD>
+                                <input type="file">
+                            </TD>
+                        </tr>
+                        <tr>
+                            <td>
+                                Carte d'étudiant :
+                            </td>
+                            <TD>
+                                <input type="file">
+                            </TD>
+                        </tr>
+                        <TR>
+                            <TD valign=" top ">
+                                <label for=" description ">Description :</label>
+                            </TD>
+                            <TD>
+                                <textarea cols=" 60 " rows=" 10 "></textarea>
+                            </TD>
+                        </TR>
 
+                    </TABLE>
 
+                    <p class='noblg'>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> Je souhaite recevoir les notifications de suivi de ma demande par mail.
+                    </p>
+                    </br>
+                    <p>
+                        <INPUT id='env' type="submit" onclick=" confirmer() " value=" Envoyer " title=" cliquez pour terminer ">
+                        <INPUT id='eff' type="reset" value=" Effacer" title=" cliquez pour effacer l 'ensemble des éléments du formulaire">
+                    </p>
 
-					</TABLE>
+                </fieldset>
 
-					<p class='noblg'>
-						<INPUT type="checkbox " name="suivi "
-							title="Cochez la case si vous désirez recevoir les notifications de suivi de votre demande "
-							checked>
-						Je souhaite recevoir les notifications de suivi de ma demande par mail.
-					</p>
-
-					</br>
-
-					<p>
-						<INPUT id='env' type="submit " onclick="confirmer() " value="Envoyer "
-							title="cliquez pour terminer ">
-
-						<INPUT id='eff' type="reset " value="Effacer "
-							title="cliquez pour effacer l 'ensemble des éléments du formulaire">
-					</p>
-
-				</fieldset>
-
-			</FORM>
-		</div>
-	</main>
+            </FORM>
+        </div>
+    </main>
 </body>
 
 </html>
