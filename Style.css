@@ -73,13 +73,6 @@ main {
     margin-right: 5%;
 }
 
-
-/*
-.tableau {
-    margin-left: 10%;
-}
-*/
-
 fieldset {
     padding: 20px;
     margin-right: 30px;
@@ -96,4 +89,8 @@ td {
 #eff {
     padding: 10px;
     margin-left: 25px;
+}
+
+h1 {
+    margin-bottom: 3%;
 }
