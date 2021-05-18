@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>entretien</title>
+    <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="stylesheet" href="Style.css" />
+    <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
+    <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="menu">
+            <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
+            <a href="profil.html"><i class="fas fa-users"></i></a>
+            <a href="reservation.html"><i class="far fa-plus-square"></i></a>
+            <a href="entretien.html"><i class="fas fi-rr-settings"></i></a>
+            <a href="forum.html"><i class="far fa-comment-dots"></i></a>
+            <a href="valider_reservation.html"><i class="far fa-check-square"></i></a>
+            <a href="suivi_prets.html"><i class="far fa-handshake"></i></a>
+            <a href="Statistiques.html"><i class="far fi-rr-stats"></i></a>
+        </div>
+
+        <div class="contenu">
+            <h1>Entretien</h1>
+            <form action="entretien.html">
+                <table>
+                    <tr>
+                        <TD>
+                            <label>Numéro du matériel</label>
+                        </TD>
+                        <TD>
+                            <INPUT type="text" required>
+                        </TD>
+                    </tr>
+                    <tr>
+                        <TD>
+                            <label>type de matériel</label>
+                        </TD>
+                        <TD>
+                            <INPUT type="text" required>
+                        </TD>
+                    </tr>
+                    <tr>
+                        <TD>
+                            <label>Date d'achat</label>
+                        </TD>
+                        <TD>
+                            <INPUT type="date" required>
+                        </TD>
+                    </tr>
+                    <tr>
+                        <TD>
+                            <label>Etat</label>
+                        </TD>
+                        <TD>
+                            <select name="" id="">
+                                <option value="">Dispo</option>
+                                <option value="">Non dispo</option>
+                            </select>
+                        </TD>
+                    </tr>
+                    <tr>
+                        <TD>
+                            <label>Problème</label>
+                        </TD>
+                        <TD>
+                            <INPUT type="text">
+                        </TD>
+                    </tr>
+                </table>
+            </form>
+            <br>
+            <a type="button" href="entretien.html" class="btn btn-primary">Ajouter</a>
+
+        </div>
+    </main>
+</body>
+
+</html>
