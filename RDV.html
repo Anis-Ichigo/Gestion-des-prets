@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <main>
         <div class="menu">
             <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
@@ -104,13 +105,13 @@
                 </TR>
                 <TR>
                     <TD>
-                        <button type="button" class="btn btn-primary">8:00</button>
+                        <button type="button" id="lundi_8h00" class="btn btn-primary myPopover" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<button type='button' class='btn btn-success'>Confirmer RDV</button><button type='button' class='btn btn-danger' onclick='fermeturePopover('lundi_8h00')'>Annuler</button>">8:00</button>
                     </TD>
                     <td>
-                        <button type="button" class="btn btn-primary">8:00</button>
+                        <button type="button" id="Mardi_8h00" class="btn btn-primary myPopover" data-toggle="popover" data-placement="bottom" data-html="true" data-content="<button type='button' class='btn btn-success'>Confirmer RDV</button><button type='button' class='btn btn-danger'>Annuler</button>">8:00</button>
                     </td>
                     <TD>
-                        <button type="button" class="btn btn-primary">8:00</button>
+                        <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
                     </TD>
                     <TD>
                         <button type="button" class="btn btn-primary">8:00</button>
@@ -224,7 +225,19 @@
                 </TR>
             </Table>
 
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+            <script>
+                function fermeturePopover(id) {
+                    document.getElementById(id).popover();
+                }
+
+                $(function() {
+                    $(".myPopover").popover();
+                });
+            </script>
 
         </div>
     </main>
