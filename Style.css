@@ -1,5 +1,29 @@
 body {
     background-color: white;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.fond { 
+    /* The image used */
+    background-image: url("images/Accueil.jpg");
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.connexion {
+    margin-top: 25%;
+    color: white;
+    text-align: center;
 }
 
 .menu {
