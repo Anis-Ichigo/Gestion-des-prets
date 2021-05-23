@@ -1,37 +1,27 @@
 body {
     background-color: white;
-    height: 100%;
+    height: 96%;
 }
 
 html {
     height: 100%;
 }
 
-.fond { 
-    /* The image used */
+.fond {
     background-image: url("images/Accueil.jpg");
-  
-    /* Full height */
-    height: 100%; 
-  
-    /* Center and scale the image nicely */
+    height: 104.2%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.connexion {
-    margin-top: 25%;
-    color: white;
-    text-align: center;
 }
 
 .menu {
     background-color: #F6F6F6;
     width: 7%;
     margin: auto;
-    float: left;
     text-align: center;
+    overflow: auto;
+    float: left;
 }
 
 .menu img {
@@ -47,19 +37,6 @@ html {
 a {
     text-decoration: none;
     margin-bottom: 5%;
-    margin: auto;
-}
-
-.menu ul {
-    padding-left: 0;
-    list-style: none;
-    margin: auto;
-}
-
-.menu li {
-    padding-left: 0;
-    list-style: none;
-    padding: 10%;
     margin: auto;
 }
 
@@ -80,10 +57,8 @@ a {
 main {
     font-family: 'HelveticaNeue', sans-serif;
     background-color: white;
-    width: 95%;
-    height: auto;
+    width: 97%;
     margin-top: 30px;
-    padding-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
 }
