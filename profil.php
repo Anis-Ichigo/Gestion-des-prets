@@ -142,7 +142,7 @@ session_start();
 
                     <br>
                     <p>
-                        <a href="modifier_profil.php" type="button" class="btn btn-primary">Modifier le profil</a>
+                        <input type="submit" class="btn btn-primary" value="Modifier le profil">
                     </p>
                 </FORM>
 
