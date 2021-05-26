@@ -45,7 +45,8 @@ session_start();
 
             <?php
             require('Connexion_BD.php');
-            $identifiant = $_SESSION['identifiant'];
+            //$identifiant = $_SESSION['identifiant'];
+            $identifiant = '22508753';
 
             $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
