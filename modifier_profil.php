@@ -43,98 +43,92 @@ session_start();
             <?php
             require('Connexion_BD.php');
             //$identifiant = $_SESSION['identifiant'];
-            /*$identifiant = '22508753';
+            $identifiant = '22508753';
 
-            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
-            $result_emprunteur = mysqli_query($session, $emprunteur);
-            foreach ($result_emprunteur as $row) {*/
             ?>
 
-                <FORM method="POST" action="" id='form'>
-                    <TABLE NOBOARDER>
-                        <TR>
-                            <TD>
-                                <label for="nom">Prénom :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" name="modif_PrenomE" value="<?php $_POST["PrenomE"]; ?>">
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Nom :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_NomE" value="<?php echo $_POST['NomE']; ?>">
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Email :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_EmailE" value="<?php echo $_POST['EmailE']; ?>">
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Adresse :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_AdresseE" value="<?php echo $_POST['AdresseE']; ?>">
-                            </TD>
-                        </TR>
+            <FORM method="POST" action="profil.php">
+                <TABLE NOBOARDER>
+                    <TR>
+                        <TD>
+                            <label for="nom">Prénom :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_PrenomE" value="<?php echo $_POST["PrenomE"]; ?>">
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD>
+                            <label for="nom">Nom :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_NomE" value="<?php echo $_POST['NomE']; ?>">
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD>
+                            <label for="nom">Email :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_EmailE" value="<?php echo $_POST['EmailE']; ?>">
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD>
+                            <label for="nom">Adresse :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_AdresseE" value="<?php echo $_POST['AdresseE']; ?>">
+                        </TD>
+                    </TR>
 
-                        <TR>
-                            <TD>
-                                <label for="nom">Tel :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_TelE" value="<?php echo $_POST['TelE']; ?>">
-                            </TD>
-                        </TR>
+                    <TR>
+                        <TD>
+                            <label for="nom">Tel :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_TelE" value="<?php echo $_POST['TelE']; ?>">
+                        </TD>
+                    </TR>
 
-                        <TR>
-                            <TD>
-                                <label for="priorite">Vous êtes :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>">
-                            </TD>
-                        </TR>
+                    <TR>
+                        <TD>
+                            <label for="priorite">Vous êtes :</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>">
+                        </TD>
+                    </TR>
 
-                        <TR>
-                            <TD>
-                                <label for=" priorite ">Formation:</label>
-                            </TD>
-                            <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>">
-                            </TD>
-                            <TD>
-                                <label for=" priorite "> Ou Secretariat:</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Scolarité informatique </OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                </SELECT>
-                            </TD>
-                        </TR>
+                    <TR>
+                        <TD>
+                            <label for=" priorite ">Formation:</label>
+                        </TD>
+                        <TD>
+                            <input type="text" class="form-control" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>">
+                        </TD>
+                        <TD>
+                            <label for=" priorite "> Ou Secretariat:</label>
+                        </TD>
+                        <TD>
+                            <SELECT id=" priorite " name=" priorite " size=" 1 ">
+                                <OPTION>Scolarité informatique </OPTION>
+                                <OPTION>Service de scolarité de ..</OPTION>
+                                <OPTION>Service de scolarité de ..</OPTION>
+                                <OPTION>Service de scolarité de ..</OPTION>
+                                <OPTION>Service de scolarité de ..</OPTION>
+                            </SELECT>
+                        </TD>
+                    </TR>
 
-                    </TABLE>
+                </TABLE>
 
-                    <br>
-                    <p>
-                        <a href="modifier_profil.php" type="button" class="btn btn-primary">Modifier le profil</a>
-                    </p>
-                </FORM>
-
-            <?php
-            //}
-            ?>
+                <br>
+                <p>
+                    <input type="submit" name="modifier" class="btn btn-primary" value="Modifier">
+                    <a href="profil.php" type="button" class="btn btn-light">Retour</a>
+                </p>
+            </FORM>
 
         </div>
     </main>

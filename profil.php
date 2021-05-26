@@ -45,6 +45,21 @@ session_start();
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
+            if (isset($_POST['modifier'])) {
+
+                $modif_PrenomE = $_POST['modif_PrenomE'];
+                $modif_NomE = $_POST['modif_NomE'];
+                $modif_EmailE = $_POST['modif_EmailE'];
+                $modif_AdresseE = addslashes($_POST['modif_AdresseE']);
+                $modif_TelE = $_POST['modif_TelE'];
+                $modif_Statut = $_POST['modif_Statut'];
+                $modif_Formation = $_POST['modif_Formation'];
+
+                $modif_profil = ("UPDATE emprunteur SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantE = $identifiant");
+                $result_modif_profil = mysqli_query($session, $modif_profil);
+
+            }
+
             $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
             foreach ($result_emprunteur as $row) {
