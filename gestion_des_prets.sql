@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 25 mai 2021 à 10:25
+-- Généré le : mer. 26 mai 2021 à 11:55
 -- Version du serveur :  5.7.31
--- Version de PHP : 7.3.21
+-- Version de PHP : 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
 
 DROP TABLE IF EXISTS `emprunteur`;
 CREATE TABLE IF NOT EXISTS `emprunteur` (
-  `IdentifiantE` int(11) NOT NULL AUTO_INCREMENT,
+  `IdentifiantE` int(11) NOT NULL,
   `NomE` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PrenomE` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EmailE` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -78,7 +78,18 @@ CREATE TABLE IF NOT EXISTS `emprunteur` (
   `Secretariat` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Formation` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`IdentifiantE`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=85413602 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `emprunteur`
+--
+
+INSERT INTO `emprunteur` (`IdentifiantE`, `NomE`, `PrenomE`, `EmailE`, `AdresseE`, `TelE`, `Statut`, `Secretariat`, `Formation`) VALUES
+(22508753, 'Dumas', 'Thomas', 'AAA.AAA@etud.ut-capitole.fr', '105 Boulevard d\'Arcole 31000 Toulouse', '0625987415', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
+(45628764, 'Martin', 'Axel', 'BBB.BBB@etud.ut-capitole.fr', '46 Rue des Blanchers 31000 Toulouse', '0698714115', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
+(75664889, 'Coralie', 'Gardet', 'CCC.CCC@etud.ut-capitole.fr', '18 Rue Molière 31000 Toulouse', '0684391709', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
+(35741568, 'Vincent', 'Mallet', 'DDD.DDD@etud.ut-capitole.fr', '50 Rue Dayde 31000 Toulouse', '0608496503', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
+(85413601, 'Alice', 'Bassot', 'EEE.EEE@etud.ut-capitole.fr', '7 Rue du Luan 31000 Toulouse', '0634895147', 'Etudiant', NULL, 'M2 MIAGE ISIAD');
 
 -- --------------------------------------------------------
 
@@ -88,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `emprunteur` (
 
 DROP TABLE IF EXISTS `materiel`;
 CREATE TABLE IF NOT EXISTS `materiel` (
-  `IdentifiantM` int(11) NOT NULL AUTO_INCREMENT,
+  `IdentifiantM` int(11) NOT NULL,
   `DateAchat` date DEFAULT NULL,
   `EtatM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CatégorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -137,13 +148,20 @@ CREATE TABLE IF NOT EXISTS `resoudre` (
 
 DROP TABLE IF EXISTS `responsable`;
 CREATE TABLE IF NOT EXISTS `responsable` (
-  `IdentifiantR` int(11) NOT NULL AUTO_INCREMENT,
+  `IdentifiantR` int(11) NOT NULL,
   `NomR` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PrenomR` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TelR` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EmailR` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`IdentifiantR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `responsable`
+--
+
+INSERT INTO `responsable` (`IdentifiantR`, `NomR`, `PrenomR`, `TelR`, `EmailR`) VALUES
+(23158748, 'Cazal', 'Fabien', '0671563248', 'fabien.cazal@ut-capitole.fr');
 
 -- --------------------------------------------------------
 
@@ -167,14 +185,22 @@ CREATE TABLE IF NOT EXISTS `s_occuper` (
 
 DROP TABLE IF EXISTS `vacataire`;
 CREATE TABLE IF NOT EXISTS `vacataire` (
-  `identifiantV` int(11) NOT NULL AUTO_INCREMENT,
+  `identifiantV` int(11) NOT NULL,
   `NomV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PrenomV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EmailV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TelV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EntrepriseV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`identifiantV`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `vacataire`
+--
+
+INSERT INTO `vacataire` (`identifiantV`, `NomV`, `PrenomV`, `EmailV`, `TelV`, `EntrepriseV`) VALUES
+(69874521, 'Barnier', 'Célia', 'celia.barnier@ut-capitole.fr', '0645231608', NULL),
+(25687413, 'Marais', 'Bastien', 'bastien.marais@ut-capitole.fr', '0698525630', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
