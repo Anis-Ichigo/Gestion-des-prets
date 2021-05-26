@@ -114,7 +114,7 @@ session_start();
                                     <label for=" priorite ">Vous êtes :</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['StatutE']; ?>
+                                    <?php echo $row['Statut']; ?>
 
                                 </TD>
                             </TR>
