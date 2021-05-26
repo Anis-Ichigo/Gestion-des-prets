@@ -20,7 +20,7 @@ session_start();
                 <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
                 <b>Profil</b>
             </div>
-            <div><a href="profil.html"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
+            <div><a href="profil.php"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
             <div><a href="reservation.php"><i class="far fa-plus-square"></i></a><b>Forum</b></div>
             <div><a href="forum.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
             <div><a href="entretien.html"><i class="fas fi-rr-settings"></i></a><b>Liste RDV</b></div>
@@ -128,7 +128,7 @@ session_start();
 
                     <br>
                     <p>
-                        <button type="button" class="btn btn-primary">Modifier le profil</button>
+                        <a href="modifier_profil.php" type="button" class="btn btn-primary">Modifier le profil</a>
                     </p>
                 </FORM>
 
