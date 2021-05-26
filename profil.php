@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -33,104 +36,105 @@
                     <a class="nav-link active" aria-current="page" href="#">Mes infos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="probleme.html">Declarer un probleme </a>
+                    <a class="nav-link" href="probleme.html">Declarer un probleme</a>
                 </li>
             </ul>
 
+            <?php
+            require('Connexion_BD.php');
+            //$identifiant = $_SESSION['identifiant'];
+            $identifiant = '22508753';
 
-            <FORM method="POST" action="" id='form'>
-                <TABLE NOBOARDER>
-                    <TR>
-                        <TD>
-                            <label for="nom">Nom :</label>
-                        </TD>
-                        <TD>
-                            Dumas
-                        </TD>
-                    </TR>
-                    <TR>
-                        <TD>
-                            <label for="nom">Prénom :</label>
-                        </TD>
-                        <TD>
-                            Thomas
-                        </TD>
-                    </TR>
-                    <TR>
-                        <TD>
-                            <label for="nom">Email :</label>
-                        </TD>
-                        <TD>
-                            thomas.dumas@ut-capitole.fr
-                        </TD>
-                    </TR>
-                    <TR>
-                        <TD>
-                            <label for="nom">Adresse :</label>
-                        </TD>
-                        <TD>
-                            <INPUT type="text" name=" adresse " title=" ex: 8 rue des troubadours " style=" width:400px; " required>
-                        </TD>
-                    </TR>
+            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $result_emprunteur = mysqli_query($session, $emprunteur);
+            foreach ($result_emprunteur as $row) {
+            ?>
 
-                    <TR>
-                        <TD>
-                            <label for="nom">Tel :</label>
-                        </TD>
-                        <TD>
-                            <INPUT type="tel" name="prénom" title="ex: 0612345678" required>
-                        </TD>
-                    </TR>
+                <FORM method="POST" action="" id='form'>
+                    <TABLE NOBOARDER>
+                        <TR>
+                            <TD>
+                                <label for="nom">Prénom :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['PrenomE']; ?>
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for="nom">Nom :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['NomE']; ?>
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for="nom">Email :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['EmailE']; ?>
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label for="nom">Adresse :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['AdresseE']; ?>
+                            </TD>
+                        </TR>
 
-                    <TR>
-                        <TD>
-                            <label for="priorite">Vous êtes :</label>
-                        </TD>
-                        <TD>
-                            <SELECT id="priorite" name=" priorite " size=" 1 ">
-									<option value=""></option>
-									<OPTION>Etudiant</OPTION>
-									<OPTION>Enseignant</OPTION>
-									<OPTION>Administratif</OPTION>
-								</SELECT>
-                        </TD>
-                    </TR>
+                        <TR>
+                            <TD>
+                                <label for="nom">Tel :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['TelE']; ?>
+                            </TD>
+                        </TR>
 
-                    <TR>
-                        <TD>
-                            <label for=" priorite ">Formation:</label>
-                        </TD>
-                        <TD>
-                            <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                <OPTION>Faculté de Droit et Science Politique</OPTION>
-                                <OPTION>Ecole d'Economie de Toulouse (TSE)</OPTION>
-                                <OPTION>Ecole de Management(TSM)</OPTION>
-                                <OPTION>Faculté d'Administration et Communication</OPTION>
-                                <OPTION>Faculté d'infromatique</OPTION>
-                            </SELECT>
-                        </TD>
-                        <TD>
-                            <label for=" priorite "> Ou Secretariat:</label>
-                        </TD>
-                        <TD>
-                            <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                <OPTION>Scolarité informatique </OPTION>
-                                <OPTION>Service de scolarité de ..</OPTION>
-                                <OPTION>Service de scolarité de ..</OPTION>
-                                <OPTION>Service de scolarité de ..</OPTION>
-                                <OPTION>Service de scolarité de ..</OPTION>
-                            </SELECT>
-                        </TD>
-                    </TR>
+                        <TR>
+                            <TD>
+                                <label for="priorite">Vous êtes :</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['Statut']; ?>
+                            </TD>
+                        </TR>
 
-                </TABLE>
+                        <TR>
+                            <TD>
+                                <label for=" priorite ">Formation:</label>
+                            </TD>
+                            <TD>
+                                <?php echo $row['Formation']; ?>
+                            </TD>
+                            <TD>
+                                <label for=" priorite "> Ou Secretariat:</label>
+                            </TD>
+                            <TD>
+                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
+                                    <OPTION>Scolarité informatique </OPTION>
+                                    <OPTION>Service de scolarité de ..</OPTION>
+                                    <OPTION>Service de scolarité de ..</OPTION>
+                                    <OPTION>Service de scolarité de ..</OPTION>
+                                    <OPTION>Service de scolarité de ..</OPTION>
+                                </SELECT>
+                            </TD>
+                        </TR>
 
-                <br>
-                <p>
-                    <button type="button" class="btn btn-primary">Modifier le profil</button>
-                </p>
-            </FORM>
+                    </TABLE>
 
+                    <br>
+                    <p>
+                        <button type="button" class="btn btn-primary">Modifier le profil</button>
+                    </p>
+                </FORM>
+
+            <?php
+            }
+            ?>
 
             <h2>Mes Réservations</h2>
             <Table class="table table-striped table-hover">
