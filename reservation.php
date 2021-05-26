@@ -1,11 +1,14 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>reservation</title>
     <meta charset="utf-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="Style.css" />
     <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
     <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
@@ -14,7 +17,9 @@
 <body>
     <main>
         <div class="menu">
-            <div><a href="Index.html"><img src="images/logo.jpg" alt="logo"></a> </div><b>Profil</b>
+            <div>
+                <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
+            </div><b>Profil</b>
             <div><a href="profil.html"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
             <div><a href="reservation.html"><i class="far fa-plus-square"></i></a><b>Forum</b></div>
             <div><a href="forum.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
@@ -29,119 +34,117 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Reservation</a>
+                    <a class="nav-link active" aria-current="page" href="#">Réservation</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="Renouvellement.html">Renouvellement</a>
                 </li>
             </ul>
 
-            <FORM method="POST" action="" id='form'>
-                <fieldset>
-                    <TABLE NOBOARDER>
-                        <TR>
-                            <TD>
-                                <label for="nom">Nom:</label>
-                            </TD>
-                            <TD>
-                                Dumas
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Prénom:</label>
-                            </TD>
-                            <TD>
-                                Thomas 
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Email:</label>
-                            </TD>
-                            <TD>
-                                thomas.dumas@ut-capitole.fr
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for=" nom ">Adresse:</label>
-                            </TD>
-                            <TD>
-                                <INPUT type=" text " name=" adresse " title=" ex: 8 rue des troubadours "
-                                    style=" width:400px; " required>(*)
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for=" nom ">Tel:</label>
-                            </TD>
-                            <TD>
-                                <INPUT type=" tel " name=" prénom " title=" ex: 0612345678 " required>(*)
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for=" besoin ">Votre demande concerne :</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" besoin " name=" besoin " size=" 1 ">
-                                    <OPTION>Un PC</OPTION>
-                                    <OPTION>Une Tablette</OPTION>
-                                    <OPTION>Une clé 4G</OPTION>
-                                </SELECT> (*)
-                            </TD>
-                        </TR>
 
-                        <TR>
-                            <TD>
-                                <label for=" priorite ">Vous êtes :</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Etudiant</OPTION>
-                                    <OPTION>Enseignant</OPTION>
-                                    <OPTION>Administratif</OPTION>
-                                </SELECT>
-                            </TD>
-                        </TR>
+            <?php
+            require('connexion_BD.php');
+            $identifiant = $_SESSION['identifiant'];
 
-                        <TR>
-                            <TD>
-                                <label for=" priorite ">Formation:</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Faculté de Droit et Science Politique</OPTION>
-                                    <OPTION>Ecole d'Economie de Toulouse (TSE)</OPTION>
-                                    <OPTION>Ecole de Management(TSM)</OPTION>
-                                    <OPTION>Faculté d'Administration et Communication</OPTION>
-                                    <OPTION>Faculté d'infromatique</OPTION>
-                                </SELECT>
-                            </TD>
-                            <TD>
-                                <label for=" priorite "> Ou Secretariat:</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Scolarité informatique </OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                </SELECT>
-                            </TD>
-                        </TR>
+            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $result_emprunteur = mysqli_query($session, $emprunteur);
+            foreach ($result_emprunteur as $row) {
+            ?>
 
-                        <TR>
-                            <TD valign=" top ">
-                                <label for=" description ">Description :</label>
-                            </TD>
-                            <TD>
-                                <textarea cols=" 60 " rows=" 10 "></textarea>
-                            </TD>
-                        </TR>
-                    </TABLE>
+                <FORM method="POST" action="" id='form'>
+                    <fieldset>
+                        <TABLE NOBOARDER>
+                            <TR>
+                                <TD>
+                                    <label for="nom">Nom:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['NomE']; ?>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label for="nom">Prénom:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['PrenomE']; ?>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label for="nom">Email:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['EmailE']; ?>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label for=" nom ">Adresse:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['AdresseE']; ?>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label for=" nom ">Tel:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['TelE']; ?>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label for=" besoin ">Votre demande concerne :</label>
+                                </TD>
+                                <TD>
+                                    <SELECT id=" besoin " name=" besoin " size=" 1 ">
+                                        <OPTION>Un PC</OPTION>
+                                        <OPTION>Une Tablette</OPTION>
+                                        <OPTION>Une clé 4G</OPTION>
+                                    </SELECT> (*)
+                                </TD>
+                            </TR>
+
+                            <TR>
+                                <TD>
+                                    <label for=" priorite ">Vous êtes :</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['StatutE']; ?>
+
+                                </TD>
+                            </TR>
+
+                            <TR>
+                                <TD>
+                                    <label for=" priorite ">Formation:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['Formation']; ?>
+                                </TD>
+                                <TD>
+                                    <label for=" priorite "> Ou Secretariat:</label>
+                                </TD>
+                                <TD>
+                                    <?php echo $row['Secretariat']; ?>
+                                </TD>
+                            </TR>
+
+                            <TR>
+                                <TD valign=" top ">
+                                    <label for=" description ">Description :</label>
+                                </TD>
+                                <TD>
+                                    <textarea cols=" 60 " rows=" 10 "></textarea>
+                                </TD>
+                            </TR>
+                        </TABLE>
+
+                    <?php
+                }
+                    ?>
 
                     <Table class="table table-striped table-hover text-center">
                         <TR>
@@ -289,9 +292,10 @@
                         <button type="reset" class="btn btn-secondary">Effacer</button>
                     </p>
 
-                </fieldset>
+                    </fieldset>
 
-            </FORM>
+                </FORM>
+
         </div>
     </main>
 </body>
