@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 26 mai 2021 à 12:46
+-- Généré le : mer. 26 mai 2021 à 20:37
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -29,14 +29,178 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `calendrier`;
 CREATE TABLE IF NOT EXISTS `calendrier` (
-  `IdentifiantCal` int(11) NOT NULL AUTO_INCREMENT,
+  `IdentifiantCal` int(10) NOT NULL AUTO_INCREMENT,
   `JourCal` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `HoraireCal` time DEFAULT NULL,
   `EtatCal` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `IdentifiantR` int(11) DEFAULT NULL,
-  PRIMARY KEY (`IdentifiantCal`),
-  KEY `IdentifiantR` (`IdentifiantR`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`IdentifiantCal`)
+) ENGINE=MyISAM AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `calendrier`
+--
+
+INSERT INTO `calendrier` (`IdentifiantCal`, `JourCal`, `HoraireCal`, `EtatCal`) VALUES
+(1, 'Lundi', '08:00:00', 'Disponible'),
+(2, 'Lundi', '08:15:00', 'Disponible'),
+(3, 'Lundi', '08:30:00', 'Disponible'),
+(4, 'Lundi', '08:45:00', 'Disponible'),
+(5, 'Lundi', '09:00:00', 'Disponible'),
+(6, 'Lundi', '09:15:00', 'Disponible'),
+(7, 'Lundi', '09:30:00', 'Disponible'),
+(8, 'Lundi', '09:45:00', 'Disponible'),
+(9, 'Lundi', '10:00:00', 'Disponible'),
+(10, 'Lundi', '10:15:00', 'Disponible'),
+(11, 'Lundi', '10:30:00', 'Disponible'),
+(12, 'Lundi', '10:45:00', 'Disponible'),
+(13, 'Lundi', '11:00:00', 'Disponible'),
+(14, 'Lundi', '11:15:00', 'Disponible'),
+(15, 'Lundi', '11:30:00', 'Disponible'),
+(16, 'Lundi', '11:45:00', 'Disponible'),
+(17, 'Lundi', '12:00:00', 'Disponible'),
+(18, 'Lundi', '12:15:00', 'Disponible'),
+(19, 'Lundi', '12:30:00', 'Disponible'),
+(20, 'Lundi', '14:00:00', 'Disponible'),
+(21, 'Lundi', '14:15:00', 'Disponible'),
+(22, 'Lundi', '14:30:00', 'Disponible'),
+(23, 'Lundi', '14:45:00', 'Disponible'),
+(24, 'Lundi', '15:00:00', 'Disponible'),
+(25, 'Lundi', '15:15:00', 'Disponible'),
+(26, 'Lundi', '15:30:00', 'Disponible'),
+(27, 'Lundi', '15:45:00', 'Disponible'),
+(28, 'Lundi', '16:00:00', 'Disponible'),
+(29, 'Lundi', '16:15:00', 'Disponible'),
+(30, 'Lundi', '16:30:00', 'Disponible'),
+(31, 'Lundi', '16:45:00', 'Disponible'),
+(32, 'Lundi', '17:00:00', 'Disponible'),
+(33, 'Mardi', '08:00:00', 'Disponible'),
+(34, 'Mardi', '08:15:00', 'Disponible'),
+(35, 'Mardi', '08:30:00', 'Disponible'),
+(36, 'Mardi', '08:45:00', 'Disponible'),
+(37, 'Mardi', '09:00:00', 'Disponible'),
+(38, 'Mardi', '09:15:00', 'Disponible'),
+(39, 'Mardi', '09:30:00', 'Disponible'),
+(40, 'Mardi', '09:45:00', 'Disponible'),
+(41, 'Mardi', '10:00:00', 'Disponible'),
+(42, 'Mardi', '10:15:00', 'Disponible'),
+(43, 'Mardi', '10:30:00', 'Disponible'),
+(44, 'Mardi', '10:45:00', 'Disponible'),
+(45, 'Mardi', '11:00:00', 'Disponible'),
+(46, 'Mardi', '11:15:00', 'Disponible'),
+(47, 'Mardi', '11:30:00', 'Disponible'),
+(48, 'Mardi', '11:45:00', 'Disponible'),
+(49, 'Mardi', '12:00:00', 'Disponible'),
+(50, 'Mardi', '12:15:00', 'Disponible'),
+(51, 'Mardi', '12:30:00', 'Disponible'),
+(52, 'Mardi', '14:00:00', 'Disponible'),
+(53, 'Mardi', '14:15:00', 'Disponible'),
+(54, 'Mardi', '14:30:00', 'Disponible'),
+(55, 'Mardi', '14:45:00', 'Disponible'),
+(56, 'Mardi', '15:00:00', 'Disponible'),
+(57, 'Mardi', '15:15:00', 'Disponible'),
+(58, 'Mardi', '15:30:00', 'Disponible'),
+(59, 'Mardi', '15:45:00', 'Disponible'),
+(60, 'Mardi', '16:00:00', 'Disponible'),
+(61, 'Mardi', '16:15:00', 'Disponible'),
+(62, 'Mardi', '16:30:00', 'Disponible'),
+(63, 'Mardi', '16:45:00', 'Disponible'),
+(64, 'Mardi', '17:00:00', 'Disponible'),
+(65, 'Mercredi', '08:00:00', 'Disponible'),
+(66, 'Mercredi', '08:15:00', 'Disponible'),
+(67, 'Mercredi', '08:30:00', 'Disponible'),
+(68, 'Mercredi', '08:45:00', 'Disponible'),
+(69, 'Mercredi', '09:00:00', 'Disponible'),
+(70, 'Mercredi', '09:15:00', 'Disponible'),
+(71, 'Mercredi', '09:30:00', 'Disponible'),
+(72, 'Mercredi', '09:45:00', 'Disponible'),
+(73, 'Mercredi', '10:00:00', 'Disponible'),
+(74, 'Mercredi', '10:15:00', 'Disponible'),
+(75, 'Mercredi', '10:30:00', 'Disponible'),
+(76, 'Mercredi', '10:45:00', 'Disponible'),
+(77, 'Mercredi', '11:00:00', 'Disponible'),
+(78, 'Mercredi', '11:15:00', 'Disponible'),
+(79, 'Mercredi', '11:30:00', 'Disponible'),
+(80, 'Mercredi', '11:45:00', 'Disponible'),
+(81, 'Mercredi', '12:00:00', 'Disponible'),
+(82, 'Mercredi', '12:15:00', 'Disponible'),
+(83, 'Mercredi', '12:30:00', 'Disponible'),
+(84, 'Mercredi', '14:00:00', 'Disponible'),
+(85, 'Mercredi', '14:15:00', 'Disponible'),
+(86, 'Mercredi', '14:30:00', 'Disponible'),
+(87, 'Mercredi', '14:45:00', 'Disponible'),
+(88, 'Mercredi', '15:00:00', 'Disponible'),
+(89, 'Mercredi', '15:15:00', 'Disponible'),
+(90, 'Mercredi', '15:30:00', 'Disponible'),
+(91, 'Mercredi', '15:45:00', 'Disponible'),
+(92, 'Mercredi', '16:00:00', 'Disponible'),
+(93, 'Mercredi', '16:15:00', 'Disponible'),
+(94, 'Mercredi', '16:30:00', 'Disponible'),
+(95, 'Mercredi', '16:45:00', 'Disponible'),
+(96, 'Mercredi', '17:00:00', 'Disponible'),
+(97, 'Jeudi', '08:00:00', 'Disponible'),
+(98, 'Jeudi', '08:15:00', 'Disponible'),
+(99, 'Jeudi', '08:30:00', 'Disponible'),
+(100, 'Jeudi', '08:45:00', 'Disponible'),
+(101, 'Jeudi', '09:00:00', 'Disponible'),
+(102, 'Jeudi', '09:15:00', 'Disponible'),
+(103, 'Jeudi', '09:30:00', 'Disponible'),
+(104, 'Jeudi', '09:45:00', 'Disponible'),
+(105, 'Jeudi', '10:00:00', 'Disponible'),
+(106, 'Jeudi', '10:15:00', 'Disponible'),
+(107, 'Jeudi', '10:30:00', 'Disponible'),
+(108, 'Jeudi', '10:45:00', 'Disponible'),
+(109, 'Jeudi', '11:00:00', 'Disponible'),
+(110, 'Jeudi', '11:15:00', 'Disponible'),
+(111, 'Jeudi', '11:30:00', 'Disponible'),
+(112, 'Jeudi', '11:45:00', 'Disponible'),
+(113, 'Jeudi', '12:00:00', 'Disponible'),
+(114, 'Jeudi', '12:15:00', 'Disponible'),
+(115, 'Jeudi', '12:30:00', 'Disponible'),
+(116, 'Jeudi', '14:00:00', 'Disponible'),
+(117, 'Jeudi', '14:15:00', 'Disponible'),
+(118, 'Jeudi', '14:30:00', 'Disponible'),
+(119, 'Jeudi', '14:45:00', 'Disponible'),
+(120, 'Jeudi', '15:00:00', 'Disponible'),
+(121, 'Jeudi', '15:15:00', 'Disponible'),
+(122, 'Jeudi', '15:30:00', 'Disponible'),
+(123, 'Jeudi', '15:45:00', 'Disponible'),
+(124, 'Jeudi', '16:00:00', 'Disponible'),
+(125, 'Jeudi', '16:15:00', 'Disponible'),
+(126, 'Jeudi', '16:30:00', 'Disponible'),
+(127, 'Jeudi', '16:45:00', 'Disponible'),
+(128, 'Jeudi', '17:00:00', 'Disponible'),
+(129, 'Vendredi', '08:00:00', 'Disponible'),
+(130, 'Vendredi', '08:15:00', 'Disponible'),
+(131, 'Vendredi', '08:30:00', 'Disponible'),
+(132, 'Vendredi', '08:45:00', 'Disponible'),
+(133, 'Vendredi', '09:00:00', 'Disponible'),
+(134, 'Vendredi', '09:15:00', 'Disponible'),
+(135, 'Vendredi', '09:30:00', 'Disponible'),
+(136, 'Vendredi', '09:45:00', 'Disponible'),
+(137, 'Vendredi', '10:00:00', 'Disponible'),
+(138, 'Vendredi', '10:15:00', 'Disponible'),
+(139, 'Vendredi', '10:30:00', 'Disponible'),
+(140, 'Vendredi', '10:45:00', 'Disponible'),
+(141, 'Vendredi', '11:00:00', 'Disponible'),
+(142, 'Vendredi', '11:15:00', 'Disponible'),
+(143, 'Vendredi', '11:30:00', 'Disponible'),
+(144, 'Vendredi', '11:45:00', 'Disponible'),
+(145, 'Vendredi', '12:00:00', 'Disponible'),
+(146, 'Vendredi', '12:15:00', 'Disponible'),
+(147, 'Vendredi', '12:30:00', 'Disponible'),
+(148, 'Vendredi', '14:00:00', 'Disponible'),
+(149, 'Vendredi', '14:15:00', 'Disponible'),
+(150, 'Vendredi', '14:30:00', 'Disponible'),
+(151, 'Vendredi', '14:45:00', 'Disponible'),
+(152, 'Vendredi', '15:00:00', 'Disponible'),
+(153, 'Vendredi', '15:15:00', 'Disponible'),
+(154, 'Vendredi', '15:30:00', 'Disponible'),
+(155, 'Vendredi', '15:45:00', 'Disponible'),
+(156, 'Vendredi', '16:00:00', 'Disponible'),
+(157, 'Vendredi', '16:15:00', 'Disponible'),
+(158, 'Vendredi', '16:30:00', 'Disponible'),
+(159, 'Vendredi', '16:45:00', 'Disponible'),
+(160, 'Vendredi', '17:00:00', 'Disponible');
 
 -- --------------------------------------------------------
 
@@ -53,23 +217,25 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
   `IdentifiantR` int(11) NOT NULL,
   `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `IdentifiantE` int(11) NOT NULL,
+  `IdentifiantCal` int(10) NOT NULL,
   PRIMARY KEY (`IdentifiantEm`),
   KEY `identifiantV` (`identifiantV`),
   KEY `IdentifiantR` (`IdentifiantR`),
   KEY `IdentifiantM` (`IdentifiantM`),
-  KEY `IdentifiantE` (`IdentifiantE`)
+  KEY `IdentifiantE` (`IdentifiantE`),
+  KEY `IdentifiantCal` (`IdentifiantCal`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `emprunt`
 --
 
-INSERT INTO `emprunt` (`IdentifiantEm`, `DateEmprunt`, `DateRetour`, `identifiantV`, `IdentifiantR`, `IdentifiantM`, `IdentifiantE`) VALUES
-(1, '2021-02-12', '2021-05-24', 69874521, 23158748, 'N122342546567', 22508753),
-(2, '2021-11-08', '2021-06-14', 69874521, 23158748, 'N365421896354', 45628764),
-(3, '2021-10-05', '2021-07-16', 69874521, 23158748, 'N498752163587', 75664889),
-(4, '2021-09-13', '2021-06-24', 69874521, 23158748, 'N547863698545', 35741568),
-(5, '2021-05-15', '2021-07-25', 69874521, 23158748, 'N365488741546', 85413601);
+INSERT INTO `emprunt` (`IdentifiantEm`, `DateEmprunt`, `DateRetour`, `identifiantV`, `IdentifiantR`, `IdentifiantM`, `IdentifiantE`, `IdentifiantCal`) VALUES
+(1, '2021-02-12', '2021-05-24', 69874521, 23158748, 'N122342546567', 22508753, 15),
+(2, '2021-11-08', '2021-06-14', 69874521, 23158748, 'N365421896354', 45628764, 45),
+(3, '2021-10-05', '2021-07-16', 69874521, 23158748, 'N498752163587', 75664889, 30),
+(4, '2021-09-13', '2021-06-24', 69874521, 23158748, 'N547863698545', 35741568, 10),
+(5, '2021-05-15', '2021-07-25', 69874521, 23158748, 'N365488741546', 85413601, 69);
 
 -- --------------------------------------------------------
 
@@ -113,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `materiel` (
   `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `DateAchat` date DEFAULT NULL,
   `EtatM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `CatégorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `CategorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `StatutM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`IdentifiantM`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -122,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `materiel` (
 -- Déchargement des données de la table `materiel`
 --
 
-INSERT INTO `materiel` (`IdentifiantM`, `DateAchat`, `EtatM`, `CatégorieM`, `StatutM`) VALUES
+INSERT INTO `materiel` (`IdentifiantM`, `DateAchat`, `EtatM`, `CategorieM`, `StatutM`) VALUES
 ('N122342546567', '2021-02-12', 'Non dispo', 'Ordinateur', 'Existant'),
 ('N952145236874', '2021-01-18', 'Dispo', 'Ordinateur', 'Existant'),
 ('N635215328745', '2021-06-02', 'Dispo', 'Ordinateur', 'Existant'),
@@ -145,12 +311,19 @@ CREATE TABLE IF NOT EXISTS `probleme` (
   `NomP` text COLLATE utf8mb4_unicode_ci,
   `DateProblème` date DEFAULT NULL,
   `DateResolution` date DEFAULT NULL,
-  `Résolution` text COLLATE utf8mb4_unicode_ci,
+  `Resolution` text COLLATE utf8mb4_unicode_ci,
   `Description` text COLLATE utf8mb4_unicode_ci,
   `IdentifiantE` int(11) NOT NULL,
   PRIMARY KEY (`IdentifiantP`),
   KEY `IdentifiantE` (`IdentifiantE`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `probleme`
+--
+
+INSERT INTO `probleme` (`IdentifiantP`, `NomP`, `DateProblème`, `DateResolution`, `Resolution`, `Description`, `IdentifiantE`) VALUES
+(1, 'Panne', '2021-05-19', '2021-05-31', 'Problème résolu', 'Ordinateur en panne.', 22508753);
 
 -- --------------------------------------------------------
 
@@ -163,7 +336,8 @@ CREATE TABLE IF NOT EXISTS `resoudre` (
   `identifiantV` int(11) NOT NULL,
   `IdentifiantP` int(11) NOT NULL,
   PRIMARY KEY (`identifiantV`,`IdentifiantP`),
-  KEY `IdentifiantP` (`IdentifiantP`)
+  KEY `IdentifiantP` (`IdentifiantP`),
+  KEY `IdentifiantV` (`identifiantV`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -200,7 +374,8 @@ CREATE TABLE IF NOT EXISTS `s_occuper` (
   `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `identifiantV` int(11) NOT NULL,
   PRIMARY KEY (`IdentifiantM`,`identifiantV`),
-  KEY `identifiantV` (`identifiantV`)
+  KEY `identifiantV` (`identifiantV`),
+  KEY `identifiantM` (`IdentifiantM`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

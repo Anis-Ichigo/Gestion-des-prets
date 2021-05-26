@@ -172,40 +172,37 @@ session_start();
                         Problème
                     </TH>
                 </TR>
-                <TR>
-                    <TD>
-                        N122342546567
-                    </TD>
-                    <TD>
-                        12/02/2021
-                    </TD>
-                    <TD>
-                        24/05/2021
-                    </TD>
-                    <TD>
-                        Clé 4G
-                    </TD>
-                    <TD>
-                        panne
-                    </TD>
-                </TR>
-                <TR>
-                    <TD>
-                        N122342546567
-                    </TD>
-                    <TD>
-                        12/02/2021
-                    </TD>
-                    <TD>
-                        24/05/2021
-                    </TD>
-                    <TD>
-                        Ordinateur
-                    </TD>
-                    <TD>
 
-                    </TD>
-                </TR>
+                <?php
+                $reservations = ("SELECT materiel.IdentifiantM, emprunt.DateEmprunt, emprunt.DateRetour, materiel.CategorieM, probleme.NomP 
+                FROM emprunt, emprunteur, probleme, materiel 
+                WHERE emprunt.IdentifiantE = emprunteur.IdentifiantE 
+                AND emprunt.IdentifiantM = materiel.IdentifiantM 
+                AND probleme.IdentifiantE = emprunteur.IdentifiantE 
+                AND emprunteur.IdentifiantE = $identifiant;");
+                $result_reservations = mysqli_query($session, $reservations);
+                foreach ($result_reservations as $row) {
+                ?>
+                    <TR>
+                        <TD>
+                            <?php echo $row['IdentifiantM'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateEmprunt'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateRetour'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['CategorieM'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['NomP'] ?>
+                        </TD>
+                    </TR>
+                <?php
+                }
+                ?>
             </Table>
 
             <h2>Mes rendez-vous</h2>
@@ -213,10 +210,10 @@ session_start();
             <Table class="table table-striped table-hover">
                 <TR>
                     <TH>
-                        Type de matériel
+                        Numéro de matériel
                     </TH>
                     <TH>
-                        Numéro de matériel
+                        Type de matériel
                     </TH>
                     <TH>
                         Date
@@ -224,27 +221,35 @@ session_start();
                     <TH>
                         Heure
                     </TH>
-                    <TH>
-                        Lieu
-                    </TH>
                 </TR>
-                <TR>
-                    <TD>
-                        Ordinateur
-                    </TD>
-                    <td>
-                        N122342546567
-                    </td>
-                    <TD>
-                        19/05/2021
-                    </TD>
-                    <TD>
-                        9h15
-                    </TD>
-                    <TD>
-                        Salle MB404
-                    </TD>
-                </TR>
+
+                <?php
+                $reservations = ("SELECT materiel.IdentifiantM, materiel.CategorieM, emprunt.DateEmprunt, calendrier.HoraireCal
+                FROM emprunt, emprunteur, materiel, calendrier
+                WHERE emprunt.IdentifiantM = materiel.IdentifiantM
+                AND emprunt.IdentifiantE = emprunteur.IdentifiantE
+                AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
+                AND emprunteur.IdentifiantE = $identifiant;");
+                $result_reservations = mysqli_query($session, $reservations);
+                foreach ($result_reservations as $row) {
+                ?>
+                    <tr>
+                        <td>
+                            <?php echo $row['IdentifiantM'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row['CategorieM'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row['DateEmprunt'] ?>
+                        </td>
+                        <td>
+                            <?php echo $row['HoraireCal'] ?>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
             </Table>
         </div>
     </main>

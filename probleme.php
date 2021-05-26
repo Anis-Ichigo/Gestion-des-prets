@@ -57,7 +57,9 @@ session_start();
                 $modif_Statut = $_POST['modif_Statut'];
                 $modif_Formation = $_POST['modif_Formation'];
 
-                $modif_profil = ("UPDATE emprunteur SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantE = $identifiant");
+                $modif_profil = ("UPDATE emprunteur 
+                SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' 
+                WHERE IdentifiantE = $identifiant");
                 $result_modif_profil = mysqli_query($session, $modif_profil);
             }
 
