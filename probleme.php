@@ -8,8 +8,10 @@ session_start();
     <title>Profil</title>
     <meta charset="utf-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
     <link rel="stylesheet" href="Style.css" />
     <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
+
     <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
 </head>
 
@@ -33,10 +35,10 @@ session_start();
             <h1>Mon Profil</h1>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Mes infos</a>
+                    <a class="nav-link" href="profil.php">Mes infos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="probleme.php">Declarer un probleme</a>
+                    <a class="nav-link active" aria-current="page" href="#">Declarer un probleme </a>
                 </li>
             </ul>
 
@@ -45,17 +47,33 @@ session_start();
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
+            if (isset($_POST['modifier'])) {
+
+                $modif_PrenomE = $_POST['modif_PrenomE'];
+                $modif_NomE = $_POST['modif_NomE'];
+                $modif_EmailE = $_POST['modif_EmailE'];
+                $modif_AdresseE = addslashes($_POST['modif_AdresseE']);
+                $modif_TelE = $_POST['modif_TelE'];
+                $modif_Statut = $_POST['modif_Statut'];
+                $modif_Formation = $_POST['modif_Formation'];
+
+                $modif_profil = ("UPDATE emprunteur SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantE = $identifiant");
+                $result_modif_profil = mysqli_query($session, $modif_profil);
+            }
+
+            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $result_emprunteur = mysqli_query($session, $emprunteur);
+            foreach ($result_emprunteur as $row) {
             ?>
 
-            <FORM method="POST" action="profil.php">
-                <div class="form-group row">
-                    <TABLE NOBOARDER>
+                <form method="POST" action="profil.php">
+                    <table NOBOARDER>
                         <TR>
                             <TD>
                                 <label>Prénom :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_PrenomE" value="<?php echo $_POST["PrenomE"]; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="PrenomE" value="<?php echo $row['PrenomE']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -63,7 +81,7 @@ session_start();
                                 <label>Nom :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_NomE" value="<?php echo $_POST['NomE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="NomE" value="<?php echo $row['NomE']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -71,7 +89,7 @@ session_start();
                                 <label>Email :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_EmailE" value="<?php echo $_POST['EmailE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="EmailE" value="<?php echo $row['EmailE']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -79,60 +97,46 @@ session_start();
                                 <label>Adresse :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_AdresseE" value="<?php echo $_POST['AdresseE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['AdresseE']; ?>">
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label>Téléphone :</label>
+                            </TD>
+                            <TD>
+                                <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['TelE']; ?>">
+                            </TD>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <label>Votre demande concerne :</label>
+                            </TD>
+                            <TD>
+                                <SELECT size=" 1 ">
+                                    <OPTION>Un PC</OPTION>
+                                    <OPTION>Une Tablette</OPTION>
+                                    <OPTION>Une clé 4G</OPTION>
+                                    <OPTION>Boucle php pour afficher le reste</OPTION>
+                                </SELECT> (*)
                             </TD>
                         </TR>
 
                         <TR>
-                            <TD>
-                                <label>Tel :</label>
+                            <TD valign=" top ">
+                                <label for=" description ">Description :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_TelE" value="<?php echo $_POST['TelE']; ?>">
-                            </TD>
-                        </TR>
-
-                        <TR>
-                            <TD>
-                                <label>Vous êtes :</label>
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>">
+                                <textarea cols=" 60 " rows=" 10 "></textarea>
                             </TD>
                         </TR>
 
-                        <TR>
-                            <TD>
-                                <label>Formation:</label>
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>">
-                            </TD>
-                            <TD>
-                                <label for=" priorite "> Ou Secretariat:</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Scolarité informatique </OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                </SELECT>
-                            </TD>
-                        </TR>
-
-                    </TABLE>
-                </div>
-
-
-                <br>
-                <p>
-                    <input type="submit" name="modifier" class="btn btn-primary" value="Modifier">
-                    <a href="profil.php" type="button" class="btn btn-light">Retour</a>
-                </p>
-            </FORM>
-
+                    </table>
+                    <input type="submit" class="btn btn-primary" value="Envoyer">
+                </form>
+            <?php
+            }
+            ?>
         </div>
     </main>
 </body>

@@ -36,7 +36,7 @@ session_start();
                     <a class="nav-link active" aria-current="page" href="#">Mes infos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="probleme.html">Declarer un probleme</a>
+                    <a class="nav-link" href="probleme.php">Declarer un probleme</a>
                 </li>
             </ul>
 
@@ -57,7 +57,6 @@ session_start();
 
                 $modif_profil = ("UPDATE emprunteur SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantE = $identifiant");
                 $result_modif_profil = mysqli_query($session, $modif_profil);
-
             }
 
             $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
@@ -65,95 +64,84 @@ session_start();
             foreach ($result_emprunteur as $row) {
             ?>
 
-                <FORM method="POST" action="modifier_profil.php" id='form'>
-                    <TABLE NOBOARDER>
-                        <TR>
-                            <TD>
-                                <label for="nom">Prénom :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                <FORM method="POST" action="modifier_profil.php">
+                    <div class="form-group row">
+
+                        <TABLE NOBOARDER>
+                            <TR>
+                                <TD>
+                                    <label>Prénom :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="PrenomE" value="<?php echo $row['PrenomE']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Nom :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label>Nom :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="NomE" value="<?php echo $row['NomE']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Email :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label>Email :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="EmailE" value="<?php echo $row['EmailE']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <label for="nom">Adresse :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <label>Adresse :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['AdresseE']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
+                                </TD>
+                            </TR>
 
-                        <TR>
-                            <TD>
-                                <label for="nom">Tel :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                            <TR>
+                                <TD>
+                                    <label>Téléphone :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="TelE" value="<?php echo $row['TelE']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
+                                </TD>
+                            </TR>
 
-                        <TR>
-                            <TD>
-                                <label for="priorite">Vous êtes :</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                            <TR>
+                                <TD>
+                                    <label>Vous êtes :</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="Statut" value="<?php echo $row['Statut']; ?>">
-                                </div>
-                            </TD>
-                        </TR>
+                                </TD>
+                            </TR>
 
-                        <TR>
-                            <TD>
-                                <label for=" priorite ">Formation:</label>
-                            </TD>
-                            <TD>
-                                <div class="col-sm-10">
+                            <TR>
+                                <TD>
+                                    <label>Formation:</label>
+                                </TD>
+                                <TD>
                                     <input type="text" readonly class="form-control-plaintext" name="Formation" value="<?php echo $row['Formation']; ?>">
-                                </div>
-                            </TD>
-                            <TD>
-                                <label for=" priorite ">Ou Secretariat :</label>
-                            </TD>
-                            <TD>
-                                <SELECT id=" priorite " name=" priorite " size=" 1 ">
-                                    <OPTION>Scolarité informatique </OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                    <OPTION>Service de scolarité de ..</OPTION>
-                                </SELECT>
-                            </TD>
-                        </TR>
+                                </TD>
+                                <TD>
+                                    <label>Ou Secretariat :</label>
+                                </TD>
+                                <TD>
+                                    <SELECT size=" 1 ">
+                                        <OPTION>Scolarité informatique </OPTION>
+                                        <OPTION>Service de scolarité de ..</OPTION>
+                                        <OPTION>Service de scolarité de ..</OPTION>
+                                        <OPTION>Service de scolarité de ..</OPTION>
+                                        <OPTION>Service de scolarité de ..</OPTION>
+                                    </SELECT>
+                                </TD>
+                            </TR>
 
-                    </TABLE>
+                        </TABLE>
+                    </div>
 
                     <br>
                     <p>
