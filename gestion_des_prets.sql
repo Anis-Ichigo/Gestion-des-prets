@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 26 mai 2021 à 11:55
+-- Généré le : mer. 26 mai 2021 à 12:46
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -51,14 +51,25 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
   `DateRetour` date DEFAULT NULL,
   `identifiantV` int(11) NOT NULL,
   `IdentifiantR` int(11) NOT NULL,
-  `IdentifiantM` int(11) NOT NULL,
+  `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `IdentifiantE` int(11) NOT NULL,
   PRIMARY KEY (`IdentifiantEm`),
   KEY `identifiantV` (`identifiantV`),
   KEY `IdentifiantR` (`IdentifiantR`),
   KEY `IdentifiantM` (`IdentifiantM`),
   KEY `IdentifiantE` (`IdentifiantE`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `emprunt`
+--
+
+INSERT INTO `emprunt` (`IdentifiantEm`, `DateEmprunt`, `DateRetour`, `identifiantV`, `IdentifiantR`, `IdentifiantM`, `IdentifiantE`) VALUES
+(1, '2021-02-12', '2021-05-24', 69874521, 23158748, 'N122342546567', 22508753),
+(2, '2021-11-08', '2021-06-14', 69874521, 23158748, 'N365421896354', 45628764),
+(3, '2021-10-05', '2021-07-16', 69874521, 23158748, 'N498752163587', 75664889),
+(4, '2021-09-13', '2021-06-24', 69874521, 23158748, 'N547863698545', 35741568),
+(5, '2021-05-15', '2021-07-25', 69874521, 23158748, 'N365488741546', 85413601);
 
 -- --------------------------------------------------------
 
@@ -99,13 +110,28 @@ INSERT INTO `emprunteur` (`IdentifiantE`, `NomE`, `PrenomE`, `EmailE`, `AdresseE
 
 DROP TABLE IF EXISTS `materiel`;
 CREATE TABLE IF NOT EXISTS `materiel` (
-  `IdentifiantM` int(11) NOT NULL,
+  `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `DateAchat` date DEFAULT NULL,
   `EtatM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CatégorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `StatutM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`IdentifiantM`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `materiel`
+--
+
+INSERT INTO `materiel` (`IdentifiantM`, `DateAchat`, `EtatM`, `CatégorieM`, `StatutM`) VALUES
+('N122342546567', '2021-02-12', 'Non dispo', 'Ordinateur', 'Existant'),
+('N952145236874', '2021-01-18', 'Dispo', 'Ordinateur', 'Existant'),
+('N635215328745', '2021-06-02', 'Dispo', 'Ordinateur', 'Existant'),
+('N382596325852', '2021-02-20', 'Dispo', 'Ordinateur', 'Supprimé'),
+('N785326914503', '2021-01-21', 'Dispo', 'Tablette', 'Existant'),
+('N230285049374', '2021-04-12', 'Dispo', 'Ordinateur', 'Existant'),
+('N963701365874', '2021-03-17', 'Dispo', 'Ordinateur', 'Existant'),
+('N585214637916', '2021-09-25', 'Dispo', 'Clé 4G', 'Existant'),
+('N148695207869', '2021-11-10', 'Dispo', 'Ordinateur', 'Existant');
 
 -- --------------------------------------------------------
 
@@ -171,7 +197,7 @@ INSERT INTO `responsable` (`IdentifiantR`, `NomR`, `PrenomR`, `TelR`, `EmailR`) 
 
 DROP TABLE IF EXISTS `s_occuper`;
 CREATE TABLE IF NOT EXISTS `s_occuper` (
-  `IdentifiantM` int(11) NOT NULL,
+  `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `identifiantV` int(11) NOT NULL,
   PRIMARY KEY (`IdentifiantM`,`identifiantV`),
   KEY `identifiantV` (`identifiantV`)

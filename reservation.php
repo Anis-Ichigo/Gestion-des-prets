@@ -43,7 +43,7 @@ session_start();
 
 
             <?php
-            require('connexion_BD.php');
+            require('Connexion_BD.php');
             $identifiant = $_SESSION['identifiant'];
 
             $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
@@ -140,157 +140,157 @@ session_start();
                                     <textarea cols=" 60 " rows=" 10 "></textarea>
                                 </TD>
                             </TR>
+                        <?php
+                    }
+                        ?>
                         </TABLE>
 
-                    <?php
-                }
-                    ?>
 
-                    <Table class="table table-striped table-hover text-center">
-                        <TR>
-                            <TH>
-                                Lundi
-                            </TH>
-                            <TH>
-                                Mardi
-                            </TH>
-                            <TH>
-                                Mercredi
-                            </TH>
-                            <TH>
-                                Jeudi
-                            </TH>
-                            <TH>
-                                Vendredi
-                            </TH>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                            </TD>
-                        </TR>
+                        <Table class="table table-striped table-hover text-center">
+                            <TR>
+                                <TH>
+                                    Lundi
+                                </TH>
+                                <TH>
+                                    Mardi
+                                </TH>
+                                <TH>
+                                    Mercredi
+                                </TH>
+                                <TH>
+                                    Jeudi
+                                </TH>
+                                <TH>
+                                    Vendredi
+                                </TH>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
+                                </TD>
+                            </TR>
 
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                            </TD>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                            </TD>
-                            <td>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                            </td>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                            </TD>
-                            <TD>
-                                <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                            </TD>
-                        </TR>
-                    </Table>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
+                                </TD>
+                            </TR>
+                            <TR>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
+                                </TD>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
+                                </td>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
+                                </TD>
+                                <TD>
+                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
+                                </TD>
+                            </TR>
+                        </Table>
 
-                    </br>
-                    <p>
-                        <button type="button" class="btn btn-primary">Envoyer</button>
-                        <button type="reset" class="btn btn-secondary">Effacer</button>
-                    </p>
+                        </br>
+                        <p>
+                            <button type="button" class="btn btn-primary">Envoyer</button>
+                            <button type="reset" class="btn btn-secondary">Effacer</button>
+                        </p>
 
                     </fieldset>
 
