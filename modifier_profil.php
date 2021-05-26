@@ -43,11 +43,11 @@ session_start();
             <?php
             require('Connexion_BD.php');
             //$identifiant = $_SESSION['identifiant'];
-            $identifiant = '22508753';
+            /*$identifiant = '22508753';
 
             $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
-            foreach ($result_emprunteur as $row) {
+            foreach ($result_emprunteur as $row) {*/
             ?>
 
                 <FORM method="POST" action="" id='form'>
@@ -57,7 +57,7 @@ session_start();
                                 <label for="nom">Prénom :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['PrenomE']; ?>
+                                <input type="text" class="form-control-plaintext" name="modif_PrenomE" value="<?php $_POST["PrenomE"]; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -65,7 +65,7 @@ session_start();
                                 <label for="nom">Nom :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['NomE']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_NomE" value="<?php echo $_POST['NomE']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -73,7 +73,7 @@ session_start();
                                 <label for="nom">Email :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['EmailE']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_EmailE" value="<?php echo $_POST['EmailE']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -81,7 +81,7 @@ session_start();
                                 <label for="nom">Adresse :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['AdresseE']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_AdresseE" value="<?php echo $_POST['AdresseE']; ?>">
                             </TD>
                         </TR>
 
@@ -90,7 +90,7 @@ session_start();
                                 <label for="nom">Tel :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['TelE']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_TelE" value="<?php echo $_POST['TelE']; ?>">
                             </TD>
                         </TR>
 
@@ -99,7 +99,7 @@ session_start();
                                 <label for="priorite">Vous êtes :</label>
                             </TD>
                             <TD>
-                                <?php echo $row['Statut']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>">
                             </TD>
                         </TR>
 
@@ -108,7 +108,7 @@ session_start();
                                 <label for=" priorite ">Formation:</label>
                             </TD>
                             <TD>
-                                <?php echo $row['Formation']; ?>
+                                <input type="text" readonly class="form-control-plaintext" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>">
                             </TD>
                             <TD>
                                 <label for=" priorite "> Ou Secretariat:</label>
@@ -133,9 +133,9 @@ session_start();
                 </FORM>
 
             <?php
-            }
+            //}
             ?>
-            
+
         </div>
     </main>
 </body>
