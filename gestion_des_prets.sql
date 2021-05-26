@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `materiel` (
   `DateAchat` date DEFAULT NULL,
   `EtatM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CatégorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `StatutM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`IdentifiantM`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
