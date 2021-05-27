@@ -25,7 +25,7 @@ session_start();
             <div><a href="profil.php"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
             <div><a href="reservation.php"><i class="far fa-plus-square"></i></a><b>Forum</b></div>
             <div><a href="forum.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
-            <div><a href="entretien.html"><i class="fas fi-rr-settings"></i></a><b>Liste RDV</b></div>
+            <div><a href="entretien.php"><i class="fas fi-rr-settings"></i></a><b>Liste RDV</b></div>
             <div><a href="liste_RDV.html"><i class="far fa-check-square"></i></a><b>Liste des prêts</b></div>
             <div><a href="suivi_prets.php"><i class="far fa-handshake"></i></a><b>Statistiques</b></div>
             <div><a href="Statistiques.html"><i class="far fi-rr-stats"></i></a></div>
@@ -57,8 +57,8 @@ session_start();
                 $modif_Statut = $_POST['modif_Statut'];
                 $modif_Formation = $_POST['modif_Formation'];
 
-                $modif_profil = ("UPDATE emprunteur 
-                SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' 
+                $modif_profil = ("UPDATE emprunteur
+                SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation'
                 WHERE IdentifiantE = $identifiant");
                 $result_modif_profil = mysqli_query($session, $modif_profil);
             }
