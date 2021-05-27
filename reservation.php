@@ -101,10 +101,13 @@ session_start();
                                     <label for=" besoin ">Votre demande concerne :</label>
                                 </TD>
                                 <TD>
-                                    <SELECT id=" besoin " name=" besoin " size=" 1 ">
-                                        <OPTION>Un PC</OPTION>
-                                        <OPTION>Une Tablette</OPTION>
-                                        <OPTION>Une clé 4G</OPTION>
+                                    <SELECT id=" besoin " name="besoin" size=" 1 ">
+                                        <?php
+                                        $res=mysqli_query($connexion,"SELECT CategorieM FROM materiel GROUP BY CategorieM");
+                                        while($tab=mysqli_fetch_assoc($res)){
+                                        $cat=$tab["CategorieM"];
+                                        echo "<Option> $cat </Option>";}
+                                        ?>
                                     </SELECT> (*)
                                 </TD>
                             </TR>
