@@ -1,3 +1,8 @@
+<?php
+session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
+?>
 <!DOCTYPE html>
 <html>
 
@@ -55,7 +60,6 @@
                 </TR>
 
                 <?php
-                require_once('Connexion_BD.php');
 
                 $query_liste_rdv="
                             SELECT 	em.identifiantE as ide, em.prenomE as prenom, em.nomE as nom, e.dateEmprunt as date_rdv,

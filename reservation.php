@@ -1,5 +1,8 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
+
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@ session_start();
 
 <body>
     <main>
-    <div class="menu">
+        <div class="menu">
             <div>
                 <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
                 <b>Profil</b>
@@ -44,7 +47,6 @@ session_start();
 
 
             <?php
-            require('Connexion_BD.php');
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
@@ -53,7 +55,7 @@ session_start();
             foreach ($result_emprunteur as $row) {
             ?>
 
-                <FORM method="POST" action="" id='form'>
+                <FORM method="POST" action="confirmation_RDV.php" id='form'>
                     <fieldset>
                         <TABLE NOBOARDER>
                             <TR>
@@ -103,10 +105,11 @@ session_start();
                                 <TD>
                                     <SELECT id=" besoin " name="besoin" size=" 1 ">
                                         <?php
-                                        $res=mysqli_query($connexion,"SELECT CategorieM FROM materiel GROUP BY CategorieM");
-                                        while($tab=mysqli_fetch_assoc($res)){
-                                        $cat=$tab["CategorieM"];
-                                        echo "<Option> $cat </Option>";}
+                                        $res = mysqli_query($session, "SELECT CategorieM FROM materiel GROUP BY CategorieM");
+                                        while ($tab = mysqli_fetch_assoc($res)) {
+                                            $cat = addslashes($tab["CategorieM"]);
+                                            echo "<Option> $cat </Option>";
+                                        }
                                         ?>
                                     </SELECT> (*)
                                 </TD>
@@ -150,152 +153,79 @@ session_start();
                         ?>
                         </TABLE>
 
-
                         <Table class="table table-striped table-hover text-center">
                             <TR>
                                 <TH>
-                                    Lundi
+                                    Lundi <br><?php $premierJour = strftime("%d/%m/%Y", strtotime("monday"));
+                                    echo "<input type='text' class='form-control-plaintext text-center' readonly name='date_lundi' value='$premierJour'>"; ?>
                                 </TH>
                                 <TH>
-                                    Mardi
-                                </TH>
+                                    Mardi <br><?php $premierJour = strftime("%d/%m/%Y", strtotime("tuesday"));
+                                    echo "<input type='text' class='form-control-plaintext text-center' readonly name='date_mardi' value='$premierJour'>"; ?>
+                                    </TH>
                                 <TH>
-                                    Mercredi
-                                </TH>
+                                    Mercredi <br><?php $premierJour = strftime("%d/%m/%Y", strtotime("wednesday"));
+                                    echo "<input type='text' class='form-control-plaintext text-center' readonly name='date_mercredi' value='$premierJour'>"; ?>
+                                    </TH>
                                 <TH>
-                                    Jeudi
-                                </TH>
+                                    Jeudi <br><?php $premierJour = strftime("%d/%m/%Y", strtotime("thursday"));
+                                    echo "<input type='text' class='form-control-plaintext text-center' readonly name='date_jeudi' value='$premierJour'>"; ?>
+                                    </TH>
                                 <TH>
-                                    Vendredi
-                                </TH>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">8:00</a>
-                                </TD>
+                                    Vendredi <br><?php $premierJour = strftime("%d/%m/%Y", strtotime("friday"));
+                                    echo "<input type='text' class='form-control-plaintext text-center' readonly name='date_vendredi' value='$premierJour'>"; ?>
+                                    </TH>
                             </TR>
 
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">9:00</a>
-                                </TD>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">10:00</a>
-                                </TD>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">11:00</a>
-                                </TD>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">12:00</a>
-                                </TD>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">14:00</a>
-                                </TD>
-                            </TR>
-                            <TR>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                                </TD>
-                                <td>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                                </td>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                                </TD>
-                                <TD>
-                                    <a type="button" class="btn btn-primary" href="confirmation_RDV.html">15:00</a>
-                                </TD>
+                            <TD>
+                                <?php
+                                $res = mysqli_query($session, "SELECT * FROM calendrier WHERE JourCal='Lundi' AND EtatCal = 'Disponible'");
+                                while ($tab = mysqli_fetch_assoc($res)) {
+                                    $horaire = $tab["HoraireCal"];
+
+                                    echo "<Table class='table table-striped table-hover text-center'> <TR> <TD><input type='submit' class='btn btn-primary' name='horaire_lundi' value='$horaire'> </td></TR> </table>";
+                                }
+                                ?>
+                            </tD>
+
+                            <TD>
+                                <?php
+                                $res = mysqli_query($session, "SELECT * FROM calendrier WHERE JourCal='Mardi' AND EtatCal = 'Disponible'");
+                                while ($tab = mysqli_fetch_assoc($res)) {
+                                    $horaire = $tab["HoraireCal"];
+                                    echo "<Table class='table table-striped table-hover text-center'> <TR> <TD><input type='submit' class='btn btn-primary' name='horaire_mardi' value='$horaire'> </td></TR> </table>";
+                                }
+                                ?>
+                            </TD>
+                            <TD>
+                                <?php
+                                $res = mysqli_query($session, "SELECT * FROM calendrier WHERE JourCal='Mercredi' AND EtatCal = 'Disponible'");
+                                while ($tab = mysqli_fetch_assoc($res)) {
+                                    $horaire = $tab["HoraireCal"];
+                                    echo "<Table class='table table-striped table-hover text-center'> <TR> <TD><input type='submit' class='btn btn-primary' name='horaire_mercredi' value='$horaire'> </td></TR> </table>";
+                                }
+                                ?>
+                            </TD>
+                            <TD>
+                                <?php
+                                $res = mysqli_query($session, "SELECT * FROM calendrier WHERE JourCal='Jeudi' AND EtatCal = 'Disponible'");
+                                while ($tab = mysqli_fetch_assoc($res)) {
+                                    $horaire = $tab["HoraireCal"];
+                                    echo "<Table class='table table-striped table-hover text-center'> <TR> <TD><input type='submit' class='btn btn-primary' name='horaire_jeudi' value='$horaire'> </td></TR> </table>";
+                                }
+                                ?>
+                            </TD>
+                            <TD>
+                                <?php
+                                $res = mysqli_query($session, "SELECT * FROM calendrier WHERE JourCal='Vendredi' AND EtatCal = 'Disponible'");
+                                while ($tab = mysqli_fetch_assoc($res)) {
+                                    $horaire = $tab["HoraireCal"];
+                                    echo "<Table class='table table-striped table-hover text-center'> <TR> <TD><input type='submit' class='btn btn-primary' name='horaire_vendredi' value='$horaire'> </td></TR> </table>";
+                                }
+                                ?>
+                            </TD>
                             </TR>
                         </Table>
-
-                        </br>
-                        <p>
-                            <button type="button" class="btn btn-primary">Envoyer</button>
-                            <button type="reset" class="btn btn-secondary">Effacer</button>
-                        </p>
 
                     </fieldset>
 

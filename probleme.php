@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +45,6 @@ session_start();
             </ul>
 
             <?php
-            require('Connexion_BD.php');
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 

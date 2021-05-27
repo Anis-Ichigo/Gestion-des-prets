@@ -1,6 +1,8 @@
 <?php
 session_start();
- ?>
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
+?>
 
 <!DOCTYPE html>
 <html>
@@ -68,7 +70,6 @@ session_start();
                 </TR>
 
                 <?php
-                require('Connexion_BD.php');
 
                 $query = "SELECT M.IdentifiantM, E.DateEmprunt, M.CategorieM, M.EtatM, P.NomP
                           FROM materiel M, emprunt E, probleme P
@@ -76,31 +77,33 @@ session_start();
                           AND M.IdentifiantM = P.IdentifiantM
                           AND M.EtatM = 'Non dispo'";
                 $result_raz = mysqli_query($session, $query);
-                if ($result_raz != NULL){
-                  while ($ligne = mysqli_fetch_array($result_raz)) {
-                 ?>
-              <form class="" action="reparer_materiel.php" method="post">
-                <TR>
-                    <TD>
-                        <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
-                    </TD>
-                    <TD>
-                        <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
-                    </TD>
-                    <TD>
-                        <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
-                    </TD>
-                    <TD>
-                      <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
-                    </TD>
-                    <TD>
-                        <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
-                    </TD>
-                    <TD>
-                        <button type="button" class="btn btn-primary" href="reparer_materiel.php">Terminé</button>
-                    </TD>
-                </TR>
-              </form>
+                if ($result_raz != NULL) {
+                    while ($ligne = mysqli_fetch_array($result_raz)) {
+                ?>
+                        <form class="" action="reparer_materiel.php" method="post">
+                            <TR>
+                                <TD>
+                                    <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>" readonly>
+                                </TD>
+                                <TD>
+                                    <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>" readonly>
+                                </TD>
+                                <TD>
+                                    <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>" readonly>
+                                </TD>
+                                <TD>
+                                    <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM']?>" readonly>
+                                </TD>
+                                <TD>
+                                    <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>" readonly>
+                                </TD>
+                                <TD>
+                                    <button type="button" class="btn btn-primary" href="reparer_materiel.php">Terminé</button>
+                                </TD>
+                            </TR>
+                        </form>
+                <?php }
+                } ?>
             </Table>
         </div>
     </main>

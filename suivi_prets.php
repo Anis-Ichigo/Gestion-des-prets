@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,9 +66,8 @@ session_start();
                 </TR>
 
                 <?php
-                require('Connexion_BD.php');
 
-                $emprunt = ("SELECT emprunteur.IdentifiantE, emprunteur.PrenomE, emprunteur.NomE, materiel.IdentifiantM, materiel.CategorieM, emprunteur.EmailE, emprunt.DateEmprunt, emprunt.DateRetour, probleme.NomP
+                $emprunt = ("SELECT *
                 FROM emprunt, emprunteur, probleme, materiel
                 WHERE emprunt.IdentifiantE = emprunteur.IdentifiantE
                 AND emprunt.IdentifiantM = materiel.IdentifiantM

@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
  ?>
 
 <!DOCTYPE html>
@@ -68,7 +70,6 @@ session_start();
 </body>
 
 <?php
-require('Connexion_BD.php');
 
 $numero = isset($_POST["numero"]);
 $type = isset($_POST["type"]);

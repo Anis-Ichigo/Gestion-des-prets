@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +69,6 @@ session_start();
         </TR>
 
         <?php
-        require('Connexion_BD.php');
 
         $query_non_dispo = "SELECT M.IdentifiantM, M.CategorieM, M.DateAchat, M.EtatM, P.NomP
                             FROM materiel M, probleme P
