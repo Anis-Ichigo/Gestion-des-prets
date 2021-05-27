@@ -36,7 +36,7 @@ session_start();
           <a class="nav-link active" aria-current="page" href="#">Mise a jour du parc</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="RAZ.html">RAZ des machines </a>
+          <a class="nav-link" href="RAZ.php">RAZ des machines </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="SAV.html">SAV</a>
@@ -145,7 +145,7 @@ session_start();
       </Table>
       <p>
       </p>
-      <a type="button" class="btn btn-primary" href="ajouter_materiel.html">Ajouter</a>
+      <a type="button" class="btn btn-primary" href="ajouter_materiel.php">Ajouter</a>
 
     </div>
   </main>
