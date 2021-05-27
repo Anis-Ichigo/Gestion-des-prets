@@ -58,25 +58,6 @@ session_start();
                             <INPUT type="date" name="date" required>
                         </TD>
                     </tr>
-                    <tr>
-                        <TD>
-                            <label>Etat</label>
-                        </TD>
-                        <TD>
-                            <select name="etat" id="etat">
-                                <option value="">Dispo</option>
-                                <option value="">Non dispo</option>
-                            </select>
-                        </TD>
-                    </tr>
-                    <tr>
-                        <TD>
-                            <label>Problème</label>
-                        </TD>
-                        <TD>
-                            <INPUT type="text" name="probleme">
-                        </TD>
-                    </tr>
                 </table>
             </form>
             <br>
@@ -92,12 +73,10 @@ require('Connexion_BD.php');
 $numero = isset($_POST["numero"]);
 $type = isset($_POST["type"]);
 $date = isset($_POST["date"]);
-$etat = isset($_POST["etat"]);
-$probleme = $_POST["probleme"];
 
-$ajouter = "INSERT INTO materiel (IdentifiantM, DateAchat, EtatM, CategorieM, SatutM) VALUES ('?', '?', '?', '?','Existant')";
+$ajouter = "INSERT INTO materiel (IdentifiantM, DateAchat, EtatM, CategorieM, SatutM) VALUES ('?', '?', 'Dispo', '?','Existant')";
 if($stmt = mysqli_prepare($session, $ajouter)){
-  mysqli_stmt_bind_param($stmt, 'iiss', $numero, $date, $etat, $type);
+  mysqli_stmt_bind_param($stmt, 'iis', $numero, $date, $type);
   mysqli_stmt_execute($stmt);
 }
 
