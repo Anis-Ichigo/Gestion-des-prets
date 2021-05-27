@@ -1,0 +1,111 @@
+body {
+    background-color: white;
+    height: 100%;}
+html {
+    height: 100%;}
+.fond {
+    /* The image used */
+    background-image: url("images/Accueil.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;}
+.connexion {
+    margin-top: 25%;
+    color: white;
+    text-align: center;}
+.menu {
+    background-color: #F6F6F6;
+    width: 7%;
+    margin: auto;
+    float: left;
+    text-align: center;}
+.menu img {
+    width: 70%;
+    height: 70%;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 20%;}
+a {
+    text-decoration: none;
+    margin-bottom: 5%;
+    margin: auto;}
+.menu ul {
+    padding-left: 0;
+    list-style: none;
+    margin: auto;}
+.menu li {
+    padding-left: 0;
+    list-style: none;
+    padding: 10%;
+    margin: auto;}
+.menu i {
+    font-size: 250%;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20%;
+    display: block;
+    text-align: center;}
+.menu i:hover {
+    color: #E4E7F7;}
+main {
+    font-family: 'HelveticaNeue', sans-serif;
+    background-color: white;
+    width: 95%;
+    height: auto;
+    margin-top: 30px;
+    padding-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;}
+.contenu {
+    background-color: white;
+    height: auto;
+    width: fixed;
+    /*margin-top: -35%;*/
+    margin-left: 10%;
+    margin-right: 5%;}
+fieldset {
+    padding: 20px;
+    margin-right: 30px;}
+td {
+    padding-top: 12px;}
+#env {
+    padding: 10px;}
+#eff {
+    padding: 10px;
+    margin-left: 25px;}
+h1 {
+  margin-bottom: 3%;
+  text-align:center;
+  font-size:300%;}
+.faq{
+  color: #877E7B;
+  height:5em;
+  transition: all .25s ease-out;
+  padding-top: 20px;
+  padding-left: 30px;
+  border: 1px solid #ddd;
+  border-left: 3px solid #888;
+  background-color: #eee;
+  margin-bottom: 20px;
+  border-radius:0.5em;}
+.faq:hover{height:auto;
+  padding-left:40px;
+  border-left: 6px solid #888;
+  color: #444;
+  background-color: #ddd;}
+.faq strong{
+  font-size : 200%;}
+.faq p{font-size: 1em;
+  margin-top:20px;
+  text-indent: -9999px;}
+.faq:hover > p{text-indent: 0;
+  transition: all .5s ease-out 0.3s;
+  font-size:1em;}
