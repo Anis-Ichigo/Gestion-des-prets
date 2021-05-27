@@ -82,19 +82,19 @@ session_start();
             <form action="supprimer_materiel.php">
               <tr>
                 <td>
-                  <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
+                  <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
                 </td>
                 <td>
                   <input type="submit" class='btn btn-secondary' name="supprimer" value="Supprimer">
@@ -118,16 +118,16 @@ session_start();
             <form action="supprimer_materiel.php">
               <tr>
                 <td>
-                  <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
+                  <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
                 </td>
                 <td>
-                  <input type="text" name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
                 </td>
                 <td>
                 </td>
