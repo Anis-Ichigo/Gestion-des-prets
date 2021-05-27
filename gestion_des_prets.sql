@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 26 mai 2021 à 20:37
+-- Généré le : jeu. 27 mai 2021 à 12:33
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -232,10 +232,10 @@ CREATE TABLE IF NOT EXISTS `emprunt` (
 
 INSERT INTO `emprunt` (`IdentifiantEm`, `DateEmprunt`, `DateRetour`, `identifiantV`, `IdentifiantR`, `IdentifiantM`, `IdentifiantE`, `IdentifiantCal`) VALUES
 (1, '2021-02-12', '2021-05-24', 69874521, 23158748, 'N122342546567', 22508753, 15),
-(2, '2021-11-08', '2021-06-14', 69874521, 23158748, 'N365421896354', 45628764, 45),
-(3, '2021-10-05', '2021-07-16', 69874521, 23158748, 'N498752163587', 75664889, 30),
-(4, '2021-09-13', '2021-06-24', 69874521, 23158748, 'N547863698545', 35741568, 10),
-(5, '2021-05-15', '2021-07-25', 69874521, 23158748, 'N365488741546', 85413601, 69);
+(2, '2021-11-08', '2021-06-14', 69874521, 23158748, 'N635215328745', 45628764, 45),
+(3, '2021-10-05', '2021-07-16', 69874521, 23158748, 'N785326914503', 75664889, 30),
+(4, '2021-09-13', '2021-06-24', 69874521, 23158748, 'N585214637916', 35741568, 10),
+(5, '2021-05-15', '2021-07-25', 69874521, 23158748, 'N230285049374', 85413601, 69);
 
 -- --------------------------------------------------------
 
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `emprunteur` (
 INSERT INTO `emprunteur` (`IdentifiantE`, `NomE`, `PrenomE`, `EmailE`, `AdresseE`, `TelE`, `Statut`, `Secretariat`, `Formation`) VALUES
 (22508753, 'Dumas', 'Thomas', 'AAA.AAA@etud.ut-capitole.fr', '105 Boulevard d\'Arcole 31000 Toulouse', '0625987415', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
 (45628764, 'Martin', 'Axel', 'BBB.BBB@etud.ut-capitole.fr', '46 Rue des Blanchers 31000 Toulouse', '0698714115', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
-(75664889, 'Coralie', 'Gardet', 'CCC.CCC@etud.ut-capitole.fr', '18 Rue Molière 31000 Toulouse', '0684391709', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
+(75664889, 'Coralie', 'Gardet', 'CCC.CCC@etud.ut-capitole.fr', '18 Rue Molière 31000 Toulouse', '0684391709', 'Etudiant', NULL, 'M2 MIAGE IPM'),
 (35741568, 'Vincent', 'Mallet', 'DDD.DDD@etud.ut-capitole.fr', '50 Rue Dayde 31000 Toulouse', '0608496503', 'Etudiant', NULL, 'M2 MIAGE ISIAD'),
 (85413601, 'Alice', 'Bassot', 'EEE.EEE@etud.ut-capitole.fr', '7 Rue du Luan 31000 Toulouse', '0634895147', 'Etudiant', NULL, 'M2 MIAGE ISIAD');
 
@@ -281,23 +281,25 @@ CREATE TABLE IF NOT EXISTS `materiel` (
   `EtatM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `CategorieM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `StatutM` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`IdentifiantM`)
+  `IdentifiantV` int(11) NOT NULL,
+  PRIMARY KEY (`IdentifiantM`),
+  KEY `IdentifiantV` (`IdentifiantV`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `materiel`
 --
 
-INSERT INTO `materiel` (`IdentifiantM`, `DateAchat`, `EtatM`, `CategorieM`, `StatutM`) VALUES
-('N122342546567', '2021-02-12', 'Non dispo', 'Ordinateur', 'Existant'),
-('N952145236874', '2021-01-18', 'Dispo', 'Ordinateur', 'Existant'),
-('N635215328745', '2021-06-02', 'Dispo', 'Ordinateur', 'Existant'),
-('N382596325852', '2021-02-20', 'Dispo', 'Ordinateur', 'Supprimé'),
-('N785326914503', '2021-01-21', 'Dispo', 'Tablette', 'Existant'),
-('N230285049374', '2021-04-12', 'Dispo', 'Ordinateur', 'Existant'),
-('N963701365874', '2021-03-17', 'Dispo', 'Ordinateur', 'Existant'),
-('N585214637916', '2021-09-25', 'Dispo', 'Clé 4G', 'Existant'),
-('N148695207869', '2021-11-10', 'Dispo', 'Ordinateur', 'Existant');
+INSERT INTO `materiel` (`IdentifiantM`, `DateAchat`, `EtatM`, `CategorieM`, `StatutM`, `IdentifiantV`) VALUES
+('N122342546567', '2021-02-12', 'Dispo', 'Ordinateur', 'Existant', 69874521),
+('N952145236874', '2021-01-18', 'Dispo', 'Ordinateur', 'Existant', 69874521),
+('N635215328745', '2021-06-02', 'Non Dispo', 'Ordinateur', 'Existant', 25687413),
+('N382596325852', '2021-02-20', 'Dispo', 'Ordinateur', 'Supprimé', 69874521),
+('N785326914503', '2021-01-21', 'Dispo', 'Tablette', 'Existant', 25687413),
+('N230285049374', '2021-04-12', 'Non Dispo', 'Ordinateur', 'Existant', 69874521),
+('N963701365874', '2021-03-17', 'Dispo', 'Ordinateur', 'Existant', 69874521),
+('N585214637916', '2021-09-25', 'Dispo', 'Clé 4G', 'Existant', 25687413),
+('N148695207869', '2021-11-10', 'Dispo', 'Ordinateur', 'Existant', 69874521);
 
 -- --------------------------------------------------------
 
@@ -314,31 +316,22 @@ CREATE TABLE IF NOT EXISTS `probleme` (
   `Resolution` text COLLATE utf8mb4_unicode_ci,
   `Description` text COLLATE utf8mb4_unicode_ci,
   `IdentifiantE` int(11) NOT NULL,
+  `IdentifiantV` int(11) NOT NULL,
+  `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`IdentifiantP`),
-  KEY `IdentifiantE` (`IdentifiantE`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IdentifiantE` (`IdentifiantE`),
+  KEY `IdentifiantV` (`IdentifiantV`),
+  KEY `IdentifiantM` (`IdentifiantM`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `probleme`
 --
 
-INSERT INTO `probleme` (`IdentifiantP`, `NomP`, `DateProblème`, `DateResolution`, `Resolution`, `Description`, `IdentifiantE`) VALUES
-(1, 'Panne', '2021-05-19', '2021-05-31', 'Problème résolu', 'Ordinateur en panne.', 22508753);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `resoudre`
---
-
-DROP TABLE IF EXISTS `resoudre`;
-CREATE TABLE IF NOT EXISTS `resoudre` (
-  `identifiantV` int(11) NOT NULL,
-  `IdentifiantP` int(11) NOT NULL,
-  PRIMARY KEY (`identifiantV`,`IdentifiantP`),
-  KEY `IdentifiantP` (`IdentifiantP`),
-  KEY `IdentifiantV` (`identifiantV`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `probleme` (`IdentifiantP`, `NomP`, `DateProblème`, `DateResolution`, `Resolution`, `Description`, `IdentifiantE`, `IdentifiantV`, `IdentifiantM`) VALUES
+(1, 'Panne', '2021-05-19', '2021-05-31', 'Problème résolu', 'Ordinateur en panne.', 22508753, 69874521, 'N122342546567'),
+(2, 'Autre panne', '2021-05-05', '2021-05-28', 'Non résolu', 'panne', 45628764, 69874521, 'N635215328745'),
+(3, 'Panne', NULL, NULL, '', 'Ordi en panne', 85413601, 69874521, 'N230285049374');
 
 -- --------------------------------------------------------
 
@@ -366,21 +359,6 @@ INSERT INTO `responsable` (`IdentifiantR`, `NomR`, `PrenomR`, `TelR`, `EmailR`) 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `s_occuper`
---
-
-DROP TABLE IF EXISTS `s_occuper`;
-CREATE TABLE IF NOT EXISTS `s_occuper` (
-  `IdentifiantM` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `identifiantV` int(11) NOT NULL,
-  PRIMARY KEY (`IdentifiantM`,`identifiantV`),
-  KEY `identifiantV` (`identifiantV`),
-  KEY `identifiantM` (`IdentifiantM`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `vacataire`
 --
 
@@ -391,7 +369,6 @@ CREATE TABLE IF NOT EXISTS `vacataire` (
   `PrenomV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `EmailV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `TelV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `EntrepriseV` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`identifiantV`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -399,9 +376,9 @@ CREATE TABLE IF NOT EXISTS `vacataire` (
 -- Déchargement des données de la table `vacataire`
 --
 
-INSERT INTO `vacataire` (`identifiantV`, `NomV`, `PrenomV`, `EmailV`, `TelV`, `EntrepriseV`) VALUES
-(69874521, 'Barnier', 'Célia', 'celia.barnier@ut-capitole.fr', '0645231608', NULL),
-(25687413, 'Marais', 'Bastien', 'bastien.marais@ut-capitole.fr', '0698525630', NULL);
+INSERT INTO `vacataire` (`identifiantV`, `NomV`, `PrenomV`, `EmailV`, `TelV`) VALUES
+(69874521, 'Barnier', 'Célia', 'celia.barnier@ut-capitole.fr', '0645231608'),
+(25687413, 'Marais', 'Bastien', 'bastien.marais@ut-capitole.fr', '0698525630');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
