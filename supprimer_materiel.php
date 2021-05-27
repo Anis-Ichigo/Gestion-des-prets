@@ -4,7 +4,7 @@ session_start();
 require('Connexion_BD.php');
 
 $numero = '';
-if(isset($_POST['numero'])){
+if(isset($_POST['supprimer'])){
   $numero = $_POST['numero'];
 }
 
