@@ -4,17 +4,19 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 
 
-$numero = '';
-if(isset($_POST['reparer'])){
-  $numero = $_POST['numero'];
-}
+if(isset($_POST['suppression'])){
 $newetat = "Dispo";
-$reparer = "UPDATE materiel SET EtatM = $newetat WHERE IdentifiantM = '?'";
-if($stmt = mysqli_prepare($session, $reparer)){
-  mysqli_stmt_bind_param($stmt, 'i', $numero);
-  mysqli_stmt_execute($stmt);
+$identifiantM = $_POST['numero'];
+$reparer = "UPDATE materiel SET EtatM = $newetat WHERE IdentifiantM = $identifiantM";
+$result = mysqli_query($session, $reparer);
 }
 
+if(isset($_POST['raz'])){
+$newetat = "Dispo";
+$identifiantM = $_POST['numero'];
+$reparer = "UPDATE materiel SET EtatM = $newetat WHERE IdentifiantM = $identifiantM";
+$result = mysqli_query($session, $reparer);
+}
 header('Location: RAZ.php');
  ?>
 
