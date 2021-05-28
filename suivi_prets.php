@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +25,7 @@ session_start();
             </div>
             <div><a href="profil.php"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
             <div><a href="reservation.php"><i class="far fa-plus-square"></i></a><b>Forum</b></div>
-            <div><a href="forum.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
+            <div><a href="FAQ.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
             <div><a href="entretien.php"><i class="fas fi-rr-settings"></i></a><b>Liste RDV</b></div>
             <div><a href="liste_RDV.php"><i class="far fa-check-square"></i></a><b>Liste des prêts</b></div>
             <div><a href="suivi_prets.php"><i class="far fa-handshake"></i></a><b>Statistiques</b></div>
@@ -64,9 +66,8 @@ session_start();
                 </TR>
 
                 <?php
-                require('Connexion_BD.php');
 
-                $emprunt = ("SELECT emprunteur.IdentifiantE, emprunteur.PrenomE, emprunteur.NomE, materiel.IdentifiantM, materiel.CategorieM, emprunteur.EmailE, emprunt.DateEmprunt, emprunt.DateRetour, probleme.NomP
+                $emprunt = ("SELECT *
                 FROM emprunt, emprunteur, probleme, materiel
                 WHERE emprunt.IdentifiantE = emprunteur.IdentifiantE
                 AND emprunt.IdentifiantM = materiel.IdentifiantM
