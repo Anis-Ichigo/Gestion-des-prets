@@ -92,7 +92,7 @@ mysqli_set_charset($session, "utf8");
                         <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
                     </TD>
                     <TD>
-                        <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
+                        <input type="text" name="dateretour" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
                     </TD>
                     <TD>
                         <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
@@ -118,9 +118,8 @@ mysqli_set_charset($session, "utf8");
             $query_raz = "SELECT M.IdentifiantM, E.DateEmprunt, E.DateRetour, M.CategorieM, M.EtatM
                         FROM materiel M, emprunt E
                         WHERE M.IdentifiantM = E.IdentifiantM
-                        AND M.IdentifiantM = P.IdentifiantM
                         AND M.EtatM = 'Non dispo'
-                        AND E.DateRetour <= strftime('%Y-%m-%d')";
+                        AND E.DateRetour <= now()";
             $result_raz = mysqli_query($session, $query_raz);
             if ($result_raz != NULL){
               while ($ligne = mysqli_fetch_array($result_raz)) {
@@ -134,13 +133,13 @@ mysqli_set_charset($session, "utf8");
                          <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
                      </TD>
                      <TD>
-                         <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
+                         <input type="text" name="dateretour" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
                      </TD>
                      <TD>
-                       <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+                       <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
                      </TD>
                      <TD>
-                         <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+                         <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
                      </TD>
                      <TD>
                     </TD>
