@@ -54,6 +54,9 @@ session_start();
                         Date de pret
                     </Th>
                     <th>
+                        Date retour
+                    </Th>
+                    <th>
                         Type de materiel
                     </Th>
                     <th>
@@ -63,21 +66,21 @@ session_start();
                         Problème
                     </Th>
                     <th>
-                        RAZ
+
                     </Th>
                 </TR>
 
                 <?php
                 require('Connexion_BD.php');
 
-                $query = "SELECT M.IdentifiantM, E.DateEmprunt, M.CategorieM, M.EtatM, P.NomP
-                          FROM materiel M, emprunt E, probleme P
-                          WHERE M.IdentifiantM = E.IdentifiantM
-                          AND M.IdentifiantM = P.IdentifiantM
-                          AND M.EtatM = 'Non dispo'";
-                $result_raz = mysqli_query($session, $query);
-                if ($result_raz != NULL){
-                  while ($ligne = mysqli_fetch_array($result_raz)) {
+                $query_pb = "SELECT M.IdentifiantM, E.DateEmprunt,E.DateRetour, M.CategorieM, M.EtatM, P.NomP
+                            FROM materiel M, emprunt E, probleme P
+                            WHERE M.IdentifiantM = E.IdentifiantM
+                            AND M.IdentifiantM = P.IdentifiantM
+                            AND M.EtatM = 'Non dispo'";
+                $result_pb = mysqli_query($session, $query_pb);
+                if ($result_pb != NULL){
+                  while ($ligne = mysqli_fetch_array($result_pb)) {
                  ?>
               <form class="" action="reparer_materiel.php" method="post">
                 <TR>
@@ -86,6 +89,9 @@ session_start();
                     </TD>
                     <TD>
                         <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
+                    </TD>
+                    <TD>
+                        <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
                     </TD>
                     <TD>
                         <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
@@ -97,10 +103,55 @@ session_start();
                         <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
                     </TD>
                     <TD>
-                        <button type="button" class="btn btn-primary" href="reparer_materiel.php">Terminé</button>
+
+                        <input type="submit" id="pb" class="btn btn-primary" value="Problème Résolu">
+
                     </TD>
                 </TR>
               </form>
+
+              <?php
+                }
+            }
+
+            $query_raz = "SELECT M.IdentifiantM, E.DateEmprunt, E.DateRetour, M.CategorieM, M.EtatM
+                        FROM materiel M, emprunt E
+                        WHERE M.IdentifiantM = E.IdentifiantM
+                        AND M.IdentifiantM = P.IdentifiantM
+                        AND M.EtatM = 'Non dispo'
+                        AND E.DateRetour <= strftime('%Y-%m-%d')";
+            $result_raz = mysqli_query($session, $query_raz);
+            if ($result_raz != NULL){
+              while ($ligne = mysqli_fetch_array($result_raz)) {
+               ?>
+               <form class="" action="reparer_materiel.php" method="post">
+                 <TR>
+                     <TD>
+                         <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
+                     </TD>
+                     <TD>
+                         <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
+                     </TD>
+                     <TD>
+                         <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
+                     </TD>
+                     <TD>
+                       <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+                     </TD>
+                     <TD>
+                         <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+                     </TD>
+                     <TD>
+                    </TD>
+                     <TD>
+                         <input type="submit" class="btn btn-primary" value="RAZ Terminée">
+                     </TD>
+                 </TR>
+               </form>
+               <?php
+                  }
+              }
+                ?>
             </Table>
         </div>
     </main>
