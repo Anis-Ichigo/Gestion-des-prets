@@ -58,7 +58,7 @@ mysqli_set_charset($session, "utf8");
                                FROM emprunt, materiel, personne
                                WHERE emprunt.IdentifiantM = materiel.identifiantM
                                AND emprunt.identifiantPe = personne.IdentifiantPe
-                               AND materiel.CategorieM = $CategorieM
+                               AND materiel.CategorieM = '$CategorieM'
                                AND personne.IdentifiantPe = $identifiant");
                 $result_categorie = mysqli_query($session, $categorie);
                 foreach ($result_categorie as $row) {
@@ -67,9 +67,15 @@ mysqli_set_charset($session, "utf8");
 
 
 
-                $probleme = ("INSERT INTO `probleme`(`NomP`, `DateProbleme`, `Description`, `IdentifiantPe`, `IdentifiantM`) 
-                VALUES ($NomP, $DateProbleme, $Description, $identifiant, $IdentifiantM)");
+                $probleme = ("INSERT INTO `probleme`(`NomP`, `DateProbleme`, `DateResolution`, `Resolution`, `Description`, `IdentifiantPe`, `IdentifiantM`) 
+                VALUES ($NomP, $DateProbleme, NULL, NULL, $Description, $identifiant, $IdentifiantM)");
                 $result_probleme = mysqli_query($session, $probleme);
+
+                echo $NomP.'<br>';
+                echo $DateProbleme.'<br>';
+                echo $Description.'<br>';
+                echo $identifiant.'<br>';
+                echo $IdentifiantM;
             }
 
 
