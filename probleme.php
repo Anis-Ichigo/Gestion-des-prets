@@ -50,21 +50,21 @@ mysqli_set_charset($session, "utf8");
 
             if (isset($_POST['modifier'])) {
 
-                $modif_PrenomE = $_POST['modif_PrenomE'];
-                $modif_NomE = $_POST['modif_NomE'];
-                $modif_EmailE = $_POST['modif_EmailE'];
-                $modif_AdresseE = addslashes($_POST['modif_AdresseE']);
-                $modif_TelE = $_POST['modif_TelE'];
+                $modif_PrenomPe = $_POST['modif_PrenomPe'];
+                $modif_NomPe = $_POST['modif_NomPe'];
+                $modif_EmailPe = $_POST['modif_EmailPe'];
+                $modif_AdressePe = addslashes($_POST['modif_AdressePe']);
+                $modif_TelPe = $_POST['modif_TelPe'];
                 $modif_Statut = $_POST['modif_Statut'];
                 $modif_Formation = $_POST['modif_Formation'];
 
-                $modif_profil = ("UPDATE emprunteur
-                SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation'
-                WHERE IdentifiantE = $identifiant");
+                $modif_profil = ("UPDATE personne
+                SET PrenomPe = '$modif_PrenomPe', NomPe = '$modif_NomPe', EmailPe = '$modif_EmailPe', AdressePe = '$modif_AdressePe', TelPe = '$modif_TelPe', Statut = '$modif_Statut', Formation = '$modif_Formation'
+                WHERE IdentifiantPe = $identifiant");
                 $result_modif_profil = mysqli_query($session, $modif_profil);
             }
 
-            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $emprunteur = ("SELECT * FROM personne where IdentifiantPe = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
             foreach ($result_emprunteur as $row) {
             ?>
@@ -76,7 +76,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Prénom :</label>
                             </TD>
                             <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="PrenomE" value="<?php echo $row['PrenomE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="PrenomPe" value="<?php echo $row['PrenomPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -84,7 +84,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Nom :</label>
                             </TD>
                             <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="NomE" value="<?php echo $row['NomE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="NomPe" value="<?php echo $row['NomPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -92,7 +92,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Email :</label>
                             </TD>
                             <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="EmailE" value="<?php echo $row['EmailE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="EmailPe" value="<?php echo $row['EmailPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -100,7 +100,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Adresse :</label>
                             </TD>
                             <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['AdresseE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="AdressePe" value="<?php echo $row['AdressePe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -108,7 +108,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Téléphone :</label>
                             </TD>
                             <TD>
-                                <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['TelE']; ?>">
+                                <input type="text" readonly class="form-control-plaintext" name="TelPe" value="<?php echo $row['TelPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
