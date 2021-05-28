@@ -56,7 +56,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Prénom :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_PrenomE" value="<?php echo $_POST["PrenomE"]; ?>">
+                                <input type="text" class="form-control" autocomplete="off" name="modif_PrenomPe" value="<?php echo $_POST["PrenomPe"]; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -64,7 +64,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Nom :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_NomE" value="<?php echo $_POST['NomE']; ?>">
+                                <input type="text" class="form-control" autocomplete="off" name="modif_NomPe" value="<?php echo $_POST['NomPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -72,7 +72,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Email :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_EmailE" value="<?php echo $_POST['EmailE']; ?>">
+                                <input type="text" class="form-control" autocomplete="off" name="modif_EmailPe" value="<?php echo $_POST['EmailPe']; ?>">
                             </TD>
                         </TR>
                         <TR>
@@ -80,7 +80,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Adresse :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_AdresseE" value="<?php echo $_POST['AdresseE']; ?>">
+                                <input type="text" class="form-control" autocomplete="off" name="modif_AdressePe" value="<?php echo $_POST['AdressePe']; ?>">
                             </TD>
                         </TR>
 
@@ -89,7 +89,7 @@ mysqli_set_charset($session, "utf8");
                                 <label>Tel :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" autocomplete="off" name="modif_TelE" value="<?php echo $_POST['TelE']; ?>">
+                                <input type="text" class="form-control" autocomplete="off" name="modif_TelPe" value="<?php echo $_POST['TelPe']; ?>">
                             </TD>
                         </TR>
 
