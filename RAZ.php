@@ -105,11 +105,11 @@ mysqli_set_charset($session, "utf8");
                     </TD>
                     <TD>
 
-                        <input type="submit" id="pb" class="btn btn-primary" value="Problème Résolu">
+                        <input type="submit" id="pb" name="suppression" class="btn btn-primary" value="Problème Résolu">
 
                     </TD>
                 </TR>
-              </form>
+
 
               <?php
                 }
@@ -124,7 +124,7 @@ mysqli_set_charset($session, "utf8");
             if ($result_raz != NULL){
               while ($ligne = mysqli_fetch_array($result_raz)) {
                ?>
-               <form class="" action="reparer_materiel.php" method="post">
+
                  <TR>
                      <TD>
                          <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
@@ -144,7 +144,7 @@ mysqli_set_charset($session, "utf8");
                      <TD>
                     </TD>
                      <TD>
-                         <input type="submit" class="btn btn-primary" value="RAZ Terminée">
+                         <input type="submit" name="raz" class="btn btn-primary" value="RAZ Terminée">
                      </TD>
                  </TR>
                </form>
