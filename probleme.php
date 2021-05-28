@@ -2,6 +2,8 @@
 session_start();
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
+date_default_timezone_set('Europe/Paris');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,21 +50,6 @@ mysqli_set_charset($session, "utf8");
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
-            if (isset($_POST['modifier'])) {
-
-                $modif_PrenomPe = $_POST['modif_PrenomPe'];
-                $modif_NomPe = $_POST['modif_NomPe'];
-                $modif_EmailPe = $_POST['modif_EmailPe'];
-                $modif_AdressePe = addslashes($_POST['modif_AdressePe']);
-                $modif_TelPe = $_POST['modif_TelPe'];
-                $modif_Statut = $_POST['modif_Statut'];
-                $modif_Formation = $_POST['modif_Formation'];
-
-                $modif_profil = ("UPDATE personne
-                SET PrenomPe = '$modif_PrenomPe', NomPe = '$modif_NomPe', EmailPe = '$modif_EmailPe', AdressePe = '$modif_AdressePe', TelPe = '$modif_TelPe', Statut = '$modif_Statut', Formation = '$modif_Formation'
-                WHERE IdentifiantPe = $identifiant");
-                $result_modif_profil = mysqli_query($session, $modif_profil);
-            }
 
             $emprunteur = ("SELECT * FROM personne where IdentifiantPe = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
@@ -116,26 +103,45 @@ mysqli_set_charset($session, "utf8");
                                 <label>Votre demande concerne :</label>
                             </TD>
                             <TD>
-                                <SELECT size=" 1 ">
-                                    <OPTION>Un PC</OPTION>
-                                    <OPTION>Une Tablette</OPTION>
-                                    <OPTION>Une clé 4G</OPTION>
-                                    <OPTION>Boucle php pour afficher le reste</OPTION>
+                                <SELECT size="1" name="CategorieM">
+                                    <OPTION></OPTION>
+                                    <?php
+                                    $categories = ("SELECT * FROM emprunt, materiel, personne 
+                                                    WHERE emprunt.IdentifiantM = materiel.identifiantM
+                                                    AND emprunt.IdentifiantPe = personne.IdentifiantPe
+                                                    AND personne.identifiantPe = $identifiant
+                                                    GROUP BY CategorieM");
+                                    $result_categories = mysqli_query($session, $categories);
+                                    foreach ($result_categories as $row) {
+                                    ?>
+                                        <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+                                    <?php
+                                    }
+                                    ?>
                                 </SELECT> (*)
                             </TD>
                         </TR>
 
                         <TR>
-                            <TD valign=" top ">
-                                <label for=" description ">Description :</label>
+                            <TD>
+                                <label>Titre :</label>
                             </TD>
                             <TD>
-                                <textarea cols=" 60 " rows=" 10 "></textarea>
+                                <input type="text" class="form-control" name="NomP">
+                            </TD>
+                        </TR>
+
+                        <TR>
+                            <TD valign=" top ">
+                                <label>Description :</label>
+                            </TD>
+                            <TD>
+                                <textarea name="Description" cols="60" rows="10"></textarea>
                             </TD>
                         </TR>
 
                     </table>
-                    <input type="submit" class="btn btn-primary" value="Envoyer">
+                    <input type="submit" class="btn btn-primary" name="envoyer_probleme" value="Envoyer">
                 </form>
             <?php
             }

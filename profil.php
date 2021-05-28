@@ -46,6 +46,33 @@ mysqli_set_charset($session, "utf8");
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
+            if (isset($_POST['envoyer_probleme'])) {
+
+                $NomP = addslashes($_POST['NomP']);
+                $DateProbleme = strftime('%Y-%m-%d');
+                $Description = addslashes($_POST['Description']);
+
+                $CategorieM = $_POST['CategorieM'];
+
+                $categorie = ("SELECT *
+                               FROM emprunt, materiel, personne
+                               WHERE emprunt.IdentifiantM = materiel.identifiantM
+                               AND emprunt.identifiantPe = personne.IdentifiantPe
+                               AND materiel.CategorieM = $CategorieM
+                               AND personne.IdentifiantPe = $identifiant");
+                $result_categorie = mysqli_query($session, $categorie);
+                foreach ($result_categorie as $row) {
+                    $IdentifiantM = $row['IdentifiantM'];
+                }
+
+
+
+                $probleme = ("INSERT INTO `probleme`(`NomP`, `DateProbleme`, `Description`, `IdentifiantPe`, `IdentifiantM`) 
+                VALUES ($NomP, $DateProbleme, $Description, $identifiant, $IdentifiantM)");
+                $result_probleme = mysqli_query($session, $probleme);
+            }
+
+
             if (isset($_POST['modifier'])) {
 
                 $modif_PrenomPe = $_POST['modif_PrenomPe'];
