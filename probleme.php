@@ -104,7 +104,6 @@ date_default_timezone_set('Europe/Paris');
                             </TD>
                             <TD>
                                 <SELECT size="1" name="CategorieM">
-                                    <OPTION></OPTION>
                                     <?php
                                     $categories = ("SELECT * FROM emprunt, materiel, personne 
                                                     WHERE emprunt.IdentifiantM = materiel.identifiantM
@@ -127,7 +126,7 @@ date_default_timezone_set('Europe/Paris');
                                 <label>Titre :</label>
                             </TD>
                             <TD>
-                                <input type="text" class="form-control" name="NomP">
+                                <input type="text" class="form-control" name="NomP" autocomplete="off">
                             </TD>
                         </TR>
 
