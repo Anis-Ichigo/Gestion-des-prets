@@ -68,14 +68,9 @@ mysqli_set_charset($session, "utf8");
 
 
                 $probleme = ("INSERT INTO `probleme`(`NomP`, `DateProbleme`, `DateResolution`, `Resolution`, `Description`, `IdentifiantPe`, `IdentifiantM`) 
-                VALUES ($NomP, $DateProbleme, NULL, NULL, $Description, $identifiant, $IdentifiantM)");
+                VALUES ('$NomP', '$DateProbleme', NULL, NULL, '$Description', '$identifiant', '$IdentifiantM')");
                 $result_probleme = mysqli_query($session, $probleme);
 
-                echo $NomP.'<br>';
-                echo $DateProbleme.'<br>';
-                echo $Description.'<br>';
-                echo $identifiant.'<br>';
-                echo $IdentifiantM;
             }
 
 
