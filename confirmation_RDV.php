@@ -1,5 +1,7 @@
 <?php
 session_start();
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,11 +33,6 @@ session_start();
             <div><a href="Statistiques.html"><i class="far fi-rr-stats"></i></a></div>
         </div>
 
-        <?php
-        require("Connexion_BD.php");
-
-
-        ?>
         <div class="contenu">
             <h1>Confirmer RDV</h1>
 

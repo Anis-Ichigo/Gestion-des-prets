@@ -48,19 +48,19 @@ mysqli_set_charset($session, "utf8");
 
             if (isset($_POST['modifier'])) {
 
-                $modif_PrenomE = $_POST['modif_PrenomE'];
-                $modif_NomE = $_POST['modif_NomE'];
-                $modif_EmailE = $_POST['modif_EmailE'];
-                $modif_AdresseE = addslashes($_POST['modif_AdresseE']);
-                $modif_TelE = $_POST['modif_TelE'];
+                $modif_PrenomPe = $_POST['modif_PrenomPe'];
+                $modif_NomPe = $_POST['modif_NomPe'];
+                $modif_EmailPe = $_POST['modif_EmailPe'];
+                $modif_AdressePe = addslashes($_POST['modif_AdressePe']);
+                $modif_TelPe = $_POST['modif_TelPe'];
                 $modif_Statut = $_POST['modif_Statut'];
                 $modif_Formation = $_POST['modif_Formation'];
 
-                $modif_profil = ("UPDATE emprunteur SET PrenomE = '$modif_PrenomE', NomE = '$modif_NomE', EmailE = '$modif_EmailE', AdresseE = '$modif_AdresseE', TelE = '$modif_TelE', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantE = $identifiant");
+                $modif_profil = ("UPDATE personne SET PrenomPe = '$modif_PrenomPe', NomPe = '$modif_NomPe', EmailPe = '$modif_EmailPe', AdressePe = '$modif_AdressePe', TelPe = '$modif_TelPe', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantPe = $identifiant");
                 $result_modif_profil = mysqli_query($session, $modif_profil);
             }
 
-            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $emprunteur = ("SELECT * FROM personne where IdentifiantPe = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
             foreach ($result_emprunteur as $row) {
             ?>
@@ -74,7 +74,7 @@ mysqli_set_charset($session, "utf8");
                                     <label>Prénom :</label>
                                 </TD>
                                 <TD>
-                                    <input type="text" readonly class="form-control-plaintext" name="PrenomE" value="<?php echo $row['PrenomE']; ?>">
+                                    <input type="text" readonly class="form-control-plaintext" name="PrenomPe" value="<?php echo $row['PrenomPe']; ?>">
                                 </TD>
                             </TR>
                             <TR>
@@ -82,7 +82,7 @@ mysqli_set_charset($session, "utf8");
                                     <label>Nom :</label>
                                 </TD>
                                 <TD>
-                                    <input type="text" readonly class="form-control-plaintext" name="NomE" value="<?php echo $row['NomE']; ?>">
+                                    <input type="text" readonly class="form-control-plaintext" name="NomPe" value="<?php echo $row['NomPe']; ?>">
                                 </TD>
                             </TR>
                             <TR>
@@ -90,7 +90,7 @@ mysqli_set_charset($session, "utf8");
                                     <label>Email :</label>
                                 </TD>
                                 <TD>
-                                    <input type="text" readonly class="form-control-plaintext" name="EmailE" value="<?php echo $row['EmailE']; ?>">
+                                    <input type="text" readonly class="form-control-plaintext" name="EmailPe" value="<?php echo $row['EmailPe']; ?>">
                                 </TD>
                             </TR>
                             <TR>
@@ -98,7 +98,7 @@ mysqli_set_charset($session, "utf8");
                                     <label>Adresse :</label>
                                 </TD>
                                 <TD>
-                                    <input type="text" readonly class="form-control-plaintext" name="AdresseE" value="<?php echo $row['AdresseE']; ?>">
+                                    <input type="text" readonly class="form-control-plaintext" name="AdressePe" value="<?php echo $row['AdressePe']; ?>">
                                 </TD>
                             </TR>
 
@@ -107,7 +107,7 @@ mysqli_set_charset($session, "utf8");
                                     <label>Téléphone :</label>
                                 </TD>
                                 <TD>
-                                    <input type="text" readonly class="form-control-plaintext" name="TelE" value="<?php echo $row['TelE']; ?>">
+                                    <input type="text" readonly class="form-control-plaintext" name="TelPe" value="<?php echo $row['TelPe']; ?>">
                                 </TD>
                             </TR>
 
@@ -175,12 +175,12 @@ mysqli_set_charset($session, "utf8");
                 </TR>
 
                 <?php
-                $reservations = ("SELECT materiel.IdentifiantM, emprunt.DateEmprunt, emprunt.DateRetour, materiel.CategorieM, probleme.NomP
-                FROM emprunt, emprunteur, probleme, materiel
-                WHERE emprunt.IdentifiantE = emprunteur.IdentifiantE
+                $reservations = ("SELECT *
+                FROM emprunt, personne, probleme, materiel
+                WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
                 AND emprunt.IdentifiantM = materiel.IdentifiantM
-                AND probleme.IdentifiantE = emprunteur.IdentifiantE
-                AND emprunteur.IdentifiantE = $identifiant;");
+                AND probleme.IdentifiantPe = personne.IdentifiantPe
+                AND personne.IdentifiantPe = $identifiant;");
                 $result_reservations = mysqli_query($session, $reservations);
                 foreach ($result_reservations as $row) {
                 ?>
@@ -225,12 +225,12 @@ mysqli_set_charset($session, "utf8");
                 </TR>
 
                 <?php
-                $reservations = ("SELECT materiel.IdentifiantM, materiel.CategorieM, emprunt.DateEmprunt, calendrier.HoraireCal
-                FROM emprunt, emprunteur, materiel, calendrier
-                WHERE emprunt.IdentifiantM = materiel.IdentifiantM
-                AND emprunt.IdentifiantE = emprunteur.IdentifiantE
-                AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
-                AND emprunteur.IdentifiantE = $identifiant;");
+                $reservations = ("SELECT *
+                FROM emprunt, personne, materiel, calendrier 
+                WHERE emprunt.IdentifiantM = materiel.IdentifiantM 
+                AND emprunt.IdentifiantPe = personne.IdentifiantPe 
+                AND emprunt.IdentifiantCal = calendrier.IdentifiantCal 
+                AND personne.IdentifiantPe = $identifiant;");
                 $result_reservations = mysqli_query($session, $reservations);
                 foreach ($result_reservations as $row) {
                 ?>
