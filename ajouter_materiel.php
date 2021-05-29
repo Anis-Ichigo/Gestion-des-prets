@@ -2,7 +2,7 @@
 session_start();
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +18,7 @@ mysqli_set_charset($session, "utf8");
 
 <body>
     <main>
-    <div class="menu">
+        <div class="menu">
             <div>
                 <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
                 <b>Profil</b>
@@ -49,7 +49,17 @@ mysqli_set_charset($session, "utf8");
                             <label>type de matériel</label>
                         </TD>
                         <TD>
-                            <INPUT type="text" name="type" required>
+                            <SELECT size="1" name="type">
+                                <?php
+                                $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
+                                $result_categories = mysqli_query($session, $categories);
+                                foreach ($result_categories as $row) {
+                                ?>
+                                    <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+                                <?php
+                                }
+                                ?>
+                            </SELECT>
                         </TD>
                     </tr>
                     <tr>
@@ -61,26 +71,13 @@ mysqli_set_charset($session, "utf8");
                         </TD>
                     </tr>
                 </table>
+                <input type="submit" class="btn btn-primary" name="ajouter" value="Ajouter">
             </form>
             <br>
-            <a type="button" href="entretien.php" class="btn btn-primary">Ajouter</a>
 
         </div>
     </main>
 </body>
 
-<?php
-
-$numero = isset($_POST["numero"]);
-$type = isset($_POST["type"]);
-$date = isset($_POST["date"]);
-
-$ajouter = "INSERT INTO materiel (IdentifiantM, DateAchat, EtatM, CategorieM, SatutM) VALUES ('?', '?', 'Dispo', '?','Existant')";
-if($stmt = mysqli_prepare($session, $ajouter)){
-  mysqli_stmt_bind_param($stmt, 'iis', $numero, $date, $type);
-  mysqli_stmt_execute($stmt);
-}
-
- ?>
 
 </html>

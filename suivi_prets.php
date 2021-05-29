@@ -61,30 +61,34 @@ mysqli_set_charset($session, "utf8");
                         Date de retour prévue
                     </TH>
                     <TH>
-                        RAZ(probleme)
+                        Problème
                     </TH>
                 </TR>
 
                 <?php
 
-                $emprunt = ("SELECT *
-                FROM emprunt, emprunteur, probleme, materiel
-                WHERE emprunt.IdentifiantE = emprunteur.IdentifiantE
+                $emprunt_avec_probleme = ("SELECT *
+                FROM emprunt, personne, probleme, materiel
+                WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
                 AND emprunt.IdentifiantM = materiel.IdentifiantM
-                AND probleme.IdentifiantE = emprunteur.IdentifiantE;");
-                $result_emprunt = mysqli_query($session, $emprunt);
-                foreach ($result_emprunt as $row) {
+                AND probleme.IdentifiantPe = personne.IdentifiantPe
+                AND probleme.IdentifiantM = materiel.IdentifiantM
+                AND probleme.Resolution LIKE 'Non résolu';");
+
+
+                $result_emprunt_avec_probleme = mysqli_query($session, $emprunt_avec_probleme);
+                foreach ($result_emprunt_avec_probleme as $row) {
                 ?>
 
                     <TR>
                         <TD>
-                            <?php echo $row['IdentifiantE'] ?>
+                            <?php echo $row['IdentifiantPe'] ?>
                         </TD>
                         <TD>
-                            <?php echo $row['PrenomE'] ?>
+                            <?php echo $row['PrenomPe'] ?>
                         </TD>
                         <TD>
-                            <?php echo $row['NomE'] ?>
+                            <?php echo $row['NomPe'] ?>
                         </TD>
                         <TD>
                             <?php echo $row['IdentifiantM'] ?>
@@ -93,7 +97,7 @@ mysqli_set_charset($session, "utf8");
                             <?php echo $row['CategorieM'] ?>
                         </TD>
                         <TD>
-                            <?php echo $row['EmailE'] ?>
+                            <?php echo $row['EmailPe'] ?>
                         </TD>
                         <TD>
                             <?php echo $row['DateEmprunt'] ?>
@@ -103,6 +107,57 @@ mysqli_set_charset($session, "utf8");
                         </TD>
                         <TD>
                             <?php echo $row['NomP'] ?>
+                        </TD>
+                    </TR>
+
+                <?php
+                }
+                ?>
+
+                <?php
+
+                $emprunt_sans_probleme = ("SELECT personne.IdentifiantPe, personne.PrenomPe, personne.NomPe, materiel.IdentifiantM, materiel.CategorieM, personne.EmailPe, emprunt.DateEmprunt, emprunt.DateRetour
+                                            FROM emprunt, personne, probleme, materiel
+                                            WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
+                                            AND emprunt.IdentifiantM = materiel.IdentifiantM
+                                            AND materiel.IdentifiantM NOT IN (SELECT probleme.IdentifiantM
+                                                                        FROM probleme, materiel
+                                                                        WHERE probleme.IdentifiantM = materiel.IdentifiantM
+                                                                        AND probleme.Resolution LIKE 'Non résolu')
+                                            GROUP BY materiel.IdentifiantM;");
+
+
+
+                $result_emprunt_sans_probleme = mysqli_query($session, $emprunt_sans_probleme);
+                foreach ($result_emprunt_sans_probleme as $row) {
+                ?>
+
+                    <TR>
+                        <TD>
+                            <?php echo $row['IdentifiantPe'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['PrenomPe'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['NomPe'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['IdentifiantM'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['CategorieM'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['EmailPe'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateEmprunt'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateRetour'] ?>
+                        </TD>
+                        <TD>
                         </TD>
                     </TR>
 

@@ -45,6 +45,24 @@ mysqli_set_charset($session, "utf8");
         </li>
       </ul>
 
+      <?php
+      if (isset($_POST['ajouter'])) {
+
+        $numero = $_POST["numero"];
+        $type = $_POST["type"];
+        $date = $_POST["date"];
+        $etat = 'Dispo';
+        $statut = 'Existant';
+
+
+        $ajouter = "INSERT INTO materiel (IdentifiantM, DateAchat, EtatM, CategorieM, StatutM) VALUES (?, ?, ?, ?, ?)";
+        if ($stmt = mysqli_prepare($session, $ajouter)) {
+          mysqli_stmt_bind_param($stmt, 'sssss', $numero, $date, $etat, $type, $statut);
+          mysqli_stmt_execute($stmt);
+        }
+      }
+      ?>
+
 
       <Table class="table table-striped table-hover">
         <TR>
@@ -70,77 +88,83 @@ mysqli_set_charset($session, "utf8");
 
         <?php
 
-        $query_non_dispo = "SELECT M.IdentifiantM, M.CategorieM, M.DateAchat, M.EtatM, P.NomP
-                            FROM materiel M, probleme P
-                            WHERE P.IdentifiantM = M.IdentifiantM
-                            AND M.StatutM = 'Existant'
-                            AND M.EtatM = 'Non dispo'";
-        $result_non_dispo = mysqli_query($session, $query_non_dispo);
-        if ($result_non_dispo != NULL) {
-          while ($ligne = mysqli_fetch_array($result_non_dispo)) {
+        $query_avec_probleme = ("SELECT *
+        FROM materiel M, emprunt E, probleme P
+        WHERE e.IdentifiantM = m.IdentifiantM
+        AND p.IdentifiantM = m.IdentifiantM
+        AND p.Resolution LIKE 'Non résolu'
+        AND m.StatutM LIKE 'Existant';");
+        $result_query_avec_probleme = mysqli_query($session, $query_avec_probleme);
+
+        foreach ($result_query_avec_probleme as $ligne) {
+
+
         ?>
 
-            <form action="supprimer_materiel.php">
-              <tr>
-                <td>
-                  <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
-                </td>
-                <td>
-                  <input type="submit" class='btn btn-secondary' name="supprimer" value="Supprimer">
-                </td>
-              </tr>
-            </form>
-
-          <?php
-          }
-        }
-
-        $query_dispo = "SELECT M.IdentifiantM, M.CategorieM, M.DateAchat, M.EtatM
-                        FROM materiel M
-                        WHERE M.StatutM = 'Existant'
-                        AND M.EtatM = 'Dispo'";
-        $result_dispo = mysqli_query($session, $query_dispo);
-        if ($result_dispo != NULL) {
-          while ($ligne = mysqli_fetch_array($result_dispo)) {
-          ?>
-
-            <form action="supprimer_materiel.php">
-              <tr>
-                <td>
-                  <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
-                </td>
-                <td>
-                  <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
-                </td>
-                <td>
-                </td>
-                <td>
-                  <input type="submit" class='btn btn-secondary' name="supprimer" value="Supprimer">
-                </td>
-              </tr>
-            </form>
+          <form action="supprimer_materiel.php" method="POST">
+            <tr>
+              <td>
+                <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
+              </td>
+              <td>
+                <input type="submit" class='btn btn-secondary' name="supprimer" value="Supprimer">
+              </td>
+            </tr>
+          </form>
 
         <?php
-          }
         }
+
+
+        $query_sans_probleme = ("SELECT *
+                                  FROM materiel m
+                                  WHERE m.IdentifiantM NOT IN (SELECT p.IdentifiantM
+                                                              FROM probleme p, materiel m
+                                                              WHERE p.IdentifiantM = m.IdentifiantM
+                                                              AND p.Resolution LIKE 'Non résolu')
+                                  AND m.StatutM LIKE 'Existant';");
+        $result_query_sans_probleme = mysqli_query($session, $query_sans_probleme);
+
+        foreach ($result_query_sans_probleme as $ligne) {
+        ?>
+
+          <form action="supprimer_materiel.php" method="POST">
+            <tr>
+              <td>
+                <input type="text" readonly name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['DateAchat'] ?>">
+              </td>
+              <td>
+                <input type="text" readonly name="" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
+              </td>
+              <td>
+              </td>
+              <td>
+                <input type="submit" class='btn btn-secondary' name="supprimer" value="Supprimer">
+              </td>
+            </tr>
+          </form>
+
+        <?php
+        }
+
         ?>
 
       </Table>
@@ -149,6 +173,7 @@ mysqli_set_charset($session, "utf8");
       <a type="button" class="btn btn-primary" href="ajouter_materiel.php">Ajouter</a>
 
     </div>
+
   </main>
 </body>
 

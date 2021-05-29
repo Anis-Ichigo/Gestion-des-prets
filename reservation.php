@@ -50,7 +50,7 @@ mysqli_set_charset($session, "utf8");
             //$identifiant = $_SESSION['identifiant'];
             $identifiant = '22508753';
 
-            $emprunteur = ("SELECT * FROM emprunteur where IdentifiantE = $identifiant");
+            $emprunteur = ("SELECT * FROM personne where IdentifiantPe = $identifiant");
             $result_emprunteur = mysqli_query($session, $emprunteur);
             foreach ($result_emprunteur as $row) {
             ?>
@@ -63,7 +63,7 @@ mysqli_set_charset($session, "utf8");
                                     <label for="nom">Nom:</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['NomE']; ?>
+                                    <?php echo $row['NomPe']; ?>
                                 </TD>
                             </TR>
                             <TR>
@@ -71,7 +71,7 @@ mysqli_set_charset($session, "utf8");
                                     <label for="nom">Prénom:</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['PrenomE']; ?>
+                                    <?php echo $row['PrenomPe']; ?>
                                 </TD>
                             </TR>
                             <TR>
@@ -79,7 +79,7 @@ mysqli_set_charset($session, "utf8");
                                     <label for="nom">Email:</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['EmailE']; ?>
+                                    <?php echo $row['EmailPe']; ?>
                                 </TD>
                             </TR>
                             <TR>
@@ -87,7 +87,7 @@ mysqli_set_charset($session, "utf8");
                                     <label for=" nom ">Adresse:</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['AdresseE']; ?>
+                                    <?php echo $row['AdressePe']; ?>
                                 </TD>
                             </TR>
                             <TR>
@@ -95,7 +95,7 @@ mysqli_set_charset($session, "utf8");
                                     <label for=" nom ">Tel:</label>
                                 </TD>
                                 <TD>
-                                    <?php echo $row['TelE']; ?>
+                                    <?php echo $row['TelPe']; ?>
                                 </TD>
                             </TR>
                             <TR>

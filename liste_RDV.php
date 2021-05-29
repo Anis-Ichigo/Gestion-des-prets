@@ -61,26 +61,26 @@ mysqli_set_charset($session, "utf8");
 
                 <?php
 
-                $query_liste_rdv="
-                            SELECT 	em.identifiantE as ide, em.prenomE as prenom, em.nomE as nom, e.dateEmprunt as date_rdv,
-                                    cal.horaireCal as heure, e. identifiantM as idm,m. categorieM as type
-                            FROM 	materiel m, emprunt e, emprunteur em, calendrier cal
-                            WHERE 	em. identifiantE= e. identifiantE
-                            AND		e. identifiantM = m. identifiantM
-                            AND 	e. identifiantCal = cal. identifiantCal
+                $query_liste_rdv = "
+                            SELECT 	p.identifiantPe as ide, p.prenomPe as prenom, p.nomPe as nom, e.dateEmprunt as date_rdv,
+                                    cal.horaireCal as heure, e.identifiantM as idm, m.categorieM as type
+                            FROM 	materiel m, emprunt e, personne p, calendrier cal
+                            WHERE 	e.IdentifiantPe = p.identifiantPe
+                            AND		e.identifiantM = m.identifiantM
+                            AND 	e.identifiantCal = cal.identifiantCal
                             ";
-                $result_liste_rdv=mysqli_query($session, $query_liste_rdv);
-                if($result_liste_rdv != null) {
-                    while ( $ligne_liste_rdv=mysqli_fetch_array($result_liste_rdv)) {
-                        echo('<TR>');
-                        echo('<TD>' . $ligne_liste_rdv['ide'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['prenom'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['nom'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['date_rdv'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['heure'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['idm'] . '</TD>');
-                        echo('<TD>' . $ligne_liste_rdv['type'] . '</TD>');
-                        echo('</TR>');
+                $result_liste_rdv = mysqli_query($session, $query_liste_rdv);
+                if ($result_liste_rdv != null) {
+                    while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
+                        echo ('<TR>');
+                        echo ('<TD>' . $ligne_liste_rdv['ide'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['prenom'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['nom'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['date_rdv'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['heure'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['idm'] . '</TD>');
+                        echo ('<TD>' . $ligne_liste_rdv['type'] . '</TD>');
+                        echo ('</TR>');
                     }
                 }
                 ?>

@@ -68,9 +68,11 @@ mysqli_set_charset($session, "utf8");
 
 
                 $probleme = ("INSERT INTO `probleme`(`NomP`, `DateProbleme`, `DateResolution`, `Resolution`, `Description`, `IdentifiantPe`, `IdentifiantM`) 
-                VALUES ('$NomP', '$DateProbleme', NULL, NULL, '$Description', '$identifiant', '$IdentifiantM')");
+                VALUES ('$NomP', '$DateProbleme', NULL, 'Non résolu', '$Description', '$identifiant', '$IdentifiantM')");
                 $result_probleme = mysqli_query($session, $probleme);
 
+                $etat_non_dispo = "UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$IdentifiantM'";
+                $result_etat_non_dispo = mysqli_query($session, $etat_non_dispo);
             }
 
 
@@ -203,14 +205,49 @@ mysqli_set_charset($session, "utf8");
                 </TR>
 
                 <?php
-                $reservations = ("SELECT *
-                FROM emprunt, personne, probleme, materiel
-                WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
-                AND emprunt.IdentifiantM = materiel.IdentifiantM
-                AND probleme.IdentifiantPe = personne.IdentifiantPe
-                AND personne.IdentifiantPe = $identifiant;");
-                $result_reservations = mysqli_query($session, $reservations);
-                foreach ($result_reservations as $row) {
+                $reservations_sans_pb = ("SELECT *
+                FROM materiel M, personne Pe, emprunt E
+                WHERE e.IdentifiantM = m.IdentifiantM
+                AND e.IdentifiantPe = Pe.IdentifiantPe
+                AND m.IdentifiantM NOT IN (SELECT p.IdentifiantM
+                                            FROM probleme p, materiel m, personne pe
+                                            WHERE p.IdentifiantM = m.IdentifiantM
+                                            AND e.IdentifiantM = m.IdentifiantM
+                                            AND e.IdentifiantPe = Pe.IdentifiantPe
+                                            AND p.Resolution LIKE 'Non résolu')
+                AND pe.IdentifiantPe = '$identifiant';");
+                $result_reservations_sans_pb = mysqli_query($session, $reservations_sans_pb);
+                foreach ($result_reservations_sans_pb as $row) {
+                ?>
+                    <TR>
+                        <TD>
+                            <?php echo $row['IdentifiantM'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateEmprunt'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['DateRetour'] ?>
+                        </TD>
+                        <TD>
+                            <?php echo $row['CategorieM'] ?>
+                        </TD>
+                        <TD>
+                        </TD>
+                    </TR>
+                <?php
+                }
+
+                $reservations_avec_pb = ("SELECT *
+                FROM materiel M, personne Pe, emprunt E, probleme P
+                WHERE e.IdentifiantM = m.IdentifiantM
+                AND e.IdentifiantPe = Pe.IdentifiantPe
+                AND p.IdentifiantM = m.IdentifiantM
+                AND p.IdentifiantPe = Pe.identifiantPe
+                AND p.Resolution LIKE 'Non résolu'
+                AND pe.IdentifiantPe = '$identifiant';");
+                $result_reservations_avec_pb = mysqli_query($session, $reservations_avec_pb);
+                foreach ($result_reservations_avec_pb as $row) {
                 ?>
                     <TR>
                         <TD>
