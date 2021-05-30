@@ -202,6 +202,9 @@ mysqli_set_charset($session, "utf8");
                     <TH>
                         Problème
                     </TH>
+                    <TH>
+                    Prolonger Pret
+                    </TH>
                 </TR>
 
                 <?php
@@ -234,6 +237,10 @@ mysqli_set_charset($session, "utf8");
                         </TD>
                         <TD>
                         </TD>
+                        <TD>
+                        <a type="button" class="btn btn-primary" href="Prolongation.php">Prolonger</a>
+                        </TD>
+
                     </TR>
                 <?php
                 }
@@ -265,10 +272,15 @@ mysqli_set_charset($session, "utf8");
                         <TD>
                             <?php echo $row['NomP'] ?>
                         </TD>
+                        <TD>
+                        <a type="button" class="btn btn-primary" href="Prolongation.php">Prolonger</a>
+                        </TD>
                     </TR>
                 <?php
                 }
                 ?>
+
+
             </Table>
 
             <h2>Mes rendez-vous</h2>

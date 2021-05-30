@@ -86,6 +86,58 @@ mysqli_set_charset($session, "utf8");
                 ?>
 
             </Table>
+
+
+            <h1>Demandes de prolongation<h1>
+            <Table>
+<TR>
+                    <TH>
+                        Numéro de l'emprunt
+                    </TH>
+                    <TH>
+                        Numéro du materiel
+                    </TH>
+                    <TH>
+                        Type de matériel
+                    </TH>
+                    <TH>
+                        Date de retrait
+                    </TH>
+                    <TH>
+                        Date de retour actuelle
+                    </TH>
+                    <TH>
+                        Nouvelle date de retour
+                    </TH>
+                    <TH>
+                        Accepter/refuser
+                    </TH>
+ 
+                </TR>
+                <TR>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="IdentifiantEPR" value=" <?php echo $_GET["IdentifiantEPR"]?>">
+                        </TD>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="IdentifiantMPR" value="<?php echo $_GET["IdentifiantMPR"]?>"> 
+                        </TD>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="CategorieMPR" value="  <?php echo $_GET["CategorieMPR"]?>  ">
+                        </TD>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="DateEmpruntPR" value="  <?php echo $_GET["DateEmpruntPR"]?>">
+                        </TD>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="DateRetourPR" value="   <?php echo $_GET["DateRetourPR"]?>">
+                        </TD>
+                        <TD>
+                        <input type="text" class="form-control" autocomplete="off" name="Newdateretour" value="   <?php echo $_GET["NewDateretour"]?>">
+                        </TD>
+                        <TD>
+                        <input type="submit" id="pb" name="reparation" class="btn btn-primary" value="Valider_prolongation">
+                        </TD>
+
+</Table>
         </div>
     </main>
 </body>
