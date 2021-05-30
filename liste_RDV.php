@@ -138,6 +138,12 @@ mysqli_set_charset($session, "utf8");
                         </TD>
 
 </Table>
+
+<?php
+$idE=$_GET["IdentifiantEPR"];
+$newdate=$_GET["NewDateretour"]
+                $query_valider_prolongation = "UPDATE emprunt SET Dateretour = '$newdate' WHERE IdentifiantE = '$idE'";
+                ?>
         </div>
     </main>
 </body>
