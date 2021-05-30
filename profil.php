@@ -186,6 +186,7 @@ mysqli_set_charset($session, "utf8");
 
             <h2>Mes Réservations</h2>
             <Table class="table table-striped table-hover">
+
                 <TR>
                     <TH>
                         Numéro du materiel
@@ -203,7 +204,7 @@ mysqli_set_charset($session, "utf8");
                         Problème
                     </TH>
                     <TH>
-                    Prolonger Pret
+                        Prolonger Pret
                     </TH>
                 </TR>
 
@@ -222,26 +223,32 @@ mysqli_set_charset($session, "utf8");
                 $result_reservations_sans_pb = mysqli_query($session, $reservations_sans_pb);
                 foreach ($result_reservations_sans_pb as $row) {
                 ?>
-                    <TR>
-                        <TD>
-                            <?php echo $row['IdentifiantM'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['DateEmprunt'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['DateRetour'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['CategorieM'] ?>
-                        </TD>
-                        <TD>
-                        </TD>
-                        <TD>
-                        <a type="button" class="btn btn-primary" href="Prolongation.php">Prolonger</a>
-                        </TD>
+                    <form action="Prolongation.php" method="POST">
 
-                    </TR>
+                        <TR>
+                            <TD>
+                                <?php echo $row['IdentifiantM'] ?>
+                                <input type="hidden" name="IdentifiantMPR" value="<?php echo $row['IdentifiantM'] ?>">
+
+                            </TD>
+                            <TD>
+                                <?php echo $row['DateEmprunt'] ?>
+                            </TD>
+                            <TD>
+                                <?php echo $row['DateRetour'] ?>
+                            </TD>
+                            <TD>
+                                <?php echo $row['CategorieM'] ?>
+                            </TD>
+                            <TD>
+                            </TD>
+                            <TD>
+                                <input type="submit" class="btn btn-primary" value="Prolonger">
+                            </TD>
+
+                        </TR>
+
+                    </form>
                 <?php
                 }
 
@@ -256,79 +263,95 @@ mysqli_set_charset($session, "utf8");
                 $result_reservations_avec_pb = mysqli_query($session, $reservations_avec_pb);
                 foreach ($result_reservations_avec_pb as $row) {
                 ?>
-                    <TR>
-                        <TD>
-                            <?php echo $row['IdentifiantM'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['DateEmprunt'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['DateRetour'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['CategorieM'] ?>
-                        </TD>
-                        <TD>
-                            <?php echo $row['NomP'] ?>
-                        </TD>
-                        <TD>
-                        <a type="button" class="btn btn-primary" href="Prolongation.php">Prolonger</a>
-                        </TD>
-                    </TR>
+                    <form action="Prolongation.php" method="POST">
+                        <TR>
+                            <TD>
+                                <?php echo $row['IdentifiantM'] ?>
+                                <input type="hidden" name="IdentifiantMPR" value="<?php echo $row['IdentifiantM'] ?>">
+
+                            </TD>
+                            <TD>
+                                <?php echo $row['DateEmprunt'] ?>
+                            </TD>
+                            <TD>
+                                <?php echo $row['DateRetour'] ?>
+                            </TD>
+                            <TD>
+                                <?php echo $row['CategorieM'] ?>
+                            </TD>
+                            <TD>
+                                <?php echo $row['NomP'] ?>
+                            </TD>
+                            <TD>
+                                <input type="submit" class="btn btn-primary" value="Prolonger">
+                            </TD>
+                        </TR>
+                    </form>
                 <?php
                 }
                 ?>
-
-
             </Table>
 
             <h2>Mes rendez-vous</h2>
 
-            <Table class="table table-striped table-hover">
-                <TR>
-                    <TH>
-                        Numéro de matériel
-                    </TH>
-                    <TH>
-                        Type de matériel
-                    </TH>
-                    <TH>
-                        Date
-                    </TH>
-                    <TH>
-                        Heure
-                    </TH>
-                </TR>
+            <form action="Prolongation.php" method="POST">
+                <Table class="table table-striped table-hover">
+                    <TR>
+                        <TH>
+                            Numéro de matériel
+                        </TH>
+                        <TH>
+                            Type de matériel
+                        </TH>
+                        <TH>
+                            Date
+                        </TH>
+                        <TH>
+                            Heure
+                        </TH>
+                    </TR>
 
-                <?php
-                $reservations = ("SELECT *
+                    <?php
+                    $reservations = ("SELECT *
                 FROM emprunt, personne, materiel, calendrier 
                 WHERE emprunt.IdentifiantM = materiel.IdentifiantM 
                 AND emprunt.IdentifiantPe = personne.IdentifiantPe 
                 AND emprunt.IdentifiantCal = calendrier.IdentifiantCal 
                 AND personne.IdentifiantPe = $identifiant;");
-                $result_reservations = mysqli_query($session, $reservations);
-                foreach ($result_reservations as $row) {
-                ?>
-                    <tr>
-                        <td>
-                            <?php echo $row['IdentifiantM'] ?>
-                        </td>
-                        <td>
-                            <?php echo $row['CategorieM'] ?>
-                        </td>
-                        <td>
-                            <?php echo $row['DateEmprunt'] ?>
-                        </td>
-                        <td>
-                            <?php echo $row['HoraireCal'] ?>
-                        </td>
-                    </tr>
+                    $result_reservations = mysqli_query($session, $reservations);
+                    foreach ($result_reservations as $row) {
+                    ?>
+                        <tr>
+                            <td>
+                                <?php echo $row['IdentifiantM'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['CategorieM'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['DateEmprunt'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['HoraireCal'] ?>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </Table>
+
+
                 <?php
+                if (isset($_POST['demander_prolongation'])) {
+                    $idE = $_POST["IdentifiantEPR"];
+                    $newdate = $_POST["NewDateretour"];
+                    $idM = $_POST['IdentifiantMPR'];
+                    $query_demander_prolongation = "UPDATE emprunt SET DateProlongation = '$newdate' WHERE IdentifiantE = '$idE'";
+                    $result_demande_prolongation = mysqli_query($session, $query_demander_prolongation);
+                    $query_en_attente = "UPDATE materiel SET EtatM = 'En attente' WHERE IdentifiantM = '$idM'";
+                    $result_en_attente = mysqli_query($session, $query_en_attente);
                 }
                 ?>
-            </Table>
         </div>
     </main>
 </body>

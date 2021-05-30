@@ -87,63 +87,76 @@ mysqli_set_charset($session, "utf8");
 
             </Table>
 
+            <?php
+            
 
-            <h1>Demandes de prolongation<h1>
-            <Table>
-<TR>
-                    <TH>
-                        Numéro de l'emprunt
-                    </TH>
-                    <TH>
-                        Numéro du materiel
-                    </TH>
-                    <TH>
-                        Type de matériel
-                    </TH>
-                    <TH>
-                        Date de retrait
-                    </TH>
-                    <TH>
-                        Date de retour actuelle
-                    </TH>
-                    <TH>
-                        Nouvelle date de retour
-                    </TH>
-                    <TH>
-                        Accepter/refuser
-                    </TH>
- 
-                </TR>
-                <TR>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="IdentifiantEPR" value=" <?php echo $_GET["IdentifiantEPR"]?>">
-                        </TD>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="IdentifiantMPR" value="<?php echo $_GET["IdentifiantMPR"]?>"> 
-                        </TD>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="CategorieMPR" value="  <?php echo $_GET["CategorieMPR"]?>  ">
-                        </TD>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="DateEmpruntPR" value="  <?php echo $_GET["DateEmpruntPR"]?>">
-                        </TD>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="DateRetourPR" value="   <?php echo $_GET["DateRetourPR"]?>">
-                        </TD>
-                        <TD>
-                        <input type="text" class="form-control" autocomplete="off" name="Newdateretour" value="   <?php echo $_GET["NewDateretour"]?>">
-                        </TD>
-                        <TD>
-                        <input type="submit" id="pb" name="reparation" class="btn btn-primary" value="Valider_prolongation">
-                        </TD>
+            $query_materiel_attente = "SELECT * FROM materiel, emprunt WHERE materiel.IdentifiantM = emprunt.IdentifiantM AND EtatM LIKE 'En attente';";
+            $result = mysqli_query($session, $query_materiel_attente);
 
-</Table>
+            foreach ($result as $row) {
 
-<?php
-$idE=$_GET["IdentifiantEPR"];
-$newdate=$_GET["NewDateretour"]
-                $query_valider_prolongation = "UPDATE emprunt SET Dateretour = '$newdate' WHERE IdentifiantE = '$idE'";
-                ?>
+
+
+            ?>
+                <h2>Demandes de prolongation</h2>
+
+                <form action="gestion_prolongation.php" method="POST">
+                    <Table class="table table-striped table-hover">
+                        <TR>
+                            <TH>
+                                Numéro de l'emprunt
+                            </TH>
+                            <TH>
+                                Numéro du materiel
+                            </TH>
+                            <TH>
+                                Type de matériel
+                            </TH>
+                            <TH>
+                                Date de retrait
+                            </TH>
+                            <TH>
+                                Date de retour actuelle
+                            </TH>
+                            <TH>
+                                Date de retour demandée
+                            </TH>
+                            <TH>
+                                Accepter/refuser
+                            </TH>
+                        </TR>
+                        <TR>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="IdentifiantEPR" value="<?php echo $row["IdentifiantE"] ?>">
+                            </TD>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="IdentifiantMPR" value="<?php echo $row["IdentifiantM"] ?>">
+                            </TD>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="CategorieMPR" value="<?php echo $row["CategorieM"] ?>  ">
+                            </TD>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateEmpruntPR" value="<?php echo $row["DateEmprunt"] ?>">
+                            </TD>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateRetourPR" value="<?php echo $row["DateRetour"] ?>">
+                            </TD>
+                            <TD>
+                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateProlongation" value="<?php echo $row["DateProlongation"] ?>">
+                            </TD>
+                            <TD>
+                                <input type="submit" class="btn btn-primary" name="valider_prolongation" value="Valider">
+                                <input type="submit" class="btn btn-primary" name="refuser_prolongation" value="Refuser">
+                            </TD>
+                        </TR>
+
+                    </Table>
+                </form>
+            <?php
+            }
+            ?>
+
+
         </div>
     </main>
 </body>
