@@ -32,7 +32,7 @@ define('MDP_INCOMPLET', 'Please complete all fields');
 
 //My appointments
 define('TXT_RDV', 'My Appointments');
-define('TXT_NUMERO', 'Equipment number');
+define('TXT_NUMERO', 'Equipment No');
 define('TXT_TYPE', 'Equipment type');
 define('TXT_DATE', 'Date');
 define('TXT_HEURE', 'Hour');

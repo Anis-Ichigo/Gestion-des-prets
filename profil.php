@@ -9,7 +9,7 @@ require('decide-lang.php');
 <head>
   <meta charset="utf-8" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-  <link rel="stylesheet" href="Styletest.css" type="text/css">
+  <link rel="stylesheet" href="styletest.css" type="text/css">
   <link rel="stylesheet" href="menu.css" type="text/css">
   <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
   <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
@@ -41,9 +41,34 @@ require('decide-lang.php');
         <li class="nav-item  text-center">
           <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
         </li>
-        <li class="nav-item  text-center">
-          <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
-        </li>
+        <?php
+        if($role_pe == "Responsable"){
+          ?>
+          <li class="nav-item  text-center">
+            <a class="nav-link" href="#"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
+          </li>
+          <li class="nav-item  text-center">
+            <a class="nav-link" href="#"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+          </li>
+          <li class="nav-item  text-center">
+            <a class="nav-link" href="#"><i class=" fi-rr-stats"></i> Statistiques</a>
+          </li>
+          <?php
+        }else if($role_pe == "Vacataire"){
+          ?>
+          <li class="nav-item  text-center">
+            <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+          </li>
+          <?php
+        }
+        else if($role_pe != "Responsable"){
+          ?>
+          <li class="nav-item  text-center">
+            <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
+          </li>
+          <?php
+        }
+        ?>
         <li class="nav-item  text-center">
           <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
         </li>
@@ -58,16 +83,13 @@ require('decide-lang.php');
       </span>
     </div>
   </div>
-</nav>
+  </nav>
 
-
-
-
-
-
-
-
-
+  <?php
+  $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = $_SESSION['identifiant']";
+  $resultat = mysqli_query($session, $role_pe);
+  $role_user = $resultat["Role_Pe"];
+   ?>
 
 <?php
 $identifiant = $_SESSION['identifiant'];
@@ -131,7 +153,7 @@ foreach ($result_emprunteur as $row) {
                         <!-- <H2><?php echo TXT_INFORMATION; ?></H2> -->
 
                         <div class="panel" style=" text-align: center">
-                            <TABLE NOBOARDER style="display:inline; text-align: center">
+                            <TABLE NOBOARDER style="display:inline; text-align: center; margin-left: 7%;">
                                 <TR>
 
                                     <TD style="text-align : left">
@@ -150,11 +172,11 @@ foreach ($result_emprunteur as $row) {
                                     </TD>
                                 </TR>
                                 <TR>
-                                    <TD style="text-align : left">
+                                    <TD style="text-align : left;">
                                         <?php echo TXT_EMAIL; ?>:
                                     </TD>
                                     <TD>
-                                        <input type="text" readonly class="form-control-plaintext" name="EmailPe" value="<?php echo $row['EmailPe']; ?>">
+                                        <input type="text" size="30" readonly class="form-control-plaintext" name="EmailPe" value="<?php echo $row['EmailPe']; ?>">
                                     </TD>
                                 </TR>
                                 <TR>
@@ -167,7 +189,7 @@ foreach ($result_emprunteur as $row) {
                                 </TR>
 
                                 <TR>
-                                    <TD style="text-align : left">
+                                    <TD style="text-align : left; width: 40%;">
                                         <?php echo TXT_TEL; ?>:
                                     </TD>
                                     <TD>
@@ -459,22 +481,28 @@ foreach ($result_emprunteur as $row) {
                     <!--<h2><?php echo TXT_RDV; ?></h2> -->
 
                     <div class="panel">
-                        <br>
 
 
+<div style="display: block ;text-align :center;">
 
-                        <div class="container">
-                          <div class="row">
-                            <div class="card-columns">
-                              <div class="col-12">
+
+<table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
+  <tr>
+
+
                                 <?php
+                                $i = 0;
                         foreach ($result_reservations as $row) {
 
                         ?>
-                        <div class="card-deck" style="width: 30%;">
 
 
-                            <div class="card" style="justify-items: stretch;">
+
+                    <?php
+                      if($i%3 != 0){
+                    ?>
+                        <td>
+                            <div class="card">
                                 <div class="card-body">
                                     <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
                                     <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
@@ -484,7 +512,7 @@ foreach ($result_emprunteur as $row) {
 
                                     <table>
                                         <tr>
-                                            <td>
+                                            <td style="text-align : left">
                                                 <?php echo TXT_DATE; ?>
                                             </td>
                                             <td>
@@ -494,7 +522,7 @@ foreach ($result_emprunteur as $row) {
                                         </tr>
 
                                         <tr>
-                                            <td>
+                                            <td style="text-align : left">
                                                 <?php echo  TXT_HEURE; ?>
                                             </td>
                                             <td>
@@ -504,7 +532,7 @@ foreach ($result_emprunteur as $row) {
                                         </tr>
 
                                         <tr>
-                                            <td style=" width: 60%">
+                                            <td style="text-align : left; width: 70%">
                                                 <?php echo TXT_NUMERO; ?>
                                             </td>
                                             <td>
@@ -514,7 +542,7 @@ foreach ($result_emprunteur as $row) {
                                         </tr>
 
                                         <tr>
-                                            <td>
+                                            <td style="text-align : left">
                                                 <?php echo  TXT_BUREAU; ?>
                                             </td>
                                             <td>
@@ -525,20 +553,91 @@ foreach ($result_emprunteur as $row) {
                                     </table>
 
                                     <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
                                     <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>' >
                                 </div>
                             </div>
                           </div>
+                        </td>
+                        <?php
+}
+                        else if($i%3 == 0){
 
+                        ?>
+                        <tr>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
+                                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+                                    <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
+                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
 
+                                    <table>
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo TXT_DATE; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                <?php $dt = $row['DateEmprunt']; $date = DateTime::createFromFormat('Y-m-d', $dt); $dateAffichee = $date->format('d/m/Y'); echo $dateAffichee; ?>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo  TXT_HEURE; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
+                                                <?php echo $row['HoraireCal'] ?>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align : left; width: 70%">
+                                                <?php echo TXT_NUMERO; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] . "  "; ?>">
+                                                <?php echo "  " . $row['IdentifiantM'] ?>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo  TXT_BUREAU; ?>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
+                                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>' >
+                                </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        <?php
+
+                        }
+                         ?>
                     <?php
+
+$i += 1;
                         }
                         ?>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+</tr>
+              </tr>
+            </table>
+            </div>
                 <?php
                     }
                     ?>

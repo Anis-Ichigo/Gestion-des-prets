@@ -1,8 +1,3 @@
-<?php
-session_start();
-require('Connexion_BD.php');
-mysqli_set_charset($session, "utf8");
-?>
 <!DOCTYPE html>
 <html>
 
@@ -17,20 +12,72 @@ mysqli_set_charset($session, "utf8");
 
 <body>
     <main>
-        <div class="menu">
-            <div>
-                <a href="Index.html"><img src="images/logo.jpg" alt="logo"></a>
-                <b>Profil</b>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid ">
+        <img src="Bandeau.png" href="https://www.ut-capitole.fr/"/>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"> </span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: auto">
+            <li class="nav-item  text-center">
+              <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+            </li>
+            <li class="nav-item  text-center">
+              <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
+            </li>
+            <li class="nav-item  text-center">
+              <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
+            </li>
+            <?php
+            if($role_pe == "Responsable"){
+              ?>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="#"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
+              </li>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="#"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+              </li>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="#"><i class=" fi-rr-stats"></i> Statistiques</a>
+              </li>
+              <?php
+            }else if($role_pe == "Vacataire"){
+              ?>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+              </li>
+              <?php
+            }
+            else if($role_pe != "Responsable"){
+              ?>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
+              </li>
+              <?php
+            }
+            ?>
+            <li class="nav-item  text-center">
+              <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <div class="mycharts-heading">
+              <div class="element-head">
+                  <?php echo $_SESSION['nom']; ?>
+                  <a href="deconnexion.php" type="button" class="btn btn-default"><i class="fi-rr-sign-out"></i></a>
+              </div>
             </div>
-            <div><a href="profil.php"><i class="fas fa-users"></i></a><b>Nouvelle réservation</b></div>
-            <div><a href="reservation.php"><i class="far fa-plus-square"></i></a><b>Forum</b></div>
-            <div><a href="FAQ.html"><i class="far fa-comment-dots"></i></a><b>Entretien</b></div>
-            <div><a href="entretien.php"><i class="fas fi-rr-settings"></i></a><b>Liste RDV</b></div>
-            <div><a href="liste_RDV.php"><i class="far fa-check-square"></i></a><b>Liste des prêts</b></div>
-            <div><a href="suivi_prets.php"><i class="far fa-handshake"></i></a><b>Statistiques</b></div>
-            <div><a href="Statistiques.html"><i class="far fi-rr-stats"></i></a></div>
+          </span>
         </div>
+      </div>
+    </nav>
 
+<?php
+$role_pe = "SELECT * FROM personne WHERE IdentifiantPe = $_SESSION['identifiant']";
+$resultat = mysqli_query($session, $role_pe);
+$role_user = $resultat["Role_Pe"];
+ ?>
         <div class="contenu">
             <h1>Liste des RDV</h1>
 
@@ -60,103 +107,33 @@ mysqli_set_charset($session, "utf8");
                 </TR>
 
                 <?php
+                require_once('Connexion_BD.php');
 
-                $query_liste_rdv = "
-                            SELECT 	p.identifiantPe as ide, p.prenomPe as prenom, p.nomPe as nom, e.dateEmprunt as date_rdv,
-                                    cal.horaireCal as heure, e.identifiantM as idm, m.categorieM as type
-                            FROM 	materiel m, emprunt e, personne p, calendrier cal
-                            WHERE 	e.IdentifiantPe = p.identifiantPe
-                            AND		e.identifiantM = m.identifiantM
-                            AND 	e.identifiantCal = cal.identifiantCal
+                $query_liste_rdv="
+                            SELECT 	em.identifiantE as ide, em.prenomE as prenom, em.nomE as nom, e.dateEmprunt as date_rdv,
+                                    cal.horaireCal as heure, e. identifiantM as idm,m. categorieM as type
+                            FROM 	materiel m, emprunt e, emprunteur em, calendrier cal
+                            WHERE 	em. identifiantE= e. identifiantE
+                            AND		e. identifiantM = m. identifiantM
+                            AND 	e. identifiantCal = cal. identifiantCal
                             ";
-                $result_liste_rdv = mysqli_query($session, $query_liste_rdv);
-                if ($result_liste_rdv != null) {
-                    while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
-                        echo ('<TR>');
-                        echo ('<TD>' . $ligne_liste_rdv['ide'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['prenom'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['nom'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['date_rdv'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['heure'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['idm'] . '</TD>');
-                        echo ('<TD>' . $ligne_liste_rdv['type'] . '</TD>');
-                        echo ('</TR>');
+                $result_liste_rdv=mysqli_query($session, $query_liste_rdv);
+                if($result_liste_rdv != null) {
+                    while ( $ligne_liste_rdv=mysqli_fetch_array($result_liste_rdv)) {
+                        echo('<TR>');
+                        echo('<TD>' . $ligne_liste_rdv['ide'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['prenom'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['nom'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['date_rdv'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['heure'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['idm'] . '</TD>');
+                        echo('<TD>' . $ligne_liste_rdv['type'] . '</TD>');
+                        echo('</TR>');
                     }
                 }
                 ?>
 
             </Table>
-
-            <?php
-            
-
-            $query_materiel_attente = "SELECT * FROM materiel, emprunt WHERE materiel.IdentifiantM = emprunt.IdentifiantM AND EtatM LIKE 'En attente';";
-            $result = mysqli_query($session, $query_materiel_attente);
-
-            foreach ($result as $row) {
-
-
-
-            ?>
-                <h2>Demandes de prolongation</h2>
-
-                <form action="gestion_prolongation.php" method="POST">
-                    <Table class="table table-striped table-hover">
-                        <TR>
-                            <TH>
-                                Numéro de l'emprunt
-                            </TH>
-                            <TH>
-                                Numéro du materiel
-                            </TH>
-                            <TH>
-                                Type de matériel
-                            </TH>
-                            <TH>
-                                Date de retrait
-                            </TH>
-                            <TH>
-                                Date de retour actuelle
-                            </TH>
-                            <TH>
-                                Date de retour demandée
-                            </TH>
-                            <TH>
-                                Accepter/refuser
-                            </TH>
-                        </TR>
-                        <TR>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="IdentifiantEPR" value="<?php echo $row["IdentifiantE"] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="IdentifiantMPR" value="<?php echo $row["IdentifiantM"] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="CategorieMPR" value="<?php echo $row["CategorieM"] ?>  ">
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateEmpruntPR" value="<?php echo $row["DateEmprunt"] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateRetourPR" value="<?php echo $row["DateRetour"] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" class="form-control-plaintext" autocomplete="off" name="DateProlongation" value="<?php echo $row["DateProlongation"] ?>">
-                            </TD>
-                            <TD>
-                                <input type="submit" class="btn btn-primary" name="valider_prolongation" value="Valider">
-                                <input type="submit" class="btn btn-primary" name="refuser_prolongation" value="Refuser">
-                            </TD>
-                        </TR>
-
-                    </Table>
-                </form>
-            <?php
-            }
-            ?>
-
-
         </div>
     </main>
 </body>

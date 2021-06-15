@@ -9,7 +9,7 @@ define('TXT_PRENOM', 'Prénom');
 define('TXT_NOM', 'Nom');
 define('TXT_EMAIL', 'Email');
 define('TXT_ADRESSE', 'Adresse');
-define('TXT_TEL', 'Numéro de téléphone');
+define('TXT_TEL', 'N° de téléphone');
 define('TXT_IDENTITE', 'Vous êtes');
 define('TXT_FORMATION', 'Formation');
 define('TXT_MODIFP', 'Modifier le profil');
@@ -33,7 +33,7 @@ define('MDP_INCOMPLET', 'Veuillez remplir tous les champs !');
 //Mes rendez-Vous
 
 define('TXT_RDV', 'Mes rendez-vous');
-define('TXT_NUMERO', 'Numéro de matériel');
+define('TXT_NUMERO', 'N° de matériel');
 define('TXT_TYPE', 'Type de matériel');
 define('TXT_DATE', 'Date');
 define('TXT_HEURE', 'Heure');
