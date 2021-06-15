@@ -50,7 +50,10 @@ require('decide-lang.php');
       </ul>
       <span class="navbar-text">
         <div class="mycharts-heading">
-            <div class="element-head" > <?php echo $_SESSION['nom']; ?><button type="button" id="b1" class="btn btn-default btn-sm" ><i class="fi-rr-sign-out"></i></button></div>
+          <div class="element-head">
+              <?php echo $_SESSION['nom']; ?>
+              <a href="deconnexion.php" type="button" class="btn btn-default"><i class="fi-rr-sign-out"></i></a>
+          </div>
         </div>
       </span>
     </div>
@@ -196,7 +199,7 @@ foreach ($result_emprunteur as $row) {
                             <br><br>
                             <p>
                                 <input type="submit" name="modifier_profil" class="btn btn-primary" value="<?php echo TXT_MODIFP; ?>">
-                                <br><br>
+                                &nbsp;&nbsp;
                                 <input type="submit" class="btn btn-primary" name="modifier_mdp2" value="<?php echo TXT_MODIFMDP; ?>">
                             </p>
                         </div>
@@ -458,20 +461,27 @@ foreach ($result_emprunteur as $row) {
                     <div class="panel">
                         <br>
 
-                        <?php
 
 
+                        <div class="container">
+                          <div class="row">
+                            <div class="card-columns">
+                              <div class="col-12">
+                                <?php
                         foreach ($result_reservations as $row) {
 
                         ?>
-                            <div class="card">
+                        <div class="card-deck" style="width: 30%;">
+
+
+                            <div class="card" style="justify-items: stretch;">
                                 <div class="card-body">
                                     <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
                                     <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
                                     <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
                                     <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
                                     <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
-                                    <p class="card-text">
+
                                     <table>
                                         <tr>
                                             <td>
@@ -513,17 +523,26 @@ foreach ($result_emprunteur as $row) {
                                         </tr>
 
                                     </table>
-                                    </p>
+
                                     <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>' style="float:right;">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>' >
                                 </div>
                             </div>
-                            <br>
+                          </div>
+
 
                     <?php
                         }
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php
                     }
                     ?>
+
             </form>
 
         </div>
