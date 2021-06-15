@@ -32,7 +32,14 @@ require('decide-lang.php');
 
 
 <body>
-
+    <?php
+    $identifiant = $_SESSION['identifiant'];
+    $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
+    $resultat = mysqli_query($session, $role_pe);
+    foreach ($resultat as $row) {
+        $role_user = $row["RolePe"];
+    }
+    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid ">
             <img src="Bandeau.png" href="https://www.ut-capitole.fr/" />
@@ -41,45 +48,70 @@ require('decide-lang.php');
             </button>
             <div class="collapse navbar-collapse " id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: auto">
-                    <li class="nav-item  text-center">
-                        <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
-                    </li>
+
                     <?php
-                    if ($role_pe == "Responsable") {
+                    if ($role_user == "Responsable") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="#"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
+                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="#"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+                            <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="#"><i class=" fi-rr-stats"></i> Statistiques</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="Statistiques.html"><i class=" fi-rr-stats"></i> Statistiques</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
                         </li>
                     <?php
-                    } else if ($role_pe == "Vacataire") {
+                    } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
                         </li>
                     <?php
-                    } else if ($role_pe != "Responsable") {
+                    } else if ($role_user == "Emprunteur") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="FAQ.php"><i class=" fi-rr-interrogation"></i> FAQ</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
                         </li>
                     <?php
                     }
                     ?>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
-                    </li>
                 </ul>
                 <span class="navbar-text">
                     <div class="mycharts-heading">
@@ -93,12 +125,7 @@ require('decide-lang.php');
         </div>
     </nav>
 
-    <?php
-    $identifiant = $_SESSION['identifiant'];
-    $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
-    $resultat = mysqli_query($session, $role_pe);
-    $role_user = $resultat["Role_Pe"];
-    ?>
+
 
     <?php
 
