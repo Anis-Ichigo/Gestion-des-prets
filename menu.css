@@ -1,0 +1,16 @@
+
+
+nav + div:hover{
+  background-color: blue;
+
+}
+
+img{
+  width:30%;
+}
+
+nav{
+  padding-top: -10px;
+  padding-bottom: -10px;
+
+}
