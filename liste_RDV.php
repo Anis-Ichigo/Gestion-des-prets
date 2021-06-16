@@ -1,3 +1,10 @@
+<?php
+require('decide-lang.php');
+require('Connexion_BD.php');
+mysqli_set_charset($session, "utf8");
+date_default_timezone_set('Europe/Paris');
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,7 +12,7 @@
   <title>Valide</title>
   <meta charset="utf-8" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="menu.css" type="text/css">
   <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
   <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
 </head>
@@ -35,7 +42,7 @@
             if ($role_user == "Responsable") {
             ?>
               <li class="nav-item  text-center">
-                <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
+                <a class="nav-link active" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
               </li>
               <li class="nav-item  text-center">
                 <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
@@ -44,7 +51,7 @@
                 <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
               </li>
               <li class="nav-item  text-center">
-                <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
               </li>
               <li class="nav-item  text-center">
                 <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
@@ -113,6 +120,9 @@
 
       <Table class="table table-striped table-hover">
         <TR>
+          <th>
+            Motif du RDV
+          </th>
           <TH>
             ID de l'emprunteur
           </TH>
@@ -134,34 +144,75 @@
           <TH>
             Type de matériel
           </TH>
+          <th></th>
         </TR>
 
         <?php
         require_once('Connexion_BD.php');
 
         $query_liste_rdv = "
-                            SELECT 	em.identifiantE as ide, em.prenomE as prenom, em.nomE as nom, e.dateEmprunt as date_rdv,
-                                    cal.horaireCal as heure, e. identifiantM as idm,m. categorieM as type
-                            FROM 	materiel m, emprunt e, emprunteur em, calendrier cal
-                            WHERE 	em. identifiantE= e. identifiantE
-                            AND		e. identifiantM = m. identifiantM
-                            AND 	e. identifiantCal = cal. identifiantCal
+                            SELECT 	p.IdentifiantPe as ide, p.PrenomPe as prenom, p.NomPe as nom, e.DateEmprunt as date_rdv,
+                                    cal.HoraireCal as heure, e.IdentifiantM as idm, m.CategorieM as type, cal.IdentifiantCal as idc, e.motif as motif
+                            FROM 	materiel m, emprunt e, personne p, calendrier cal
+                            WHERE 	p.IdentifiantPe= e.IdentifiantPe
+                            AND		e.IdentifiantM = m.IdentifiantM
+                            AND 	e.IdentifiantCal = cal.IdentifiantCal
+                            AND Statut_RDV LIKE 'à venir'
+                            ORDER BY e.DateEmprunt ASC
                             ";
         $result_liste_rdv = mysqli_query($session, $query_liste_rdv);
         if ($result_liste_rdv != null) {
-          while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
-            echo ('<TR>');
-            echo ('<TD>' . $ligne_liste_rdv['ide'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['prenom'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['nom'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['date_rdv'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['heure'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['idm'] . '</TD>');
-            echo ('<TD>' . $ligne_liste_rdv['type'] . '</TD>');
-            echo ('</TR>');
-          }
-        }
         ?>
+          <form action="RDV_termine.php" method="POST">
+            <?php
+            while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
+
+            ?>
+              <tr>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['motif'] ?>" name='motif' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['ide'] ?>" name='ide' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['prenom'] ?>" name='prenom' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['nom'] ?>" name='nom' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['date_rdv'] ?>" name='date_rdv' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['heure'] ?>" name='heure' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idm'] ?>" name='idm' readonly>
+                </td>
+                <td>
+                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['type'] ?>" name='type' readonly>
+                </td>
+                <input type='hidden' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idc'] ?>" name='idc' readonly>
+                <td>
+                  <?php if ($ligne_liste_rdv['date_rdv'] <= strftime("%Y-%m-%d", strtotime("now")) && $ligne_liste_rdv['heure'] <= strftime('H:i:s')) {
+
+                  ?>
+                    <input type="submit" class="btn btn-primary" value="RDV terminé" name="RDV_termine">
+                  <?php
+                  }
+                  ?>
+                </td>
+
+              </tr>
+
+          </form>
+      <?php
+            }
+          }
+
+
+      ?>
 
       </Table>
     </div>
