@@ -45,19 +45,19 @@ mysqli_set_charset($session, "utf-8");
                             <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
                         </li>
                         <li class="nav-item  text-center">
+                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" style="background-color: none; color:black" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
                             <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" style="background-color: none; color: black" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>

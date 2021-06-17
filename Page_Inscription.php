@@ -327,6 +327,7 @@ if (isset($_POST['inscription'])) {
             $_SESSION['tel'] = $tel;
             $_SESSION['statut'] = $statut;
             $_SESSION['formation'] = $formation;
+            $_SESSION['role'] = "Empruteur";
 
   ?>
             <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
