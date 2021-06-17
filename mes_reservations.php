@@ -139,173 +139,242 @@ date_default_timezone_set('Europe/Paris');
                         WHERE emprunt.IdentifiantM = materiel.IdentifiantM
                         AND emprunt.IdentifiantPe = personne.IdentifiantPe
                         AND emprunt.Motif LIKE 'Acquisition'
+                        AND emprunt.Statut_RDV LIKE 'terminé'
                         AND emprunt.IdentifiantPe = '$identifiant'");
 
     $result_reservations = mysqli_query($session, $reservations);
     $nb_lignes = mysqli_num_rows($result_reservations);
 
     if ($nb_lignes > 0) {
+        foreach ($result_reservations as $row) {
 
 
     ?>
+            <!--
         <form action="" method="POST">
 
             <div style="display: block ;text-align :center;">
                 <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
 
-                    <td>
 
+                    <?php
+
+                    /* $i = 0;
+                    foreach ($result_reservations as $row) {
+
+                        if ($i % 3 != 0) {*/
+                    ?>
+                            <td>
+                                <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                        <p class="card-text">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <?php echo TXT_NUMERO; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <?php echo TXT_RETRAIT; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
+                                                    <input type="text" value="<?php $dt = $row['DateEmprunt'];
+                                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                                echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <?php echo TXT_DATER; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
+                                                    <input type="text" value="<?php $dt = $row['DateRetour'];
+                                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                                echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <?php echo TXT_TYPE; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
+                                            <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
+                                            <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        <?php
+                        //} else if ($i % 3 == 0) {
+
+                        ?>
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                            <p class="card-text">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <?php echo TXT_NUMERO; ?>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <?php echo TXT_RETRAIT; ?>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
+                                                        <input type="text" value="<?php $dt = $row['DateEmprunt'];
+                                                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                                    $dateAffichee = $date->format('d/m/Y');
+                                                                                    echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <?php echo TXT_DATER; ?>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
+                                                        <input type="text" value="<?php $dt = $row['DateRetour'];
+                                                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                                    $dateAffichee = $date->format('d/m/Y');
+                                                                                    echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <?php echo TXT_TYPE; ?>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="text-center">
+                                                <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
+                                                <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
+                                                <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
                         <?php
 
-                        $i = 0;
-                        foreach ($result_reservations as $row) {
+                        /*}
 
-                            if ($i % 3 != 0) {
+                        $i += 1;
+                    }
                         ?>
-                    <td>
-                        <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+                            </tr>
 
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
-                                <p class="card-text">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <?php echo TXT_NUMERO; ?>
-                                        </td>
-                                        <td>
-                                            <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <?php echo TXT_RETRAIT; ?>
-                                        </td>
-                                        <td>
-                                            <input type="hidden" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
-                                            <input type="text" value="<?php $dt = $row['DateEmprunt'];
-                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                                        $dateAffichee = $date->format('d/m/Y');
-                                                                        echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <?php echo TXT_DATER; ?>
-                                        </td>
-                                        <td>
-                                            <input type="hidden" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
-                                            <input type="text" value="<?php $dt = $row['DateRetour'];
-                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                                        $dateAffichee = $date->format('d/m/Y');
-                                                                        echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <?php echo TXT_TYPE; ?>
-                                        </td>
-                                        <td>
-                                            <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="text-center">
-                                    <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
-                                    <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
-                                    <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
-                                </div>
-
-                            </div>
-                        </div>
-                    </td>
-                <?php
-                            } else if ($i % 3 == 0) {
-
-                ?>
-
-                    <tr>
-
-                        <td>
-
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
-                                    <p class="card-text">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <?php echo TXT_NUMERO; ?>
-                                            </td>
-                                            <td>
-                                                <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <?php echo TXT_RETRAIT; ?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
-                                                <input type="text" value="<?php $dt = $row['DateEmprunt'];
-                                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                                            $dateAffichee = $date->format('d/m/Y');
-                                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <?php echo TXT_DATER; ?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
-                                                <input type="text" value="<?php $dt = $row['DateRetour'];
-                                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                                            $dateAffichee = $date->format('d/m/Y');
-                                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <?php echo TXT_TYPE; ?>
-                                            </td>
-                                            <td>
-                                                <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="text-center">
-                                        <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
-                                        <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
-                                        <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </td>
-                <?php
-
-                            }
-
-                            $i += 1;
-                        }
-                ?>
-                    </tr>
-                    
-
+                        <?php
+                    }*/
+                        ?>
                 </table>
             </div>
         </form>
+                -->
+            <form action="" method="POST">
 
+                <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+
+                <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                        <p class="card-text">
+                        <table>
+                            <tr>
+                                <td>
+                                    <?php echo TXT_NUMERO; ?>
+                                </td>
+                                <td>
+                                    <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <?php echo TXT_RETRAIT; ?>
+                                </td>
+                                <td>
+                                    <input type="text" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
+                                    <input type="text" value="<?php $dt = $row['DateEmprunt'];
+                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <?php echo TXT_DATER; ?>
+                                </td>
+                                <td>
+                                    <input type="text" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
+                                    <input type="text" value="<?php $dt = $row['DateRetour'];
+                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <?php echo TXT_TYPE; ?>
+                                </td>
+                                <td>
+                                    <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
+                            <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
+                            <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
+                        </div>
+
+                    </div>
+                </div>
+            </form>
 
     <?php
+        }
     }
     ?>
 
@@ -317,6 +386,8 @@ date_default_timezone_set('Europe/Paris');
 
             <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
             <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
+            <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
+
             <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -581,7 +652,7 @@ date_default_timezone_set('Europe/Paris');
 
 
 
-                <FORM method="POST" action="profil.php">
+                <FORM method="POST" action="">
 
                     <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
                     <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
@@ -595,7 +666,11 @@ date_default_timezone_set('Europe/Paris');
                                 <div class="modal-body">
 
                                     <?php $date_res = $_POST['DateRetour'] ?>
+                                    <?php echo $date_res ?>
+
                                     <?php $jour_res = strftime('%A', strtotime($date_res)) ?>
+                                    <?php echo $jour_res ?>
+
 
                                     <?php if ($jour_res == 'Monday') {
                                     ?>
@@ -957,7 +1032,7 @@ date_default_timezone_set('Europe/Paris');
                                 </div>
                                 <div class="modal-footer">
                                     <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_RETOUR; ?>">
-                                    <input type="submit" class="btn btn-primary" name="confirmer_modif_rdv" value="<?php echo TXT_CONFIRMER; ?>">
+                                    <input type="submit" class="btn btn-primary" name="confirmer_restitution" value="<?php echo TXT_CONFIRMER; ?>">
                                 </div>
                             </div>
                         </div>
@@ -973,35 +1048,32 @@ date_default_timezone_set('Europe/Paris');
                 </form>
 
                 <?php
-                if (isset($_POST['confirmer_modif_rdv'])) {
-                    $dateRetour = $_POST['DateRetour'];
-
+                if (isset($_POST['confirmer_restitution'])) {
+                    $date_restitution = $_POST['date_restitution'];
                     $horaire = $_POST['horaire'];
                     $jour = $_POST['jour'];
-                    $date_Emprunt = $_POST['date_emprunt'];
-                    $dt = DateTime::createFromFormat('d/m/Y', $date_Emprunt);
-                    $dateEmprunt = $dt->format('Y-m-d');
-
+                    $dateEmprunt = $_POST['DateEmprunt'];
+                    $dateRetour = $_POST['DateRetour'];
                     $categorie = $_POST['CategorieM'];
                     $identifiantM = $_POST['IdentifiantM'];
-                    $identifiantCal = $_POST['IdentifiantCal'];
-
                     $identifiantPe = $identifiant;
 
 
-                    $emprunt = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
-                    $result_emprunt = mysqli_query($session, $emprunt);
-
+                    $restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
+                    $result_restitution = mysqli_query($session, $restitution);
 
                     $creneau = ("SELECT * FROM calendrier WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
                     $result_creneau = mysqli_query($session, $creneau);
+
                     foreach ($result_creneau as $row) {
                         $IdentifiantCal = $row['IdentifiantCal'];
                     }
 
-                    $modifier_rdv = ("UPDATE `emprunt` SET DateEmprunt = '$dateEmprunt' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
-                    $result_insert_rdv = mysqli_query($session, $modifier_rdv);
 
+                    $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`)
+                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$IdentifiantCal')");
+
+                    $result_insert_rdv = mysqli_query($session, $insert_rdv);
 
                 ?>
 
@@ -1014,26 +1086,29 @@ date_default_timezone_set('Europe/Paris');
                                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                                         </svg>
                                         <div>
-
                                             <?php echo TXT_ALERTE_SUCCES_CRENEAU; ?>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="modal-footer">
                                     <div class="col text-center">
-                                        <input type="button" class="btn btn-primary" onclick='document.location.href="profil.php"' value="<?php echo TXT_OK; ?> ">
+                                        <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?> ">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 <?php
+
                     echo "<script>
-        $(window).load(function() {
-            $('#alerte').modal('show');
-        });
-    </script>";
+                                $(window).load(function() {
+                                    $('#alerte').modal('show');
+                                });
+                            </script>";
                 }
+
 
                 ?>
 

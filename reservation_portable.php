@@ -395,10 +395,45 @@ date_default_timezone_set('Europe/Paris');
 
     <?php
     if (isset($_POST['Lundi']) || isset($_POST['Mardi']) || isset($_POST['Mercredi']) || isset($_POST['Jeudi']) || isset($_POST['Vendredi'])) {
+
+        $date_du_jour = strftime('%Y-%m-%d', strtotime('now'));
         $date_res = $_POST['DateRetour'];
         $jour_res = strftime('%A', strtotime($date_res));
-        if ($jour_res == "Saturday" || $jour_res == "Sunday") {
+
+        if ($date_res < $date_du_jour) {
     ?>
+            <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                </svg>
+                                <div>
+                                    <?php echo TXT_ERREUR_DATE; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col text-center">
+                                <input type="button" class="btn btn-primary" onclick='document.location.href="reservation_portable.php"' value="<?php echo TXT_OK; ?> ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+            echo "<script>
+    $(window).load(function() {
+        $('#alerte').modal('show');
+    });
+</script>";
+        }
+
+        if ($jour_res == "Saturday" || $jour_res == "Sunday") {
+        ?>
             <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">

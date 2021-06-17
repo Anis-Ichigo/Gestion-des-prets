@@ -183,7 +183,7 @@ require('decide-lang.php');
                         <input type="button" class="accordion" value="<?php echo TXT_INFORMATION; ?>">
                         <!-- <H2><?php echo TXT_INFORMATION; ?></H2> -->
 
-                        <div class="panel" style=" text-align: center">
+                        <div class="collapse in show" style=" text-align: center">
                             <TABLE NOBOARDER style="display:inline; text-align: center; margin-left: 7%;">
                                 <TR>
 
@@ -506,23 +506,29 @@ require('decide-lang.php');
 
         if ($nb_lignes > 0) {
         ?>
-            <form action="profil.php" method="post">
-                <div style="display: block ;" class="form-group row">
-                    <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
-                    <!--<h2><?php echo TXT_RDV; ?></h2> -->
 
-                    <div class="panel">
-                        <div style="display: block ;text-align :center;">
-                            <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
+            <div style="display: block ;" class="form-group row">
+                <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
+                <?php // echo TXT_RDV; 
+                ?>
 
-                                <tr>
+                <div class="collapse in show">
+                    <div style="display: block ;text-align :center;">
+                        <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
 
-                                    <?php
-                                    $i = 0;
-                                    foreach ($result_reservations as $row) {
+                            <tr>
 
-                                        if ($i % 3 != 0) {
+                                <?php
+                                $i = 0;
+                                foreach ($result_reservations as $row) {
                                     ?>
+                                    <form action="profil.php" method="post">
+                                        <?php
+
+                                    if ($i % 3 != 0) {
+                                ?>
+                                        
+
                                             <td>
                                                 <div class="card">
                                                     <div class="card-body">
@@ -582,98 +588,99 @@ require('decide-lang.php');
                                                         <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
                                                     </div>
                                                 </div>
-                        </div>
-                        </td>
-                    <?php
-                                        } else if ($i % 3 == 0) {
-
-                    ?>
-                        <tr>
-                            <td>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
-                                        <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
-                                        <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
-                                        <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
-                                        <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
-
-                                        <table>
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    <?php echo TXT_DATE; ?>
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
-                                                    <?php $dt = $row['DateEmprunt'];
-                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                    $dateAffichee = $date->format('d/m/Y');
-                                                    echo $dateAffichee; ?>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    <?php echo  TXT_HEURE; ?>
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
-                                                    <?php echo $row['HoraireCal'] ?>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td style="text-align : left; width: 70%">
-                                                    <?php echo TXT_NUMERO; ?>
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] . "  "; ?>">
-                                                    <?php echo "  " . $row['IdentifiantM'] ?>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    <?php echo  TXT_BUREAU; ?>
-                                                </td>
-                                                <td>
-
-                                                </td>
-                                            </tr>
-
-                                        </table>
-
-                                        <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
-                                    </div>
-                                </div>
                     </div>
                     </td>
+                <?php
+                                    } else if ($i % 3 == 0) {
 
-            <?php
+                ?>
+                    <tr>
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
+                                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+                                    <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
+                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
 
-                                        }
+                                    <table>
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo TXT_DATE; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                <?php $dt = $row['DateEmprunt'];
+                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                $dateAffichee = $date->format('d/m/Y');
+                                                echo $dateAffichee; ?>
+                                            </td>
+                                        </tr>
 
-                                        $i += 1;
-                                    }
-            ?>
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo  TXT_HEURE; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
+                                                <?php echo $row['HoraireCal'] ?>
+                                            </td>
+                                        </tr>
 
-            </tr>
+                                        <tr>
+                                            <td style="text-align : left; width: 70%">
+                                                <?php echo TXT_NUMERO; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] . "  "; ?>">
+                                                <?php echo "  " . $row['IdentifiantM'] ?>
+                                            </td>
+                                        </tr>
 
-            </table>
+                                        <tr>
+                                            <td style="text-align : left">
+                                                <?php echo  TXT_BUREAU; ?>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
+                                </div>
+                            </div>
                 </div>
-            <?php
+                </td>
+                </form>
+
+        <?php
+
+                                    }
+
+                                    $i += 1;
+                                }
+        ?>
+
+        </tr>
+
+        </table>
+            </div>
+        <?php
         }
-            ?>
-
-            </form>
-
-        </div>
-        </div>
+        ?>
 
 
         </div>
+        </div>
+
+
+        </div>
+
 
 
         <?php
@@ -682,6 +689,11 @@ require('decide-lang.php');
 
         ?>
             <FORM method="POST" action="profil.php">
+                <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
+                <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
+                <input type="hidden" name="DateEmprunt" value="<?php echo $_POST['DateEmprunt']; ?>">
+                <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
+                <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
                 <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -747,7 +759,22 @@ require('decide-lang.php');
         ?>
 
 
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
 
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            }
+        </script>
 
         <!-- suppression_modification -->
         <?php
@@ -884,11 +911,11 @@ require('decide-lang.php');
 
             <script>
                 /*var myModal = document.getElementById('exampleModal')
-                var myInput = document.getElementById('myInput')
+                    var myInput = document.getElementById('myInput')
 
-                myModal.addEventListener('shown.bs.modal', function() {
-                    myInput.focus()
-                })*/
+                    myModal.addEventListener('shown.bs.modal', function() {
+                        myInput.focus()
+                    })*/
             </script>
 
 
@@ -899,8 +926,8 @@ require('decide-lang.php');
 
                 <FORM method="POST" action="profil.php">
 
-                    <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
-                    <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
+                    <input type="text" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
+                    <input type="text" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
                     <input type="hidden" name="DateEmprunt" value="<?php echo $_POST['DateEmprunt']; ?>">
                     <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
                     <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
@@ -1092,12 +1119,12 @@ require('decide-lang.php');
 
 
                                     <script>
-                                        /* var myModal = document.getElementById('exampleModal')
-                                        var myInput = document.getElementById('myInput')
+                                        /*var myModal = document.getElementById('exampleModal')
+                                            var myInput = document.getElementById('myInput')
 
-                                        myModal.addEventListener('shown.bs.modal', function() {
-                                            myInput.focus()
-                                        })*/
+                                            myModal.addEventListener('shown.bs.modal', function() {
+                                                myInput.focus()
+                                            })*/
                                     </script>
 
                                     <!-- Accordion -->
@@ -1361,22 +1388,7 @@ require('decide-lang.php');
                 }
                 ?>
 
-                <script>
-                    var acc = document.getElementsByClassName("accordion");
-                    var i;
-
-                    for (i = 0; i < acc.length; i++) {
-                        acc[i].addEventListener("click", function() {
-                            this.classList.toggle("active");
-                            var panel = this.nextElementSibling;
-                            if (panel.style.maxHeight) {
-                                panel.style.maxHeight = null;
-                            } else {
-                                panel.style.maxHeight = panel.scrollHeight + "px";
-                            }
-                        });
-                    }
-                </script>
+                </div>
 
 </body>
 

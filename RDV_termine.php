@@ -1,5 +1,7 @@
 <?php
 require("Connexion_BD.php");
+mysqli_set_charset($session, "utf8");
+
 
 if (isset($_POST['RDV_termine'])) {
     $ide = $_POST['ide'];
