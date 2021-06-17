@@ -116,7 +116,6 @@ date_default_timezone_set('Europe/Paris');
 
 
     <div class="contenu">
-      <h1>Liste des RDV</h1>
 
       <Table class="table table-striped table-hover">
         <TR>

@@ -121,6 +121,10 @@ body {
     }
 }
 
+li a {
+    background-color: none;
+}
+
 button,
 a {
     background-color: #4E00A8;
@@ -154,8 +158,8 @@ table {
     font-size: 1.2em
 }
 
-input[type=submit]{
-	background-color: #4E00A8;
+input[type=submit] {
+    background-color: #4E00A8;
     color: white;
     padding: 5px 6px;
     margin: 5px 0 5px;

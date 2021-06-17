@@ -36,108 +36,101 @@ date_default_timezone_set('Europe/Paris');
 
 
 <body>
-<?php
-  $identifiant = $_SESSION['identifiant'];
-  $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
-  $resultat = mysqli_query($session, $role_pe);
-  foreach ($resultat as $row) {
-    $role_user = $row["RolePe"];
-  }
-  ?>
+    <?php
+    $identifiant = $_SESSION['identifiant'];
+    $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
+    $resultat = mysqli_query($session, $role_pe);
+    foreach ($resultat as $row) {
+        $role_user = $row["RolePe"];
+    }
+    ?>
 
-  <main>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid ">
-        <img src="Bandeau.png" href="https://www.ut-capitole.fr/" />
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"> </span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarText">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: auto">
+        <div class="container-fluid ">
+            <img src="Bandeau.png" href="https://www.ut-capitole.fr/" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"> </span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: auto">
 
-            <?php
-            if ($role_user == "Responsable") {
-            ?>
-              <li class="nav-item  text-center">
-                <a class="nav-link active" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="Statistiques.html"><i class=" fi-rr-stats"></i> Statistiques</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
-              </li>
-            <?php
-            } else if ($role_user == "Vacataire") {
-            ?>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
-              </li>
-            <?php
-            } else if ($role_user == "Emprunteur") {
-            ?>
-              <li class="nav-item  text-center">
-                <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
-              </li>
-              <li class="nav-item  text-center">
-                <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
-              </li>
-            <?php
-            }
-            ?>
-          </ul>
-          <span class="navbar-text">
-            <div class="mycharts-heading">
-              <div class="element-head">
-                <?php echo $_SESSION['nom']; ?>
-                <a href="deconnexion.php" type="button" class="btn btn-default"><i class="fi-rr-sign-out"></i></a>
-              </div>
+                    <?php
+                    if ($role_user == "Responsable") {
+                    ?>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php" style="background-color: none; color: black"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+                        </li>
+                    <?php
+                    } else if ($role_user == "Vacataire") {
+                    ?>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+                        </li>
+                    <?php
+                    } else if ($role_user == "Emprunteur") {
+                    ?>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
+                        </li>
+                    <?php
+                    }
+                    ?>
+                </ul>
+                <span class="navbar-text">
+                    <div class="mycharts-heading">
+                        <div class="element-head">
+                            <?php echo $_SESSION['nom']; ?>
+                            <a href="deconnexion.php" type="button" class="btn btn-default"><i class="fi-rr-sign-out"></i></a>
+                        </div>
+                    </div>
+                </span>
             </div>
-          </span>
         </div>
-      </div>
     </nav>
 
-
-    <div class="text-center">
-        <h2 style="display: inline;"><?php echo TXT_ACCUEIL_RESERVATION; ?></h2>
-    </div>
-
     <br>
-
 
     <?php
 
@@ -149,70 +142,165 @@ date_default_timezone_set('Europe/Paris');
                         AND emprunt.IdentifiantPe = '$identifiant'");
 
     $result_reservations = mysqli_query($session, $reservations);
+    $nb_lignes = mysqli_num_rows($result_reservations);
 
-    foreach ($result_reservations as $row) {
+    if ($nb_lignes > 0) {
+
 
     ?>
         <form action="" method="POST">
 
-            <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+            <div style="display: block ;text-align :center;">
+                <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
 
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
-                    <p class="card-text">
-                    <table>
-                        <tr>
-                            <td>
-                                <?php echo TXT_NUMERO; ?>
-                            </td>
-                            <td>
-                                <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
-                            </td>
-                        </tr>
+                    <td>
 
-                        <tr>
-                            <td>
-                                <?php echo TXT_RETRAIT; ?>
-                            </td>
-                            <td>
-                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
-                                <input type="text" value="<?php $dt = $row['DateEmprunt'];
-                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                            $dateAffichee = $date->format('d/m/Y');
-                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                            </td>
-                        </tr>
+                        <?php
 
-                        <tr>
-                            <td>
-                                <?php echo TXT_DATER; ?>
-                            </td>
-                            <td>
-                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
-                                <input type="text" value="<?php $dt = $row['DateRetour'];
-                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                            $dateAffichee = $date->format('d/m/Y');
-                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
-                            </td>
-                        </tr>
+                        $i = 0;
+                        foreach ($result_reservations as $row) {
 
-                        <tr>
-                            <td>
-                                <?php echo TXT_TYPE; ?>
-                            </td>
-                            <td>
-                                <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="text-center">
-                        <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
-                        <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
-                        <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
-                    </div>
+                            if ($i % 3 != 0) {
+                        ?>
+                    <td>
+                        <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
 
-                </div>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                <p class="card-text">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <?php echo TXT_NUMERO; ?>
+                                        </td>
+                                        <td>
+                                            <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?php echo TXT_RETRAIT; ?>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
+                                            <input type="text" value="<?php $dt = $row['DateEmprunt'];
+                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                        $dateAffichee = $date->format('d/m/Y');
+                                                                        echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?php echo TXT_DATER; ?>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
+                                            <input type="text" value="<?php $dt = $row['DateRetour'];
+                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                        $dateAffichee = $date->format('d/m/Y');
+                                                                        echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?php echo TXT_TYPE; ?>
+                                        </td>
+                                        <td>
+                                            <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
+                                    <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
+                                    <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
+                                </div>
+
+                            </div>
+                        </div>
+                    </td>
+                <?php
+                            } else if ($i % 3 == 0) {
+
+                ?>
+
+                    <tr>
+
+                        <td>
+
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                    <p class="card-text">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <?php echo TXT_NUMERO; ?>
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control-plaintext text-center" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] ?>">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <?php echo TXT_RETRAIT; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateEmprunt" value="<?php echo $row['DateEmprunt'] ?>">
+                                                <input type="text" value="<?php $dt = $row['DateEmprunt'];
+                                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                            $dateAffichee = $date->format('d/m/Y');
+                                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <?php echo TXT_DATER; ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" readonly class="form-control-plaintext text-center" name="DateRetour" value="<?php echo $row['DateRetour'] ?>">
+                                                <input type="text" value="<?php $dt = $row['DateRetour'];
+                                                                            $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                            $dateAffichee = $date->format('d/m/Y');
+                                                                            echo $dateAffichee; ?>" class="form-control-plaintext text-center" readonly>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <?php echo TXT_TYPE; ?>
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control-plaintext text-center" name="CategorieM" value="<?php echo $row['CategorieM'] ?>">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="text-center">
+                                        <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
+                                        <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
+                                        <input type="submit" class="btn btn-primary mb-2" name="restituer" value="<?php echo TXT_RESTITUER; ?>">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+                <?php
+
+                            }
+
+                            $i += 1;
+                        }
+                ?>
+                    </tr>
+                    
+
+                </table>
             </div>
         </form>
 
@@ -281,104 +369,25 @@ date_default_timezone_set('Europe/Paris');
         <?php
 
         if (isset($_POST['confirmer_prolongation'])) {
-          $jour_p = $_POST['DateProlongation'];
-        if(strftime('%A', strtotime($jour_p)) == "Saturday" || strftime('%A', strtotime($jour_p)) == "Sunday" ){
-          ?>
-          <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-body">
-                          <div class="alert alert-danger d-flex align-items-center" role="alert">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                            </svg>
-
-                              <div>
-                                  <?php echo TXT_ERREUR_DATE; ?>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="modal-footer">
-                          <div class="col text-center">
-                              <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <?php
-          echo "<script>
-              $(window).load(function() {
-                $('#alerte').modal('show');
-                });
-                </script>";
-        }else{
-
-
-
-
-            $identifiantE = $_POST['IdentifiantE'];
-            $identifiantM = $_POST['IdentifiantM'];
-            $dateProlongation = $_POST['DateProlongation'];
-            $dateDuJour = strftime('%Y-%m-%d');
-
-            if ($dateProlongation >= $dateDuJour) {
-                $query_demander_prolongation = "UPDATE emprunt SET DateProlongation = '$dateProlongation' WHERE IdentifiantE = '$identifiantE' ";
-                $result_demande_prolongation = mysqli_query($session, $query_demander_prolongation);
-                $query_en_attente = "UPDATE materiel SET EtatM = 'En attente' WHERE IdentifiantM = '$identifiantM'";
-                $result_en_attente = mysqli_query($session, $query_en_attente);
+            $jour_p = $_POST['DateProlongation'];
+            if (strftime('%A', strtotime($jour_p)) == "Saturday" || strftime('%A', strtotime($jour_p)) == "Sunday") {
         ?>
-
                 <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="alert alert-success d-flex align-items-center" role="alert">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                    </svg>
-
-                                    <div>
-                                        <?php echo TXT_ALERTE_SUCCES_PROLONGATION; ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <div class="col text-center">
-                                    <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            <?php
-                echo "<script>
-        $(window).load(function() {
-            $('#alerte').modal('show');
-        });
-    </script>";
-            } else {
-
-            ?>
-
-                <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                                     </svg>
+
                                     <div>
                                         <?php echo TXT_ERREUR_DATE; ?>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="modal-footer">
                                 <div class="col text-center">
                                     <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
@@ -387,15 +396,94 @@ date_default_timezone_set('Europe/Paris');
                         </div>
                     </div>
                 </div>
-        <?php
+                <?php
                 echo "<script>
+              $(window).load(function() {
+                $('#alerte').modal('show');
+                });
+                </script>";
+            } else {
+
+
+
+
+                $identifiantE = $_POST['IdentifiantE'];
+                $identifiantM = $_POST['IdentifiantM'];
+                $dateProlongation = $_POST['DateProlongation'];
+                $dateDuJour = strftime('%Y-%m-%d');
+
+                if ($dateProlongation >= $dateDuJour) {
+                    $query_demander_prolongation = "UPDATE emprunt SET DateProlongation = '$dateProlongation' WHERE IdentifiantE = '$identifiantE' ";
+                    $result_demande_prolongation = mysqli_query($session, $query_demander_prolongation);
+                    $query_en_attente = "UPDATE materiel SET EtatM = 'En attente' WHERE IdentifiantM = '$identifiantM'";
+                    $result_en_attente = mysqli_query($session, $query_en_attente);
+                ?>
+
+                    <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="alert alert-success d-flex align-items-center" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                        </svg>
+
+                                        <div>
+                                            <?php echo TXT_ALERTE_SUCCES_PROLONGATION; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="col text-center">
+                                        <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php
+                    echo "<script>
         $(window).load(function() {
             $('#alerte').modal('show');
         });
     </script>";
+                } else {
+
+                ?>
+
+                    <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                        </svg>
+                                        <div>
+                                            <?php echo TXT_ERREUR_DATE; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="col text-center">
+                                        <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        <?php
+                    echo "<script>
+        $(window).load(function() {
+            $('#alerte').modal('show');
+        });
+    </script>";
+                }
             }
         }
-    }
         ?>
 
         <?php
@@ -1399,9 +1487,6 @@ date_default_timezone_set('Europe/Paris');
 
 -->
 
-                <div class="text-center">
-                    <a href="menu3.php" type="button" class="btn btn-secondary mb-2"><?php echo TXT_MENU; ?></a>
-                </div>
 
 </body>
 

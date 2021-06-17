@@ -1,25 +1,39 @@
 <?php
-session_start();
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 
-$idE = $_POST['IdentifiantEPR'];
-$idM = $_POST['IdentifiantMPR'];
-$date_prolongation = $_POST['DateProlongation'];
+if (isset($_POST['valider'])) {
+    $date_retour = $_POST['DateProlongation'];
+    $identifiantPe = $_POST['IdentifiantPe'];
+    $identifiantM = $_POST['IdentifiantM'];
+    $categorieM = $_POST['CategorieM'];
 
-if (isset($_POST['valider_prolongation'])){
-    $query_valider_prolongation = "UPDATE emprunt SET DateRetour = '$date_prolongation' WHERE IdentifiantE = '$idE'";
-    $result_valider_prolongation = mysqli_query($session, $query_valider_prolongation);
-    $query_etat = "UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$idM'";
-    $result_etat = mysqli_query($session, $query_etat);
-}
 
-if (isset($_POST['refuser_prolongation'])){
-    $query_refuser_prolongation = "UPDATE emprunt SET DateProlongation = NULL WHERE IdentifiantE = '$idE'";
-    $result_refuser_prolongation = mysqli_query($session, $result_refuser_prolongation);
-    $query_etat = "UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$idM'";
-    $result_etat = mysqli_query($session, $query_etat);
-}
+    $prolongation_validee = ("UPDATE emprunt set DateRetour = '$date_retour', DateProlongation = NULL  WHERE IdentifiantPe = '$identifiantPe' AND IdentifiantM = '$identifiantM'");
+    $result_prolongation_validee = mysqli_query($session, $prolongation_validee);
 
-header('Location: Liste_RDV.php');
+
+    $objet = "Demande de prolongation validée";
+    $message = "Votre demande de prolongation pour l'emprunt de votre " . $categorieM . " a bien été acceptée. La nouvelle date de retour est le '$date_retour'";
+    $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
+      'Reply-To: Responsable des prêts de matériels' . "\r\n" .
+      'X-Mailer: PHP/' . phpversion();
+    mail("$identifiantPe", $objet, $message, $headers);
+  } else if (isset($_POST['refuser'])) {
+    $identifiantPe = $_POST['IdentifiantPe'];
+    $identifiantM = $_POST['IdentifiantM'];
+    $categorieM = $_POST['CategorieM'];
+
+    $prolongation_refusee = ("UPDATE emprunt set DateProlongation = NULL WHERE IdentifiantPe = '$identifiantPe' AND IdentifiantM = '$identifiantM'");
+    $result_prolongation_refusee = mysqli_query($session, $prolongation_refusee);
+
+    $objet = "Demande de prolongation refusée";
+    $message = "Votre demande de prolongation pour l'emprunt de votre " . $categorieM . " a été refusée.";
+    $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
+      'Reply-To: Responsable des prêts de matériels' . "\r\n" .
+      'X-Mailer: PHP/' . phpversion();
+    mail("$identifiantPe", $objet, $message, $headers);
+  }
+
+header('Location: suivi_prets.php');
 ?>

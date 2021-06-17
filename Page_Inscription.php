@@ -12,6 +12,9 @@ if (!isset($_POST['inscription'])) {
   } else if ($_POST['lang'] == 'en') {
     $_SESSION['lang'] = 'en';
     include('en-lang.php');
+  } else if ($_POST['lang'] == 'cn') {
+    $_SESSION['lang'] = 'cn';
+    include('cn-lang.php');
   }
 }
 
@@ -20,6 +23,8 @@ if (isset($_POST['inscription'])) {
     include('fr-lang.php');
   } else if ($_SESSION['lang'] == 'en') {
     include('en-lang.php');
+  } else if ($_SESSION['lang'] == 'cn') {
+    include('cn-lang.php');
   }
 }
 
@@ -237,7 +242,7 @@ if (isset($_POST['inscription'])) {
           <?php echo AC; ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary closemodal">Fermer</button>
+          <button type="button" class="btn btn-primary closemodal"><?php echo TXT_OK; ?></button>
         </div>
       </div>
     </div>
@@ -275,7 +280,7 @@ if (isset($_POST['inscription'])) {
           <?php echo CGU11; ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary closemodal">Fermer</button>
+          <button type="button" class="btn btn-primary closemodal"><?php echo TXT_OK; ?></button>
         </div>
       </div>
     </div>
@@ -311,8 +316,8 @@ if (isset($_POST['inscription'])) {
             $statut = $_POST['statut'];
             $formation = $_POST['formation'];
 
-            $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation)
-        VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation')";
+            $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
+        VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', 'Emprunteur')";
             $result = mysqli_query($session, $query);
 
             $_SESSION['user'] = $email;

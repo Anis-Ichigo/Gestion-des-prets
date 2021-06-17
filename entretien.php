@@ -16,7 +16,6 @@ mysqli_set_charset($session, "utf8");
 </head>
 
 <body>
-  <main>
   <?php
     $identifiant = $_SESSION['identifiant'];
     $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
@@ -112,7 +111,6 @@ mysqli_set_charset($session, "utf8");
 
 
     <div class="contenu">
-      <h1>Entretien</h1>
 
       <ul class="nav nav-tabs">
         <li class="nav-item">
