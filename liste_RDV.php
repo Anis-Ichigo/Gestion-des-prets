@@ -194,7 +194,7 @@ date_default_timezone_set('Europe/Paris');
                 </td>
                 <input type='hidden' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idc'] ?>" name='idc' readonly>
                 <td>
-                  <?php if ($ligne_liste_rdv['date_rdv'] <= strftime("%Y-%m-%d", strtotime("now")) && $ligne_liste_rdv['heure'] <= strftime('H:i:s')) {
+                  <?php if ($ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now")) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && $ligne_liste_rdv['heure'] <= date('H:i:s'))) {
 
                   ?>
                     <input type="submit" class="btn btn-primary" value="RDV terminé" name="RDV_termine">
@@ -209,8 +209,6 @@ date_default_timezone_set('Europe/Paris');
       <?php
             }
           }
-
-
       ?>
 
       </Table>
