@@ -65,10 +65,10 @@ require('decide-lang.php');
                             <a class="nav-link" style="background-color: none; color:black" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
@@ -83,7 +83,7 @@ require('decide-lang.php');
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> Profil</a>
@@ -98,7 +98,7 @@ require('decide-lang.php');
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link"  href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> Profil</a>
@@ -509,7 +509,7 @@ require('decide-lang.php');
 
             <div style="display: block ;" class="form-group row">
                 <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
-                <?php // echo TXT_RDV; 
+                <?php // echo TXT_RDV;
                 ?>
 
                 <div class="collapse in show">
@@ -527,7 +527,7 @@ require('decide-lang.php');
 
                                     if ($i % 3 != 0) {
                                 ?>
-                                        
+
 
                                             <td>
                                                 <div class="card">

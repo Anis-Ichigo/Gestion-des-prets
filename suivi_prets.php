@@ -15,6 +15,7 @@ date_default_timezone_set('Europe/Paris');
   <link rel="stylesheet" href="menu.css" />
   <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
   <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+  <script type="text/javascript" src="test.js"></script>
 
 </head>
 
@@ -55,10 +56,10 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
               </li>
               <li class="nav-item  text-center">
-                <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
               </li>
               <li class="nav-item  text-center">
-                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
               </li>
               <li class="nav-item  text-center">
                 <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
@@ -73,7 +74,7 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
               </li>
               <li class="nav-item  text-center">
-                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
               </li>
               <li class="nav-item  text-center">
                 <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -88,7 +89,7 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
               </li>
               <li class="nav-item  text-center">
-                <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes emprunts</a>
               </li>
               <li class="nav-item  text-center">
                 <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
@@ -193,20 +194,32 @@ date_default_timezone_set('Europe/Paris');
 
   ?>
 
-
-
   <div class="contenu">
+    <?php
 
-    <Table class="table table-striped table-hover">
+    $emprunt = ("SELECT *
+                            FROM emprunt, personne, materiel
+                            WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
+                            AND emprunt.IdentifiantM = materiel.IdentifiantM
+                            AND emprunt.EtatE LIKE 'Non rendu'
+                            GROUP BY materiel.IdentifiantM
+                            ORDER BY emprunt.DateEmprunt ASC");
+
+
+
+    $result_emprunt = mysqli_query($session, $emprunt);
+    ?>
+    <Table class="table table-striped table-hover avectri">
+<thead>
       <TR>
-        <TH>
+        <TH >
           Prénom
         </TH>
         <TH>
           Nom
         </TH>
-        <TH>
-          Numéro du materiel
+        <TH data-tri="1" class="selection" data-type="num" >
+          Numéro du matériel
         </TH>
         <TH>
           Type de materiel
@@ -222,21 +235,10 @@ date_default_timezone_set('Europe/Paris');
         </TH>
         <th></th>
       </TR>
-
-      <?php
-
-      $emprunt = ("SELECT *
-                              FROM emprunt, personne, materiel
-                              WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
-                              AND emprunt.IdentifiantM = materiel.IdentifiantM
-                              AND emprunt.EtatE LIKE 'Non rendu'
-                              GROUP BY materiel.IdentifiantM
-                              ORDER BY emprunt.DateEmprunt ASC");
+</thead>
+<tbody>
 
 
-
-      $result_emprunt = mysqli_query($session, $emprunt);
-      ?>
       <form action="rendu.php" method="POST">
 
         <?php
@@ -270,6 +272,10 @@ date_default_timezone_set('Europe/Paris');
               <input type="submit" class="btn btn-primary" value="Matériel récupéré" name="recupere">
             </td>
           </TR>
+          <?php
+}
+           ?>
+<tbody>
 
         <?php
 
@@ -323,7 +329,7 @@ date_default_timezone_set('Europe/Paris');
               $result_update_mail_retour_depasse = mysqli_query($session, $update_mail_retour_depasse);
             }
           }
-        }
+
 
         ?>
       </form>
@@ -331,6 +337,141 @@ date_default_timezone_set('Europe/Paris');
     </Table>
 
   </div>
+  
+  <style>
+  /* Classe obligatoire pour les flèches */
+  .flecheDesc {
+    width: 0;
+    height: 0;
+    float:right;
+    margin: 10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+  }
+  .flecheAsc {
+    width: 0;
+    height: 0;
+    float:right;
+    margin: 10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+  }
+  /* Classe optionnelle pour le style */
+.tableau {width:100%;table-layout: fixed;border-collapse: collapse;}
+.tableau td {padding:.3rem}
+.zebre tbody tr:nth-child(odd) {background-color: #d6d3ce;border-bottom:1px solid #ccc;color:#444;}
+.zebre tbody tr:nth-child(even) {background-color: #c6c3bd;border-bottom:1px solid #ccc;color:#444;}
+.zebre tbody tr:hover:nth-child(odd) {background-color: #999690;color:#ffffff;}
+.zebre tbody tr:hover:nth-child(even) {background-color: #999690;color:#ffffff;}
+.avectri th {text-align:center;padding:5px 0 0 5px;vertical-align: middle;background-color:#999690;color:#444;cursor:pointer;
+	-webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.avectri th.selection {background-color:#5d625c;color:#fff;}
+.avectri th.selection .flecheDesc {border-bottom-color: white;}
+.avectri th.selection .flecheAsc {border-top-color: white;}
+.zebre tbody td:nth-child(3) {text-align:center;}
+  </style>
+
+  <script>
+    // Tri dynamique de tableau HTML
+    // Auteur : Copyright © 2015 - Django Blais
+    // Source : http://trucsweb.com/tutoriels/Javascript/tableau-tri/
+    // Sous licence du MIT.
+    function twInitTableau() {
+      // Initialise chaque tableau de classe « avectri »
+         [].forEach.call( document.getElementsByClassName("avectri"), function(oTableau) {
+         var oEntete = oTableau.getElementsByTagName("tr")[0];
+         var nI = 1;
+        // Ajoute à chaque entête (th) la capture du clic
+        // Un picto flèche, et deux variable data-*
+        // - Le sens du tri (0 ou 1)
+        // - Le numéro de la colonne
+        [].forEach.call( oEntete.querySelectorAll("th"), function(oTh) {
+          oTh.addEventListener("click", twTriTableau, false);
+          oTh.setAttribute("data-pos", nI);
+          if(oTh.getAttribute("data-tri")=="1") {
+           oTh.innerHTML += "<span class=\"flecheDesc\"></span>";
+          } else {
+            oTh.setAttribute("data-tri", "0");
+            oTh.innerHTML += "<span class=\"flecheAsc\"></span>";
+          }
+          // Tri par défaut
+          if (oTh.className=="selection") {
+            oTh.click();
+          }
+          nI++;
+        });
+      });
+    }
+
+    function twInit() {
+      twInitTableau();
+    }
+    function twPret(maFonction) {
+      if (document.readyState != "loading"){
+        maFonction();
+      } else {
+        document.addEventListener("DOMContentLoaded", maFonction);
+      }
+    }
+    twPret(twInit);
+
+    function twTriTableau() {
+      // Ajuste le tri
+      var nBoolDir = this.getAttribute("data-tri");
+      this.setAttribute("data-tri", (nBoolDir=="0") ? "1" : "0");
+      // Supprime la classe « selection » de chaque colonne.
+      [].forEach.call( this.parentNode.querySelectorAll("th"), function(oTh) {oTh.classList.remove("selection");});
+      // Ajoute la classe « selection » à la colonne cliquée.
+      this.className = "selection";
+      // Ajuste la flèche
+      this.querySelector("span").className = (nBoolDir=="0") ? "flecheAsc" : "flecheDesc";
+
+      // Construit la matrice
+      // Récupère le tableau (tbody)
+      var oTbody = this.parentNode.parentNode.parentNode.getElementsByTagName("tbody")[0];
+      var oLigne = oTbody.rows;
+      var nNbrLigne = oLigne.length;
+      var aColonne = new Array(), i, j, oCel;
+      for(i = 0; i < nNbrLigne; i++) {
+        oCel = oLigne[i].cells;
+        aColonne[i] = new Array();
+        for(j = 0; j < oCel.length; j++){
+          aColonne[i][j] = oCel[j].innerHTML;
+        }
+      }
+
+      // Trier la matrice (array)
+      // Récupère le numéro de la colonne
+      var nIndex = this.getAttribute("data-pos");
+      // Récupère le type de tri (numérique ou par défaut « local »)
+      var sFonctionTri = (this.getAttribute("data-type")=="num") ? "compareNombres" : "compareLocale";
+      // Tri
+      aColonne.sort(eval(sFonctionTri));
+      // Tri numérique
+      function compareNombres(a, b) {return a[nIndex-1] - b[nIndex-1];}
+      // Tri local (pour support utf-8)
+      function compareLocale(a, b) {return a[nIndex-1].localeCompare(b[nIndex-1]);}
+      // Renverse la matrice dans le cas d’un tri descendant
+      if (nBoolDir==0) aColonne.reverse();
+
+      // Construit les colonne du nouveau tableau
+      for(i = 0; i < nNbrLigne; i++){
+        aColonne[i] = "<td>"+aColonne[i].join("</td><td>")+"</td>";
+      }
+
+      // assigne les lignes au tableau
+      oTbody.innerHTML = "<tr>"+aColonne.join("</tr><tr>")+"</tr>";
+    }
+  </script>
 
 </body>
 

@@ -345,7 +345,7 @@ if (isset($_POST['inscription'])) {
                   </div>
                   <div class="modal-footer">
                     <div class="col text-center">
-                      <a type="button" class="btn btn-primary" href="reservation.php"><?php echo VALIDER; ?></a>
+                      <a type="button" class="btn btn-primary" href="reservation_portable.php"><?php echo VALIDER; ?></a>
                     </div>
                   </div>
                 </div>

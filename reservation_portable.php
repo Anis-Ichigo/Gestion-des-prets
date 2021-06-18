@@ -66,7 +66,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" style="background-color: none; color:black" aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
@@ -81,7 +81,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" style="background-color: none; color:black" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -96,7 +96,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" style="background-color: none; color:black" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -604,7 +604,7 @@ date_default_timezone_set('Europe/Paris');
 
 
                 $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`)
-                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Acquisition', '$identifiantM', '$identifiantPe', '$identifiantCal')");
+                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Prêt', '$identifiantM', '$identifiantPe', '$identifiantCal')");
                 $result_insert_rdv = mysqli_query($session, $insert_rdv);
 
             ?>

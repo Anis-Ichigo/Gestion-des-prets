@@ -61,19 +61,19 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php" style="background-color: none; color: black"><i class="fi-rr-file-check"></i> Mes réservations</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
-                        </li>
-                        <li class="nav-item  text-center">
                             <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php" style="background-color: none; color: black"><i class="fi-rr-file-check"></i> Mes emprunts</a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
@@ -88,7 +88,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -103,7 +103,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" style="background-color: none; color:black" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" style="background-color: none; color:black" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -138,20 +138,22 @@ date_default_timezone_set('Europe/Paris');
                         FROM emprunt, materiel, personne
                         WHERE emprunt.IdentifiantM = materiel.IdentifiantM
                         AND emprunt.IdentifiantPe = personne.IdentifiantPe
-                        AND emprunt.Motif LIKE 'Acquisition'
+                        AND emprunt.Motif LIKE 'Prêt'
                         AND emprunt.Statut_RDV LIKE 'Terminé'
                         AND emprunt.IdentifiantPe = '$identifiant'");
 
     $result_reservations = mysqli_query($session, $reservations);
     $nb_lignes = mysqli_num_rows($result_reservations);
 
-    if ($nb_lignes > 0) {
+    if($nb_lignes == 0){
+      echo ("<p style='text-align: center; font-size: 20px'>Il n'y a aucun emprunt en cours</p>");
+    } else if ($nb_lignes > 0) {
 
 
     ?>
         <div style="display: block ;" class="form-group row">
             <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
-            <?php // echo TXT_RDV; 
+            <?php // echo TXT_RDV;
             ?>
 
             <div class="collapse in show">
