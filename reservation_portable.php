@@ -152,7 +152,7 @@ date_default_timezone_set('Europe/Paris');
                     <?php echo TXT_CHOIX_RETOUR; ?> :
                 </td>
                 <td>
-                    <input type="date" class="form-control" name="DateRetour" placeholder="dd-mm-yyyy" required>
+                    <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy" required>
                 </td>
                 <td>
                     (*)
@@ -165,6 +165,53 @@ date_default_timezone_set('Europe/Paris');
         <p><?php echo TXT_CHOIX_CRENEAU; ?></p>
         <!--les creneaux-->
         <!--input sans icon, button avec icon mais toujours submit automatiquement-->
+
+
+        <input type="date" class="form-control" name="date_RDV" id="date_rdv" onchange="test()">
+
+
+        <?php /*  SELECT * 
+FROM calendrier 
+WHERE calendrier.JourCal='Vendredi' 
+AND calendrier.EtatCal = 'Disponible' 
+AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal 
+                                      FROM emprunt, calendrier 
+                                      WHERE calendrier.JourCal = 'Vendredi'
+                                      AND emprunt.DateEmprunt = '2021-06-25'
+                                      AND emprunt.Statut_RDV LIKE 'à venir'); */
+        ?>
+
+        <script>
+            function test() {
+                var date_retour = document.getElementById('DateRetour').value;
+                <?php $date_retour = "<script>document.getElementById('DateRetour').value;</script>" ?>
+
+                console.log(date_retour)
+
+                var date_rdv = document.getElementById('date_rdv').value;
+                console.log(date_rdv)
+
+                return date_retour
+            }
+            var test = 1;
+        </script>
+
+
+        <?php
+        //$date_retour = "<script>document.getElementById('DateRetour').value;</script>" 
+        $date_retour = "<script>document.getElementById('DateRetour').value;</script>";
+
+        echo $date_retour;
+
+        if ($date_retour == "2021-06-20") {
+            echo 5;
+        }
+        ?>
+
+
+        <br><br><br><br><br><br><br><br>
+
+
         <input type="button" class="accordion" value="<?php
                                                         $premierJour = strftime("%d/%m/%Y", strtotime("monday"));
                                                         echo TXT_LUNDI . " $premierJour";
@@ -362,6 +409,8 @@ date_default_timezone_set('Europe/Paris');
                 ?>
             </table>
         </div>
+        </div>
+
 
 
         <script>
