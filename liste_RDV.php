@@ -175,11 +175,12 @@ date_default_timezone_set('Europe/Paris');
         $result_liste_rdv = mysqli_query($session, $query_liste_rdv);
         if ($result_liste_rdv != null) {
         ?>
-          <form method="POST" action="">
-            <?php
-            while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
+          <?php
+          while ($ligne_liste_rdv = mysqli_fetch_array($result_liste_rdv)) {
 
-            ?>
+          ?>
+            <form method="POST" action="">
+
               <tr>
                 <input type='hidden' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idemprunt'] ?>" name='idemprunt' readonly>
                 <td>
@@ -222,156 +223,159 @@ date_default_timezone_set('Europe/Paris');
 
               </tr>
 
-          </form>
+            </form>
+        <?php
+          }
+        }
+        ?>
+
       </Table>
-    <?php
-            }
-          }
 
-          if (isset($_POST['RDV_termine'])) {
-            $ide = $_POST['ide'];
-            $idm = $_POST['idm'];
-            $idc = $_POST['idc'];
+      <?php
+      if (isset($_POST['RDV_termine'])) {
+        $ide = $_POST['ide'];
+        $idm = $_POST['idm'];
+        $idc = $_POST['idc'];
 
-            $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
-            $result_update_RDV = mysqli_query($session, $update_RDV);
-            $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
-            $result_update_cal = mysqli_query($session, $update_cal);
-    ?>
-    <script type="text/javascript">
-      document.location.href = 'liste_RDV.php';
-    </script>
+        $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+        $result_update_RDV = mysqli_query($session, $update_RDV);
+        $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+        $result_update_cal = mysqli_query($session, $update_cal);
+      ?>
+        <script type="text/javascript">
+          document.location.href = 'liste_RDV.php';
+        </script>
 
-  <?php
-          }
+      <?php
+      }
 
 
-          if (isset($_POST['Modifier_RDV'])) {
-  ?>
-    <FORM method="POST" action="">
-      <div class="modal fade" id="mdp" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
+      if (isset($_POST['Modifier_RDV'])) {
+      ?>
+        <FORM method="POST" action="">
+          <div class="modal fade" id="mdp" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
 
-              <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idemprunt'] ?>" name='idemprunt' readonly>
-              <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idm'] ?>" name='idm' readonly>
+                  <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idemprunt'] ?>" name='idemprunt' readonly>
+                  <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idm'] ?>" name='idm' readonly>
 
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['motif'] ?>" placeholder=" " name='motif' readonly>
-                <label for="floatingInput"><?php echo "Motif"; ?>:</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['motif'] ?>" placeholder=" " name='motif' readonly>
+                    <label for="floatingInput"><?php echo "Motif"; ?>:</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' placeholder=" " value="<?php echo $_POST['ide'] ?>" name='ide' readonly>
-                <label for="floatingInput"><?php echo "Identifiant emprunteur"; ?>:</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' placeholder=" " value="<?php echo $_POST['ide'] ?>" name='ide' readonly>
+                    <label for="floatingInput"><?php echo "Identifiant emprunteur"; ?>:</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['prenom'] ?>" placeholder=" " name='prenom' readonly>
-                <label for="floatingInput"><?php echo "Prénom de l'emprunteur"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['prenom'] ?>" placeholder=" " name='prenom' readonly>
+                    <label for="floatingInput"><?php echo "Prénom de l'emprunteur"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['nom'] ?>" name='nom' readonly>
-                <label for="floatingInput"><?php echo "Nom de l'emprunteur"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['nom'] ?>" name='nom' readonly>
+                    <label for="floatingInput"><?php echo "Nom de l'emprunteur"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['date_rdv'] ?>" name='date_rdv'>
-                <label for="floatingInput"><?php echo "Date du RDV"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['date_rdv'] ?>" name='date_rdv'>
+                    <label for="floatingInput"><?php echo "Date du RDV"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['heure'] ?>" name='heure' readonly>
-                <label for="floatingInput"><?php echo "Heure"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['heure'] ?>" name='heure' readonly>
+                    <label for="floatingInput"><?php echo "Heure"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['idm'] ?>" name='nouveau_idm'>
-                <label for="floatingInput"><?php echo "Identifiant du matériel"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['idm'] ?>" name='nouveau_idm'>
+                    <label for="floatingInput"><?php echo "Identifiant du matériel"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='text' class='form-control' value="<?php echo $_POST['type'] ?>" name='type' readonly>
-                <label for="floatingInput"><?php echo "Type de matériel"; ?> :</label>
-              </div>
+                  <div class="form-floating mb-3">
+                    <input type='text' class='form-control' value="<?php echo $_POST['type'] ?>" name='type' readonly>
+                    <label for="floatingInput"><?php echo "Type de matériel"; ?> :</label>
+                  </div>
 
-              <div class="form-floating mb-3">
-                <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc' readonly>
-              </div>
-            </div>
+                  <div class="form-floating mb-3">
+                    <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc' readonly>
+                  </div>
+                </div>
 
-            <div class="modal-footer">
-              <div class="col text-center">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo "Annuler"; ?>">
-                <input type="submit" class="btn btn-primary" name="confirmer_modifier_RDV" value="<?php echo "Valider"; ?>">
+                <div class="modal-footer">
+                  <div class="col text-center">
+                    <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo "Annuler"; ?>">
+                    <input type="submit" class="btn btn-primary" name="confirmer_modifier_RDV" value="<?php echo "Valider"; ?>">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    <?php
-            echo "<script>
+        <?php
+        echo "<script>
           $(window).load(function() {
           $('#mdp').modal('show');
           });
       </script>";
-          }
-    ?>
-    </FORM>
+      }
+        ?>
+        </FORM>
 
-    <?php
-
-
-    if (isset($_POST['confirmer_modifier_RDV'])) {
-      $ide = $_POST['ide'];
-      $idm = $_POST['idm'];
-      $nouveau_idm = $_POST['nouveau_idm'];
-      $idc = $_POST['idc'];
-      $date_rdv = $_POST['date_rdv'];
-      $idemprunt = $_POST['idemprunt'];
+        <?php
 
 
-      $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
-      $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
-      $modifier_id_materiel = ("UPDATE materiel SET IdentifiantM = '$nouveau_idm' WHERE IdentifiantM = '$idm'");
-      $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
-    ?>
+        if (isset($_POST['confirmer_modifier_RDV'])) {
+          $ide = $_POST['ide'];
+          $idm = $_POST['idm'];
+          $nouveau_idm = $_POST['nouveau_idm'];
+          $idc = $_POST['idc'];
+          $date_rdv = $_POST['date_rdv'];
+          $idemprunt = $_POST['idemprunt'];
 
-      <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="alert alert-success d-flex align-items-center" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
 
-                <div>
-                  <?php echo "Les modifications ont bien été effectuées" ?>
+          $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
+          $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
+          $modifier_id_materiel = ("UPDATE materiel SET IdentifiantM = '$nouveau_idm' WHERE IdentifiantM = '$idm'");
+          $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
+        ?>
+
+          <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+
+                    <div>
+                      <?php echo "Les modifications ont bien été effectuées" ?>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <div class="col text-center">
+                    <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="modal-footer">
-              <div class="col text-center">
-                <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
 
-    <?php
-      echo "<script>
+        <?php
+          echo "<script>
     $(window).load(function() {
         $('#succes_mdp').modal('show');
     });
 </script>";
-    }
-    ?>
+        }
+        ?>
 
 
     </div>
