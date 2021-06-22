@@ -210,174 +210,217 @@ date_default_timezone_set('Europe/Paris');
     $result_emprunt = mysqli_query($session, $emprunt);
     ?>
     <Table class="table table-striped table-hover avectri">
-<thead>
-      <TR>
-        <TH >
-          Prénom
-        </TH>
-        <TH>
-          Nom
-        </TH>
-        <TH data-tri="1" class="selection" data-type="num" >
-          Numéro du matériel
-        </TH>
-        <TH>
-          Type de materiel
-        </TH>
-        <TH>
-          Email
-        </TH>
-        <TH>
-          Date de reservation
-        </TH>
-        <TH>
-          Date de retour prévue
-        </TH>
-        <th></th>
-      </TR>
-</thead>
-<tbody>
+      <thead>
+        <TR>
+          <TH>
+            Prénom
+          </TH>
+          <TH>
+            Nom
+          </TH>
+          <TH data-tri="1" class="selection" data-type="num">
+            Numéro du matériel
+          </TH>
+          <TH>
+            Type de materiel
+          </TH>
+          <TH>
+            Email
+          </TH>
+          <TH>
+            Date de reservation
+          </TH>
+          <TH>
+            Date de retour prévue
+          </TH>
+        </TR>
+      </thead>
+      <tbody>
 
 
-      <form action="rendu.php" method="POST">
+        <form action="rendu.php" method="POST">
 
-        <?php
-        foreach ($result_emprunt as $row) {
-        ?>
-
-          <TR>
-            <input type="hidden" class="form-control-plaintext" value="<?php echo $row['IdentifiantPe'] ?>" name="IdentifiantPe">
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['PrenomPe'] ?>" name="PrenomPe" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['NomPe'] ?>" name="NomPe" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['IdentifiantM'] ?>" name="IdentifiantM" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['CategorieM'] ?>" name="CategorieM" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['EmailPe'] ?>" name="EmailPe" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['DateEmprunt'] ?>" name="DateEmprunt" readonly>
-            </TD>
-            <TD>
-              <input type="text" class="form-control-plaintext" value="<?php echo $row['DateRetour'] ?>" name="DateRetour" readonly>
-            </TD>
-            <td>
-              <input type="submit" class="btn btn-primary" value="Matériel récupéré" name="recupere">
-            </td>
-          </TR>
           <?php
-}
-           ?>
-<tbody>
+          foreach ($result_emprunt as $row) {
+          ?>
+
+            <TR>
+              <input type="hidden" class="form-control-plaintext" value="<?php echo $row['IdentifiantPe'] ?>" name="IdentifiantPe">
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['PrenomPe'] ?>" name="PrenomPe" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['NomPe'] ?>" name="NomPe" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['IdentifiantM'] ?>" name="IdentifiantM" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['CategorieM'] ?>" name="CategorieM" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['EmailPe'] ?>" name="EmailPe" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['DateEmprunt'] ?>" name="DateEmprunt" readonly>
+              </TD>
+              <TD>
+                <input type="text" class="form-control-plaintext" value="<?php echo $row['DateRetour'] ?>" name="DateRetour" readonly>
+              </TD>
+            </TR>
+          <?php
+          }
+          ?>
+      <tbody>
 
         <?php
 
-          $semaine_prochaine = strftime("%Y-%m-%d", strtotime("+1 week"));
-          $semaine_en_cours = strftime("%Y-%m-%d", strtotime("+1 day"));
+        $semaine_prochaine = strftime("%Y-%m-%d", strtotime("+1 week"));
+        $semaine_en_cours = strftime("%Y-%m-%d", strtotime("+1 day"));
 
-          $date_retour = $row['DateRetour'];
-
-
-          $identifiantM = $row['IdentifiantM'];
-          $identifiantPe = $row['IdentifiantPe'];
+        $date_retour = $row['DateRetour'];
 
 
-          $mail_rappel = ("SELECT COUNT(*) AS nb_lignes FROM emprunt WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe' AND mail_rappel NOT LIKE 'effectue'");
-          $result_mail_rappel = mysqli_query($session, $mail_rappel);
-          foreach ($result_mail_rappel as $nb) {
-            $nb_lignes = $nb['nb_lignes'];
+        $identifiantM = $row['IdentifiantM'];
+        $identifiantPe = $row['IdentifiantPe'];
+
+
+        $mail_rappel = ("SELECT COUNT(*) AS nb_lignes FROM emprunt WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe' AND mail_rappel NOT LIKE 'effectue'");
+        $result_mail_rappel = mysqli_query($session, $mail_rappel);
+        foreach ($result_mail_rappel as $nb) {
+          $nb_lignes = $nb['nb_lignes'];
+        }
+
+        $mail_retour_depasse = ("SELECT COUNT(*) AS nb_lignes FROM emprunt WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe' AND mail_retour_depasse NOT LIKE 'effectue'");
+        $result_mail_retour_depasse = mysqli_query($session, $mail_retour_depasse);
+        foreach ($result_mail_retour_depasse as $nb) {
+          $nb_lignes_depasse = $nb['nb_lignes'];
+        }
+
+        //echo $date_retour;
+        if ($date_retour == $semaine_prochaine) {
+          if ($nb_lignes > 0) {
+            $destinataire = $row["IdentifiantPe"];
+            $objet = "Remise du matériel";
+            $message = "Veuillez rendre le matériel emprunté";
+            $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
+              'Reply-To: Responsable des prêts de matériels' . "\r\n" .
+              'X-Mailer: PHP/' . phpversion();
+            mail("$destinataire", $objet, $message, $headers);
+            $update_mail_rappel = ("UPDATE emprunt SET mail_rappel = 'effectue' WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe'");
+            $result_update_mail_rappel = mysqli_query($session, $update_mail_rappel);
           }
+        }
 
-          $mail_retour_depasse = ("SELECT COUNT(*) AS nb_lignes FROM emprunt WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe' AND mail_retour_depasse NOT LIKE 'effectue'");
-          $result_mail_retour_depasse = mysqli_query($session, $mail_retour_depasse);
-          foreach ($result_mail_retour_depasse as $nb) {
-            $nb_lignes_depasse = $nb['nb_lignes'];
+        if ($date_retour < $semaine_en_cours) {
+          if ($nb_lignes_depasse > 0) {
+            $destinataire = $row['IdentifiantPe'];
+            $objet = "Date de retour dépassée";
+            $message = "Veuillez rendre le matériel emprunté";
+            $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
+              'Reply-To: Responsable des prêts de matériels' . "\r\n" .
+              'X-Mailer: PHP/' . phpversion();
+            mail($destinataire, $objet, $message, $headers);
+            $update_mail_retour_depasse = ("UPDATE emprunt SET mail_rappel = 'effectue' WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe'");
+            $result_update_mail_retour_depasse = mysqli_query($session, $update_mail_retour_depasse);
           }
-
-          //echo $date_retour;
-          if ($date_retour == $semaine_prochaine) {
-            if ($nb_lignes > 0) {
-              $destinataire = $row["IdentifiantPe"];
-              $objet = "Remise du matériel";
-              $message = "Veuillez rendre le matériel emprunté";
-              $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
-                'Reply-To: Responsable des prêts de matériels' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
-              mail("$destinataire", $objet, $message, $headers);
-              $update_mail_rappel = ("UPDATE emprunt SET mail_rappel = 'effectue' WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe'");
-              $result_update_mail_rappel = mysqli_query($session, $update_mail_rappel);
-            }
-          }
-
-          if ($date_retour < $semaine_en_cours) {
-            if ($nb_lignes_depasse > 0) {
-              $destinataire = $row['IdentifiantPe'];
-              $objet = "Date de retour dépassée";
-              $message = "Veuillez rendre le matériel emprunté";
-              $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
-                'Reply-To: Responsable des prêts de matériels' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
-              mail($destinataire, $objet, $message, $headers);
-              $update_mail_retour_depasse = ("UPDATE emprunt SET mail_rappel = 'effectue' WHERE IdentifiantM = '$identifiantM' AND IdentifiantPe = '$identifiantPe'");
-              $result_update_mail_retour_depasse = mysqli_query($session, $update_mail_retour_depasse);
-            }
-          }
+        }
 
 
         ?>
-      </form>
+        </form>
 
     </Table>
 
   </div>
-  
+
   <style>
-  /* Classe obligatoire pour les flèches */
-  .flecheDesc {
-    width: 0;
-    height: 0;
-    float:right;
-    margin: 10px;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid black;
-  }
-  .flecheAsc {
-    width: 0;
-    height: 0;
-    float:right;
-    margin: 10px;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid black;
-  }
-  /* Classe optionnelle pour le style */
-.tableau {width:100%;table-layout: fixed;border-collapse: collapse;}
-.tableau td {padding:.3rem}
-.zebre tbody tr:nth-child(odd) {background-color: #d6d3ce;border-bottom:1px solid #ccc;color:#444;}
-.zebre tbody tr:nth-child(even) {background-color: #c6c3bd;border-bottom:1px solid #ccc;color:#444;}
-.zebre tbody tr:hover:nth-child(odd) {background-color: #999690;color:#ffffff;}
-.zebre tbody tr:hover:nth-child(even) {background-color: #999690;color:#ffffff;}
-.avectri th {text-align:center;padding:5px 0 0 5px;vertical-align: middle;background-color:#999690;color:#444;cursor:pointer;
-	-webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-.avectri th.selection {background-color:#5d625c;color:#fff;}
-.avectri th.selection .flecheDesc {border-bottom-color: white;}
-.avectri th.selection .flecheAsc {border-top-color: white;}
-.zebre tbody td:nth-child(3) {text-align:center;}
+    /* Classe obligatoire pour les flèches */
+    .flecheDesc {
+      width: 0;
+      height: 0;
+      float: right;
+      margin: 10px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid black;
+    }
+
+    .flecheAsc {
+      width: 0;
+      height: 0;
+      float: right;
+      margin: 10px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid black;
+    }
+
+    /* Classe optionnelle pour le style */
+    .tableau {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .tableau td {
+      padding: .3rem
+    }
+
+    .zebre tbody tr:nth-child(odd) {
+      background-color: #d6d3ce;
+      border-bottom: 1px solid #ccc;
+      color: #444;
+    }
+
+    .zebre tbody tr:nth-child(even) {
+      background-color: #c6c3bd;
+      border-bottom: 1px solid #ccc;
+      color: #444;
+    }
+
+    .zebre tbody tr:hover:nth-child(odd) {
+      background-color: #999690;
+      color: #ffffff;
+    }
+
+    .zebre tbody tr:hover:nth-child(even) {
+      background-color: #999690;
+      color: #ffffff;
+    }
+
+    .avectri th {
+      text-align: center;
+      padding: 5px 0 0 5px;
+      vertical-align: middle;
+      background-color: #999690;
+      color: #444;
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
+    .avectri th.selection {
+      background-color: #5d625c;
+      color: #fff;
+    }
+
+    .avectri th.selection .flecheDesc {
+      border-bottom-color: white;
+    }
+
+    .avectri th.selection .flecheAsc {
+      border-top-color: white;
+    }
+
+    .zebre tbody td:nth-child(3) {
+      text-align: center;
+    }
   </style>
 
   <script>
@@ -387,24 +430,24 @@ date_default_timezone_set('Europe/Paris');
     // Sous licence du MIT.
     function twInitTableau() {
       // Initialise chaque tableau de classe « avectri »
-         [].forEach.call( document.getElementsByClassName("avectri"), function(oTableau) {
-         var oEntete = oTableau.getElementsByTagName("tr")[0];
-         var nI = 1;
+      [].forEach.call(document.getElementsByClassName("avectri"), function(oTableau) {
+        var oEntete = oTableau.getElementsByTagName("tr")[0];
+        var nI = 1;
         // Ajoute à chaque entête (th) la capture du clic
         // Un picto flèche, et deux variable data-*
         // - Le sens du tri (0 ou 1)
         // - Le numéro de la colonne
-        [].forEach.call( oEntete.querySelectorAll("th"), function(oTh) {
+        [].forEach.call(oEntete.querySelectorAll("th"), function(oTh) {
           oTh.addEventListener("click", twTriTableau, false);
           oTh.setAttribute("data-pos", nI);
-          if(oTh.getAttribute("data-tri")=="1") {
-           oTh.innerHTML += "<span class=\"flecheDesc\"></span>";
+          if (oTh.getAttribute("data-tri") == "1") {
+            oTh.innerHTML += "<span class=\"flecheDesc\"></span>";
           } else {
             oTh.setAttribute("data-tri", "0");
             oTh.innerHTML += "<span class=\"flecheAsc\"></span>";
           }
           // Tri par défaut
-          if (oTh.className=="selection") {
+          if (oTh.className == "selection") {
             oTh.click();
           }
           nI++;
@@ -415,8 +458,9 @@ date_default_timezone_set('Europe/Paris');
     function twInit() {
       twInitTableau();
     }
+
     function twPret(maFonction) {
-      if (document.readyState != "loading"){
+      if (document.readyState != "loading") {
         maFonction();
       } else {
         document.addEventListener("DOMContentLoaded", maFonction);
@@ -427,24 +471,27 @@ date_default_timezone_set('Europe/Paris');
     function twTriTableau() {
       // Ajuste le tri
       var nBoolDir = this.getAttribute("data-tri");
-      this.setAttribute("data-tri", (nBoolDir=="0") ? "1" : "0");
+      this.setAttribute("data-tri", (nBoolDir == "0") ? "1" : "0");
       // Supprime la classe « selection » de chaque colonne.
-      [].forEach.call( this.parentNode.querySelectorAll("th"), function(oTh) {oTh.classList.remove("selection");});
+      [].forEach.call(this.parentNode.querySelectorAll("th"), function(oTh) {
+        oTh.classList.remove("selection");
+      });
       // Ajoute la classe « selection » à la colonne cliquée.
       this.className = "selection";
       // Ajuste la flèche
-      this.querySelector("span").className = (nBoolDir=="0") ? "flecheAsc" : "flecheDesc";
+      this.querySelector("span").className = (nBoolDir == "0") ? "flecheAsc" : "flecheDesc";
 
       // Construit la matrice
       // Récupère le tableau (tbody)
       var oTbody = this.parentNode.parentNode.parentNode.getElementsByTagName("tbody")[0];
       var oLigne = oTbody.rows;
       var nNbrLigne = oLigne.length;
-      var aColonne = new Array(), i, j, oCel;
-      for(i = 0; i < nNbrLigne; i++) {
+      var aColonne = new Array(),
+        i, j, oCel;
+      for (i = 0; i < nNbrLigne; i++) {
         oCel = oLigne[i].cells;
         aColonne[i] = new Array();
-        for(j = 0; j < oCel.length; j++){
+        for (j = 0; j < oCel.length; j++) {
           aColonne[i][j] = oCel[j].innerHTML;
         }
       }
@@ -453,23 +500,27 @@ date_default_timezone_set('Europe/Paris');
       // Récupère le numéro de la colonne
       var nIndex = this.getAttribute("data-pos");
       // Récupère le type de tri (numérique ou par défaut « local »)
-      var sFonctionTri = (this.getAttribute("data-type")=="num") ? "compareNombres" : "compareLocale";
+      var sFonctionTri = (this.getAttribute("data-type") == "num") ? "compareNombres" : "compareLocale";
       // Tri
       aColonne.sort(eval(sFonctionTri));
       // Tri numérique
-      function compareNombres(a, b) {return a[nIndex-1] - b[nIndex-1];}
+      function compareNombres(a, b) {
+        return a[nIndex - 1] - b[nIndex - 1];
+      }
       // Tri local (pour support utf-8)
-      function compareLocale(a, b) {return a[nIndex-1].localeCompare(b[nIndex-1]);}
+      function compareLocale(a, b) {
+        return a[nIndex - 1].localeCompare(b[nIndex - 1]);
+      }
       // Renverse la matrice dans le cas d’un tri descendant
-      if (nBoolDir==0) aColonne.reverse();
+      if (nBoolDir == 0) aColonne.reverse();
 
       // Construit les colonne du nouveau tableau
-      for(i = 0; i < nNbrLigne; i++){
-        aColonne[i] = "<td>"+aColonne[i].join("</td><td>")+"</td>";
+      for (i = 0; i < nNbrLigne; i++) {
+        aColonne[i] = "<td>" + aColonne[i].join("</td><td>") + "</td>";
       }
 
       // assigne les lignes au tableau
-      oTbody.innerHTML = "<tr>"+aColonne.join("</tr><tr>")+"</tr>";
+      oTbody.innerHTML = "<tr>" + aColonne.join("</tr><tr>") + "</tr>";
     }
   </script>
 

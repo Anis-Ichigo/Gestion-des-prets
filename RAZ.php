@@ -132,19 +132,10 @@ mysqli_set_charset($session, "utf8");
                     Numéro du materiel
                 </Th>
                 <th>
-                    Date de pret
-                </Th>
-                <th>
-                    Date retour
-                </Th>
-                <th>
                     Type de materiel
                 </Th>
                 <th>
                     Etat
-                </Th>
-                <th>
-                    Problème
                 </Th>
                 <th>
 
@@ -153,47 +144,6 @@ mysqli_set_charset($session, "utf8");
 
             <?php
 
-            $query_pb = "SELECT M.IdentifiantM, E.DateEmprunt,E.DateRetour, M.CategorieM, M.EtatM, P.NomP
-                            FROM materiel M, emprunt E, probleme P
-                            WHERE M.IdentifiantM = E.IdentifiantM
-                            AND M.IdentifiantM = P.IdentifiantM
-                            AND M.EtatM = 'Non dispo'
-                            AND P.Resolution LIKE 'Non résolu'";
-            $result_pb = mysqli_query($session, $query_pb);
-            if ($result_pb != NULL) {
-                while ($ligne = mysqli_fetch_array($result_pb)) {
-            ?>
-                    <form class="" action="reparer_materiel.php" method="post">
-                        <TR>
-                            <TD>
-                                <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="dateretour" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['NomP'] ?>">
-                            </TD>
-                            <TD>
-
-                                <input type="submit" id="pb" name="reparation" class="btn btn-primary" value="Problème Résolu">
-
-                            </TD>
-                        </TR>
-                    </form>
-
-                <?php
-                }
-            }
 
             $query_raz = "SELECT *
                 FROM materiel M, emprunt E
@@ -210,26 +160,17 @@ mysqli_set_charset($session, "utf8");
                 while ($ligne = mysqli_fetch_array($result_raz)) {
                 ?>
 
-                    <form action="reparer_materiel.php" method="POST">
+                    <form action="" method="POST">
 
                         <TR>
                             <TD>
                                 <input type="text" name="numero" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantM'] ?>">
                             </TD>
                             <TD>
-                                <input type="text" name="datepret" class="form-control-plaintext" value="<?php echo $ligne['DateEmprunt'] ?>">
-                            </TD>
-                            <TD>
-                                <input type="text" name="dateretour" class="form-control-plaintext" value="<?php echo $ligne['DateRetour'] ?>">
-                            </TD>
-                            <TD>
                                 <input type="text" name="type" class="form-control-plaintext" value="<?php echo $ligne['CategorieM'] ?>">
                             </TD>
                             <TD>
                                 <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
-                            </TD>
-                            <TD>
-                                Réparé
                             </TD>
                             <TD>
                                 <input type="submit" name="raz" class="btn btn-primary" value="RAZ Terminée">

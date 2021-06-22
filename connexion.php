@@ -39,6 +39,15 @@ mysqli_set_charset($session, "utf8");
                     echo $goodpsw;
                 }
 
+                $select_contrat = "SELECT * 
+                                        FROM emprunt, personne 
+                                        WHERE emprunt.IdentifiantPe = personne.IdentifiantPe 
+                                        AND personne.IdentifiantPe = '$identifiant'";
+                $result_select_contrat = mysqli_query($session, $select_contrat);
+                foreach ($result_select_contrat as $row) {
+                    $contrat = $row['Contrat'];
+                }
+
                 if ($user != $gooduser or $mdp_hash != $goodpsw) {
                     $lange = $_POST['lang'];
                     echo "<h2>Mauvais login </h2><br>
@@ -62,11 +71,15 @@ mysqli_set_charset($session, "utf8");
                     $_SESSION['role'] = $role;
 
 
-                    if ($_SESSION['role'] == "Responsable") {
-                        header("Location: liste_RDV.php");
-                    } elseif ($_SESSION['role'] == "Vacataire") {
-                        header("Location: entretien.php");
-                    } else header("Location: profil.php");
+                    if ($contrat == 'a signer') {
+                        header("Location: contrat.php");
+                    } else {
+                        if ($_SESSION['role'] == "Responsable") {
+                            header("Location: liste_RDV.php");
+                        } elseif ($_SESSION['role'] == "Vacataire") {
+                            header("Location: entretien.php");
+                        } else header("Location: profil.php");
+                    }
                 }
 
 

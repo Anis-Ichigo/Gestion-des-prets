@@ -88,10 +88,10 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
+                            <a class="nav-link" style="background-color: none; color:black" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link  active" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>

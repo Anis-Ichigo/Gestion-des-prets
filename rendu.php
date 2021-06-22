@@ -12,5 +12,5 @@ if (isset($_POST['recupere'])) {
     $result_rendu = mysqli_query($session, $rendu);
 }
 
-header("location: suivi_prets.php");
+header("location: liste_RDV.php");
 ?>

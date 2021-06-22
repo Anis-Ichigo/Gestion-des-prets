@@ -38,8 +38,10 @@ require('decide-lang.php');
     $resultat = mysqli_query($session, $role_pe);
     foreach ($resultat as $row) {
         $role_user = $row["RolePe"];
+        $contrat = $row['Statut'];
     }
     ?>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid ">
             <img src="Bandeau.png" href="https://www.ut-capitole.fr/" />
@@ -101,7 +103,7 @@ require('decide-lang.php');
                             <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link"  href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> Profil</a>
+                            <a class="nav-link" href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> Profil</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="FAQ.php"><i class=" fi-rr-interrogation"></i> FAQ</a>
@@ -521,12 +523,12 @@ require('decide-lang.php');
                                 <?php
                                 $i = 0;
                                 foreach ($result_reservations as $row) {
-                                    ?>
+                                ?>
                                     <form action="profil.php" method="post">
                                         <?php
 
-                                    if ($i % 3 != 0) {
-                                ?>
+                                        if ($i % 3 != 0) {
+                                        ?>
 
 
                                             <td>
@@ -591,7 +593,7 @@ require('decide-lang.php');
                     </div>
                     </td>
                 <?php
-                                    } else if ($i % 3 == 0) {
+                                        } else if ($i % 3 == 0) {
 
                 ?>
                     <tr>
@@ -660,10 +662,10 @@ require('decide-lang.php');
 
         <?php
 
-                                    }
+                                        }
 
-                                    $i += 1;
-                                }
+                                        $i += 1;
+                                    }
         ?>
 
         </tr>
@@ -1389,6 +1391,18 @@ require('decide-lang.php');
                 ?>
 
                 </div>
+
+                <?php
+                if (isset($_POST['valider_contrat'])) {
+                    $IdentifiantE = $_POST['IdentifiantE'];
+                    $validation = "UPDATE emprunt SET Contrat = 'signe' WHERE emprunt.IdentifiantE = '$IdentifiantE'";
+                    $result_validation = mysqli_query($session, $validation);
+                }
+
+
+                ?>
+
+                <a href="doc.pdf">Contrat</a>
 
 </body>
 
