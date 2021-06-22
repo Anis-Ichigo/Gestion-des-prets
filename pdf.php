@@ -76,14 +76,4 @@ if (isset($_POST['valider_contrat'])) {
 
 ?>');*/
 $nom = $_SESSION['nom'];
-$pdf->Output('D', "$nom.pdf");
-
-for ($i = 1; $i <= 2; $i++) {
-    if ($i == 1) {
-        //sortie du fichier
-        $pdf->Output('../' . $_SESSION['nom'] . '.pdf', 'F');
-    } else {
-        //sortie du fichier
-        $pdf->output();
-    }
-}
+$pdf->Output('I', "contrat.pdf");
