@@ -3,9 +3,10 @@ require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
-require('fpdf.php');
 
 
+
+/*
 $informations = "SELECT * 
 FROM personne, materiel, emprunt, modele
 WHERE emprunt.IdentifiantM = materiel.IdentifiantM
@@ -75,5 +76,5 @@ if (isset($_POST['valider_contrat'])) {
 
 
 ?>');*/
-$nom = $_SESSION['nom'];
-$pdf->Output('I', "contrat.pdf");
+/*
+$pdf->Output();*/

@@ -42,11 +42,10 @@ mysqli_set_charset($session, "utf8");
                 $select_contrat = "SELECT * 
                                         FROM emprunt, personne 
                                         WHERE emprunt.IdentifiantPe = personne.IdentifiantPe 
-                                        AND personne.IdentifiantPe = '$identifiant'";
+                                        AND personne.IdentifiantPe = '$identifiant'
+                                        AND emprunt.Contrat LIKE 'a signer'";
                 $result_select_contrat = mysqli_query($session, $select_contrat);
-                foreach ($result_select_contrat as $row) {
-                    $contrat = $row['Contrat'];
-                }
+                $nb_lignes = mysqli_num_rows($result_select_contrat);
 
                 if ($user != $gooduser or $mdp_hash != $goodpsw) {
                     $lange = $_POST['lang'];
@@ -71,7 +70,7 @@ mysqli_set_charset($session, "utf8");
                     $_SESSION['role'] = $role;
 
 
-                    if ($contrat == 'a signer') {
+                    if ($nb_lignes > 0) {
                         header("Location: contrat.php");
                     } else {
                         if ($_SESSION['role'] == "Responsable") {

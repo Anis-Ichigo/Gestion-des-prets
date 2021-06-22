@@ -5,6 +5,9 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 
 require('decide-lang.php');
+
+require('fpdf183/fpdf.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -126,6 +129,27 @@ require('decide-lang.php');
             </div>
         </div>
     </nav>
+
+    <p>Mes contrats : </p>
+    <?php
+    $select_contrat = "SELECT * 
+                                        FROM emprunt, personne 
+                                        WHERE emprunt.IdentifiantPe = personne.IdentifiantPe 
+                                        AND personne.IdentifiantPe = '$identifiant'";
+    $result_select_contrat = mysqli_query($session, $select_contrat);
+
+    $i = 1;
+    foreach ($result_select_contrat as $row) {
+        $IdentifiantE = $row['IdentifiantE'];
+        $prenom = $row['PrenomPe'];
+        $nom = $row['NomPe'];
+    ?>
+        <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Contrat n°<?php echo $i; ?></a>
+
+    <?php
+        $i += 1;
+    }
+    ?>
 
     <br><br>
 
@@ -1397,12 +1421,59 @@ require('decide-lang.php');
                     $IdentifiantE = $_POST['IdentifiantE'];
                     $validation = "UPDATE emprunt SET Contrat = 'signe' WHERE emprunt.IdentifiantE = '$IdentifiantE'";
                     $result_validation = mysqli_query($session, $validation);
-                }
 
+
+                    $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe'
+                                        FROM personne, materiel, emprunt, modele
+                                        WHERE emprunt.IdentifiantM = materiel.IdentifiantM
+                                        AND emprunt.IdentifiantPe = personne.IdentifiantPe
+                                        AND materiel.IdentifiantMo = modele.IdentifiantMo
+                                        AND emprunt.Contrat LIKE 'signe'";
+                    $result = mysqli_query($session, $informations);
+
+                    foreach ($result as $row) {
+                        $IdentifiantM = $row['IdentifiantM'];
+                        $CategorieM = $row['CategorieM'];
+                        $date_retour = strftime('%d/%m/%Y', strtotime($row['DateRetour']));;
+                        $modele = $row['IdentifiantMo'];
+                        $marque = $row['Marque'];
+                        $date_emprunt = strftime('%d/%m/%Y', strtotime($row['DateEmprunt']));
+                        $IdentifiantE = $row['IdentifiantE'];
+                        $prenom = $row['PrenomPe'];
+                        $nom = $row['NomPe'];
+                    }
+
+
+                    if ($CategorieM == 'Ordinateur') {
+                        $var = "un";
+                    } else {
+                        $var = "une";
+                    }
+
+                    $pdf = new FPDF();
+                    $pdf->AddPage();
+                    $pdf->SetFont('Arial', 'B', 16);
+                    $pdf->Cell(40, 10, utf8_decode("Je soussigné {$prenom} {$nom}, déclare recevoir {$var} {$CategorieM} N°{$IdentifiantM}.Je m’engage à le restituer à tout moment si le responsable de la
+                    formation en a besoin ou avant le {$date_retour} dans le pire des cas. Le prêt comprend : {$var} {$CategorieM} {$modele} de la marque : {$marque} et une sacoche.
+                     <p>Fait le {$date_emprunt}</p>
+                     <div class='form-check'>
+                         <input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' required>
+                        '<label class='form-check-label' for='flexCheckDefault'>
+                        'Je certifie sur l'honneur être d'accord avec le présent contrat.
+                         '</label>
+                        '</div>
+                        '<div class='form-check'>
+                            '<input class='form-check-input' type='checkbox' value='' id='flexCheckChecked' required>
+                          '<label class='form-check-label' for='flexCheckChecked'>
+                              'En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie
+                            papier de ce document.
+                                '</label>
+                               '</div>"));
+                    $pdf->Output('F', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
+                }
 
                 ?>
 
-                <a href="doc.pdf">Contrat</a>
 
 </body>
 
