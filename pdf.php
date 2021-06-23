@@ -4,6 +4,127 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
 
+require('fpdf183/fpdf.php');
+class PDF extends FPDF
+{
+    protected $B = 0;
+    protected $I = 0;
+    protected $U = 0;
+    protected $HREF = '';
+
+    function WriteHTML($html)
+    {
+        // HTML parser
+        $html = str_replace("\n",' ',$html);
+        $a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
+        foreach($a as $i=>$e)
+        {
+            if($i%2==0)
+            {
+                // Text
+                if($this->HREF)
+                    $this->PutLink($this->HREF,$e);
+                else
+                    $this->Write(10,$e);
+            }
+            else
+            {
+                // Tag
+                if($e[0]=='/')
+                    $this->CloseTag(strtoupper(substr($e,1)));
+                else
+                {
+                    // Extract attributes
+                    $a2 = explode(' ',$e);
+                    $tag = strtoupper(array_shift($a2));
+                    $attr = array();
+                    foreach($a2 as $v)
+                    {
+                        if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
+                            $attr[strtoupper($a3[1])] = $a3[2];
+                    }
+                    $this->OpenTag($tag,$attr);
+                }
+            }
+        }
+    }
+
+    function OpenTag($tag, $attr)
+    {
+        // Opening tag
+        if($tag=='B' || $tag=='I' || $tag=='U')
+            $this->SetStyle($tag,true);
+        if($tag=='A')
+            $this->HREF = $attr['HREF'];
+        if($tag=='BR')
+            $this->Ln(10);
+    }
+
+    function CloseTag($tag)
+    {
+        // Closing tag
+        if($tag=='B' || $tag=='I' || $tag=='U')
+            $this->SetStyle($tag,false);
+        if($tag=='A')
+            $this->HREF = '';
+    }
+
+    function SetStyle($tag, $enable)
+    {
+        // Modify style and select corresponding font
+        $this->$tag += ($enable ? 1 : -1);
+        $style = '';
+        foreach(array('B', 'I', 'U') as $s)
+        {
+            if($this->$s>0)
+                $style .= $s;
+        }
+        $this->SetFont('',$style);
+    }
+
+    function PutLink($URL, $txt)
+    {
+        // Put a hyperlink
+        $this->SetTextColor(0,0,255);
+        $this->SetStyle('U',true);
+        $this->Write(5,$txt,$URL);
+        $this->SetStyle('U',false);
+        $this->SetTextColor(0);
+    }
+}
+
+
+$prenom= 'haoyang';
+$nom= 'yu';
+$var= 'une';
+$CategorieM= 'ordinateur';
+$IdentifiantM='1234567';
+$date_retour= '21/07/2021';
+$modele='Inspiron 15 3000';
+$marque='DELL';
+$date_emprunt='21/06/2021';
+
+$pdf = new PDF();
+$pdf->SetLeftMargin(30);
+$pdf->SetRightMargin(15);
+$pdf->AddPage();
+$pdf->Image('miage.jpg',10,6,30);
+$pdf->Ln(60);
+$pdf->SetFont('Helvetica', '', 14);
+
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252',"Je soussigné <b>{$prenom} {$nom} </b>, déclare recevoir {$var} <b>{$CategorieM} N°{$IdentifiantM}.</b>Je m’engage à le restituer à tout moment si le responsable de la formation en a besoin ou avant le <b>{$date_retour}</b> dans le pire des cas.
+"));
+$pdf->Ln(15);
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Le prêt comprend :<br>{$var} <b>{$CategorieM} {$modele}</b> de la marque <b>{$marque}</b> et une sacoche."));
+
+$pdf->Ln(40);
+$pdf->SetLeftMargin(145);
+$pdf->MultiCell(0, 10, iconv('UTF-8', 'windows-1252', "Fait le {$date_emprunt}"));
+
+$pdf->Output();
+
+
+
 
 
 /*
