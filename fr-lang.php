@@ -97,6 +97,7 @@ define('MDP_COURT', 'Le mot de passe est trop court !');
 define('MDP_CHAMPS', 'Veuillez saisir tous les champs !');
 define('TXT_CHOIX_CRENEAU','Veuillez choisir un créneau pour récuperer le matériel');
 define('TXT_ERREUR_JOUR', 'Veuillez choisir une date autre que le samedi ou le dimanche');
+define('TXT_RES_URG',"NB : Dans le cas d'une urgence merci de prendre le premier creneau disponible et de s'adresser au secretariat");
 
 //Page_Inscription.php
 

@@ -111,6 +111,7 @@ define('VALIDER', 'Confirm');
 define('ALERTE_ERREUR_MDP', 'The passwords do not match. Please try again !');
 define('ERREUR_MDP_COURT', 'The password is too short !');
 define('TXT_MAIL_INCORRECT', 'Please enter your universitary mail');
+define('TXT_RES_URG',"NB : In case of an emergency, please take the first slot available and contact the secretariat");
 
 
 //FAQ.php
