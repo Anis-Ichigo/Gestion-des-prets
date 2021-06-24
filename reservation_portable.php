@@ -170,12 +170,9 @@ date_default_timezone_set('Europe/Paris');
         <!--input sans icon, button avec icon mais toujours submit automatiquement-->
 
 
-<<<<<<< Updated upstream
-=======
        <!-- /*<input type="date" class="form-control" name="date_RDV" id="date_rdv" onchange="test()"> */ -->
 
 
->>>>>>> Stashed changes
         <?php /*  SELECT * 
 FROM calendrier 
 WHERE calendrier.JourCal='Vendredi' 
@@ -225,7 +222,6 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         ?>
 
 
-<<<<<<< Updated upstream
         <?php
         if ($s > 0) {
         ?>
@@ -240,9 +236,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                             $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} monday"));
                                                             echo TXT_LUNDI . " $premierJour";
                                                             ?>">
-=======
         <!-- <br><br><br><br><br><br><br><br> -->
->>>>>>> Stashed changes
 
         <?php
         } else if (date('w') > 1 && $s == 0) {
