@@ -137,7 +137,7 @@ date_default_timezone_set('Europe/Paris');
                     <label><?php echo TXT_DEMANDE_CONCERNE; ?> :</label>
                 </td>
                 <td>
-                    <SELECT name="categorie" style="width:100%" required>
+                    <SELECT name="categorie" style="width:100%">
                         <?php
                         $res = mysqli_query($session, "SELECT CategorieM FROM materiel WHERE EtatM LIKE 'Dispo' AND StatutM LIKE 'Existant' GROUP BY CategorieM");
                         while ($tab = mysqli_fetch_assoc($res)) {
@@ -155,7 +155,7 @@ date_default_timezone_set('Europe/Paris');
                     <?php echo TXT_CHOIX_RETOUR; ?> :
                 </td>
                 <td>
-                    <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy" required>
+                    <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy">
                 </td>
                 <td>
                     (*)
@@ -170,9 +170,6 @@ date_default_timezone_set('Europe/Paris');
         <!--input sans icon, button avec icon mais toujours submit automatiquement-->
 
 
-        <input type="date" class="form-control" name="date_RDV" id="date_rdv" onchange="test()">
-
-
         <?php /*  SELECT * 
 FROM calendrier 
 WHERE calendrier.JourCal='Vendredi' 
@@ -185,15 +182,85 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
 
         ?>
 
+        <form action="" method="POST">
+            <input type="submit" name="suivant" class="form-control-plaintext" style="font-size:300%; text-align: center;" value="&lsaquo;">
+            <input type="submit" name="precedent" class="form-control-plaintext" style="font-size:300%; text-align: center;" value="&rsaquo;">
+        </form>
 
 
-        <br><br><br><br><br><br><br><br>
+        <?php
+
+        $semaine = mysqli_query($session, "SELECT * FROM parametres");
+        foreach ($semaine as $sem) {
+            $s = $sem['semaine'];
+            $j = 2;
+        }
+
+        if (isset($_POST['suivant'])) {
+            $s -= 1;
+            $j = $s + 1;
+            $suivant = mysqli_query($session, "UPDATE parametres SET semaine = '$s'");
+        ?><script type="text/javascript">
+                document.location.href = 'reservation_portable.php';
+            </script>
+        <?php
+        } else if (isset($_POST['precedent'])) {
+            $s += 1;
+            $j = $s + 1;
+            $suivant = mysqli_query($session, "UPDATE parametres SET semaine = '$s'");
+        ?>
+            <script type="text/javascript">
+                document.location.href = 'reservation_portable.php';
+            </script>
+        <?php
+
+        }
+
+        ?>
 
 
-        <input type="button" class="accordion" value="<?php
-                                                        $premierJour = strftime("%d/%m/%Y", strtotime("monday"));
-                                                        echo TXT_LUNDI . " $premierJour";
-                                                        ?>">
+        <?php
+        if ($s > 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} monday"));
+                                                            echo TXT_LUNDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if ($s < 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} monday"));
+                                                            echo TXT_LUNDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if (date('w') > 1 && $s == 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("last monday"));
+                                                            echo TXT_LUNDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if ($s > 0 && date('w') < 2) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$j} monday"));
+                                                            echo TXT_LUNDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("monday"));
+                                                            echo TXT_LUNDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        }
+        ?>
+
 
         <div class="panel">
             <table class="table">
@@ -241,10 +308,47 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         </div>
         -->
 
-        <input type="button" class="accordion" value="<?php
-                                                        $premierJour = strftime("%d/%m/%Y", strtotime("tuesday"));
-                                                        echo TXT_MARDI . " $premierJour";
-                                                        ?>">
+        <?php
+        if ($s > 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} tuesday"));
+                                                            echo TXT_MARDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if ($s < 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} tuesday"));
+                                                            echo TXT_MARDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if (date('w') > 2 && $s == 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("last tuesday"));
+                                                            echo TXT_MARDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if ($s > 0 && date('w') < 2) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$j} tuesday"));
+                                                            echo TXT_MARDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("tuesday"));
+                                                            echo TXT_MARDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        }
+        ?>
+
 
         <div class="panel">
             <table class="table">
@@ -275,10 +379,47 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         </div>
 
 
-        <input type="button" class="accordion" value="<?php
-                                                        $premierJour = strftime("%d/%m/%Y", strtotime("wednesday"));
-                                                        echo TXT_MERCREDI . " $premierJour";
-                                                        ?>">
+        <?php
+        if ($s > 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} wednesday"));
+                                                            echo TXT_MERCREDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if ($s < 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} wednesday"));
+                                                            echo TXT_MERCREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if (date('w') > 3 && $s == 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("last wednesday"));
+                                                            echo TXT_MERCREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if ($s > 0 && date('w') < 3) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$j} wednesday"));
+                                                            echo TXT_MERCREDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("wednesday"));
+                                                            echo TXT_MERCREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        }
+        ?>
 
         <div class="panel">
             <table class="table">
@@ -309,11 +450,48 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
             </table>
         </div>
 
+        <?php
+        if ($s > 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} thursday"));
+                                                            echo TXT_JEUDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if ($s < 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} thursday"));
+                                                            echo TXT_JEUDI . " $premierJour";
+                                                            ?>">
 
-        <input type="button" class="accordion" value="<?php
-                                                        $premierJour = strftime("%d/%m/%Y", strtotime("thursday"));
-                                                        echo TXT_JEUDI . " $premierJour";
-                                                        ?>">
+        <?php
+        } else if (date('w') > 4 && $s == 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("last thursday"));
+                                                            echo TXT_JEUDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if ($s > 0 && date('w') < 4) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$j} thursday"));
+                                                            echo TXT_JEUDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("thursday"));
+                                                            echo TXT_JEUDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        }
+        ?>
+
 
         <div class="panel">
             <table class="table">
@@ -352,11 +530,52 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         </button>
         -->
 
-        <input type="button" class="accordion" value="<?php
-                                                        $premierJour = strftime("%d/%m/%Y", strtotime("friday"));
-                                                        echo TXT_VENDREDI . " $premierJour";
-                                                        ?>">
 
+        <?php
+        if ($s > 0 && date('w') == 5) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} Friday"));
+                                                            echo TXT_VENDREDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else if ($s < 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("-{$s} Friday"));
+                                                            echo TXT_VENDREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if (date('w') > 5 && $s == 0) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("last Friday"));
+                                                            echo TXT_VENDREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        } else if ($s > 0 && date('w') < 5) {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("+{$j} Friday"));
+                                                            echo TXT_VENDREDI . " $premierJour";
+                                                            ?>">
+        <?php
+        } else {
+        ?>
+            <input type="button" class="accordion" value="<?php
+                                                            $premierJour = strftime("%d/%m/%Y", strtotime("Friday"));
+                                                            echo TXT_VENDREDI . " $premierJour";
+                                                            ?>">
+
+        <?php
+        }
+        ?>
+
+        <?php
+        echo strftime("%d/%m/%Y", strtotime("+{$j} Friday"));
+        ?>
 
         <div class="panel">
             <table class="table">

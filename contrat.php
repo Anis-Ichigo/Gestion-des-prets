@@ -21,7 +21,7 @@ date_default_timezone_set('Europe/Paris');
 
     <img src="logo_capitole.png" alt="" style="width:10%">
     <?php
-    $informations = "SELECT * 
+    $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe' 
     FROM personne, materiel, emprunt, modele
     WHERE emprunt.IdentifiantM = materiel.IdentifiantM
     AND emprunt.IdentifiantPe = personne.IdentifiantPe

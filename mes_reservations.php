@@ -132,6 +132,7 @@ date_default_timezone_set('Europe/Paris');
 
     <br>
 
+
     <?php
 
     $reservations = ("SELECT *
@@ -145,8 +146,8 @@ date_default_timezone_set('Europe/Paris');
     $result_reservations = mysqli_query($session, $reservations);
     $nb_lignes = mysqli_num_rows($result_reservations);
 
-    if($nb_lignes == 0){
-      echo ("<p style='text-align: center; font-size: 20px'>Il n'y a aucun emprunt en cours</p>");
+    if ($nb_lignes == 0) {
+        echo ("<p style='text-align: center; font-size: 20px'>Il n'y a aucun emprunt en cours</p>");
     } else if ($nb_lignes > 0) {
 
 
@@ -165,6 +166,9 @@ date_default_timezone_set('Europe/Paris');
                             <?php
                             $i = 0;
                             foreach ($result_reservations as $row) {
+                                $IdentifiantE = $row['IdentifiantE'];
+                                $prenom = $row['PrenomPe'];
+                                $nom = $row['NomPe'];
                             ?>
                                 <form action="" method="post">
                                     <?php
@@ -224,6 +228,7 @@ date_default_timezone_set('Europe/Paris');
                                                             </td>
                                                         </tr>
                                                     </table>
+                                                    <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Voir le contrat</a>
                                                     <div class="text-center">
                                                         <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
                                                         <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
@@ -293,6 +298,7 @@ date_default_timezone_set('Europe/Paris');
                                                     </td>
                                                 </tr>
                                             </table>
+                                            <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Voir le contrat</a>
                                             <div class="text-center">
                                                 <input type="submit" class="btn btn-primary mb-2" name="prolonger" value="<?php echo TXT_PROLONGER; ?>">
                                                 <input type="submit" class="btn btn-primary mb-2" name="probleme" value="<?php echo TXT_PROBLEME; ?>">
@@ -979,7 +985,7 @@ date_default_timezone_set('Europe/Paris');
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_RETOUR; ?>">
-                                        <input type="submit" class="btn btn-primary" name="confirmer_modif_rdv" value="<?php echo TXT_CONFIRMER; ?>">
+                                        <input type="submit" class="btn btn-primary" name="confirmer_restitution" value="<?php echo TXT_CONFIRMER; ?>">
                                     </div>
                                 </div>
                             </div>
@@ -995,7 +1001,7 @@ date_default_timezone_set('Europe/Paris');
                     </form>
 
                     <?php
-                    if (isset($_POST['confirmer_modif_rdv'])) {
+                    if (isset($_POST['confirmer_restitution'])) {
                         $dateRetour = $_POST['DateRetour'];
 
                         $horaire = $_POST['horaire'];
@@ -1011,18 +1017,21 @@ date_default_timezone_set('Europe/Paris');
                         $identifiantPe = $identifiant;
 
 
-                        $emprunt = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
-                        $result_emprunt = mysqli_query($session, $emprunt);
-
+                        $restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
+                        $result_restitution = mysqli_query($session, $restitution);
 
                         $creneau = ("SELECT * FROM calendrier WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
                         $result_creneau = mysqli_query($session, $creneau);
+
                         foreach ($result_creneau as $row) {
                             $IdentifiantCal = $row['IdentifiantCal'];
                         }
 
-                        $modifier_rdv = ("UPDATE `emprunt` SET DateEmprunt = '$dateEmprunt' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
-                        $result_insert_rdv = mysqli_query($session, $modifier_rdv);
+
+                        $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`)
+                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$IdentifiantCal')");
+
+                        $result_insert_rdv = mysqli_query($session, $insert_rdv);
 
 
                     ?>

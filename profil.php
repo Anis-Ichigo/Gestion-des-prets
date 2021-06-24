@@ -130,26 +130,6 @@ require('fpdf183/fpdf.php');
         </div>
     </nav>
 
-    <p>Mes contrats : </p>
-    <?php
-    $select_contrat = "SELECT * 
-                                        FROM emprunt, personne 
-                                        WHERE emprunt.IdentifiantPe = personne.IdentifiantPe 
-                                        AND personne.IdentifiantPe = '$identifiant'";
-    $result_select_contrat = mysqli_query($session, $select_contrat);
-
-    $i = 1;
-    foreach ($result_select_contrat as $row) {
-        $IdentifiantE = $row['IdentifiantE'];
-        $prenom = $row['PrenomPe'];
-        $nom = $row['NomPe'];
-    ?>
-        <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Contrat n°<?php echo $i; ?></a>
-
-    <?php
-        $i += 1;
-    }
-    ?>
 
     <br><br>
 
@@ -1418,9 +1398,7 @@ require('fpdf183/fpdf.php');
 
                 <?php
                 if (isset($_POST['valider_contrat'])) {
-                    $IdentifiantE = $_POST['IdentifiantE'];
-                    $validation = "UPDATE emprunt SET Contrat = 'signe' WHERE emprunt.IdentifiantE = '$IdentifiantE'";
-                    $result_validation = mysqli_query($session, $validation);
+
 
 
                     $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe'
@@ -1428,8 +1406,12 @@ require('fpdf183/fpdf.php');
                                         WHERE emprunt.IdentifiantM = materiel.IdentifiantM
                                         AND emprunt.IdentifiantPe = personne.IdentifiantPe
                                         AND materiel.IdentifiantMo = modele.IdentifiantMo
-                                        AND emprunt.Contrat LIKE 'signe'";
+                                        AND emprunt.Contrat LIKE 'a signer'";
                     $result = mysqli_query($session, $informations);
+
+                    $IdentifiantE = $_POST['IdentifiantE'];
+                    $validation = "UPDATE emprunt SET Contrat = 'signe' WHERE emprunt.IdentifiantE = '$IdentifiantE'";
+                    $result_validation = mysqli_query($session, $validation);
 
                     foreach ($result as $row) {
                         $IdentifiantM = $row['IdentifiantM'];
@@ -1450,25 +1432,115 @@ require('fpdf183/fpdf.php');
                         $var = "une";
                     }
 
-                    $pdf = new FPDF();
+                    class PDF extends FPDF
+                    {
+                        protected $B = 0;
+                        protected $I = 0;
+                        protected $U = 0;
+                        protected $HREF = '';
+
+                        function WriteHTML($html)
+                        {
+                            // HTML parser
+                            $html = str_replace("\n", ' ', $html);
+                            $a = preg_split('/<(.*)>/U', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+                            foreach ($a as $i => $e) {
+                                if ($i % 2 == 0) {
+                                    // Text
+                                    if ($this->HREF)
+                                        $this->PutLink($this->HREF, $e);
+                                    else
+                                        $this->Write(10, $e);
+                                } else {
+                                    // Tag
+                                    if ($e[0] == '/')
+                                        $this->CloseTag(strtoupper(substr($e, 1)));
+                                    else {
+                                        // Extract attributes
+                                        $a2 = explode(' ', $e);
+                                        $tag = strtoupper(array_shift($a2));
+                                        $attr = array();
+                                        foreach ($a2 as $v) {
+                                            if (preg_match('/([^=]*)=["\']?([^"\']*)/', $v, $a3))
+                                                $attr[strtoupper($a3[1])] = $a3[2];
+                                        }
+                                        $this->OpenTag($tag, $attr);
+                                    }
+                                }
+                            }
+                        }
+
+                        function OpenTag($tag, $attr)
+                        {
+                            // Opening tag
+                            if ($tag == 'B' || $tag == 'I' || $tag == 'U')
+                                $this->SetStyle($tag, true);
+                            if ($tag == 'A')
+                                $this->HREF = $attr['HREF'];
+                            if ($tag == 'BR')
+                                $this->Ln(10);
+                        }
+
+                        function CloseTag($tag)
+                        {
+                            // Closing tag
+                            if ($tag == 'B' || $tag == 'I' || $tag == 'U')
+                                $this->SetStyle($tag, false);
+                            if ($tag == 'A')
+                                $this->HREF = '';
+                        }
+
+                        function SetStyle($tag, $enable)
+                        {
+                            // Modify style and select corresponding font
+                            $this->$tag += ($enable ? 1 : -1);
+                            $style = '';
+                            foreach (array('B', 'I', 'U') as $s) {
+                                if ($this->$s > 0)
+                                    $style .= $s;
+                            }
+                            $this->SetFont('', $style);
+                        }
+
+                        function PutLink($URL, $txt)
+                        {
+                            // Put a hyperlink
+                            $this->SetTextColor(0, 0, 255);
+                            $this->SetStyle('U', true);
+                            $this->Write(5, $txt, $URL);
+                            $this->SetStyle('U', false);
+                            $this->SetTextColor(0);
+                        }
+                    }
+
+
+                    $pdf = new PDF();
+                    $pdf->SetLeftMargin(30);
+                    $pdf->SetRightMargin(15);
                     $pdf->AddPage();
-                    $pdf->SetFont('Arial', 'B', 16);
-                    $pdf->Cell(40, 10, utf8_decode("Je soussigné {$prenom} {$nom}, déclare recevoir {$var} {$CategorieM} N°{$IdentifiantM}.Je m’engage à le restituer à tout moment si le responsable de la
-                    formation en a besoin ou avant le {$date_retour} dans le pire des cas. Le prêt comprend : {$var} {$CategorieM} {$modele} de la marque : {$marque} et une sacoche.
-                     <p>Fait le {$date_emprunt}</p>
-                     <div class='form-check'>
-                         <input class='form-check-input' type='checkbox' value='' id='flexCheckDefault' required>
-                        '<label class='form-check-label' for='flexCheckDefault'>
-                        'Je certifie sur l'honneur être d'accord avec le présent contrat.
-                         '</label>
-                        '</div>
-                        '<div class='form-check'>
-                            '<input class='form-check-input' type='checkbox' value='' id='flexCheckChecked' required>
-                          '<label class='form-check-label' for='flexCheckChecked'>
-                              'En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie
-                            papier de ce document.
-                                '</label>
-                               '</div>"));
+                    $pdf->Image('miage.jpg', 10, 6, 30);
+                    $pdf->Ln(60);
+                    $pdf->SetFont('Helvetica', '', 14);
+
+                    $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je soussigné <b>{$prenom} {$nom} </b>, déclare recevoir {$var} <b>{$CategorieM} N°{$IdentifiantM}.</b> Je m’engage à le restituer à tout moment si le responsable de la formation en a besoin ou avant le <b>{$date_retour}</b> dans le pire des cas."));
+                    $pdf->Ln(15);
+                    $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Le prêt comprend :<br>{$var} <b>{$CategorieM} {$modele}</b> de la marque <b>{$marque}</b> et une sacoche."));
+
+
+                    $pdf->Ln(40);
+                    $pdf->SetLeftMargin(145);
+                    $pdf->MultiCell(0, 10, iconv('UTF-8', 'windows-1252', "Fait le {$date_emprunt}"));
+
+                    $pdf->Ln(15);
+                    $pdf->Image('box.png', 31, 133, 5, 0, '');
+                    $pdf->SetLeftMargin(40);
+                    $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je certifie sur l'honneur être d'accord avec le présent contrat."));
+                    $pdf->Ln(15);
+                    $pdf->Image('box.png', 31, 147, 5, 0, '');
+                    $pdf->SetLeftMargin(40);
+                    $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
+
+
                     $pdf->Output('F', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
                 }
 
