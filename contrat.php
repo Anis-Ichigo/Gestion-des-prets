@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/Paris');
 
     <img src="miage.jpg" alt="" style="width: 15%; margin: 2% 2% 2% 7%">
     <?php
-    $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe' 
+    $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe'
     FROM personne, materiel, emprunt, modele
     WHERE emprunt.IdentifiantM = materiel.IdentifiantM
     AND emprunt.IdentifiantPe = personne.IdentifiantPe
@@ -42,14 +42,19 @@ date_default_timezone_set('Europe/Paris');
     ?>
 
     <p style="margin: 1% 7% 5% 7%; font-size: 1.10em; text-align: justify" >
-        Je soussigné <b><?php echo $_SESSION['nom']?></b> , déclare recevoir <b><?php echo $CategorieM; ?></b> N° <b><?php echo $IdentifiantM ?></b> Je m’engage à le restituer à tout moment si le responsable de la
+        Je soussigné(e) <b><?php echo $_SESSION['nom']?></b> , déclare recevoir <b><?php if ($CategorieM == "Ordinateur") { ?>
+                                                                                  un<?php echo $CategorieM; ?>
+                                                                                  <?php } else{ ?>
+                                                                                  une <?php echo $CategorieM; ?>
+                                                                                  <?php }  ?>
+        </b> N° <b><?php echo $IdentifiantM ?></b> Je m’engage à restituer le matériel à tout moment si le responsable de la
         formation en a besoin ou avant le<b> <?php echo $date_retour ?></b> dans le pire des cas.<br><br>
         Le prêt comprend : <br>
         <?php if ($CategorieM == "Ordinateur") { ?>
-                            Un <b><?php echo $CategorieM.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
+                            Un <b><?php echo $CategorieM.' '.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
 
                             <?php } else{ ?>
-                            Une <b><?php echo $CategorieM.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
+                            Une <b><?php echo $CategorieM.' '.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
                             <?php }  ?>
 
 
@@ -71,7 +76,7 @@ date_default_timezone_set('Europe/Paris');
         <div class="form-check mb-3" style="margin: 0% 7% 5% 7% ;">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" required>
             <label class="form-check-label" for="flexCheckChecked">
-                En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie
+                En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie
                 papier de ce document.
             </label>
         </div>

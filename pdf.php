@@ -105,7 +105,7 @@ $pdf->Image('miage.jpg', 10, 6, 30);
 $pdf->Ln(60);
 $pdf->SetFont('Helvetica', '', 14);
 
-$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je soussigné <b>{$prenom} {$nom} </b>, déclare recevoir {$var} <b>{$CategorieM} N°{$IdentifiantM}.</b>Je m’engage à le restituer à tout moment si le responsable de la formation en a besoin ou avant le <b>{$date_retour}</b> dans le pire des cas.
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je soussigné(e) <b>{$prenom} {$nom} </b>, déclare recevoir {$var} <b>{$CategorieM} N°{$IdentifiantM}.</b>Je m’engage à restituer le matériel à tout moment si le responsable de la formation en a besoin ou avant le <b>{$date_retour}</b> dans le pire des cas.
 "));
 $pdf->Ln(15);
 $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Le prêt comprend :<br>{$var} <b>{$CategorieM} {$modele}</b> de la marque <b>{$marque}</b> et une sacoche."));
@@ -124,7 +124,7 @@ $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je certifie sur l'honneur être 
 $pdf->Ln(15);
 $pdf->Image('box.png', 31, 197, 5, 0, '');
 $pdf->SetLeftMargin(40);
-$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
 
 
 $pdf->Output();
@@ -134,7 +134,7 @@ $pdf->Output();
 
 
 /*
-$informations = "SELECT * 
+$informations = "SELECT *
 FROM personne, materiel, emprunt, modele
 WHERE emprunt.IdentifiantM = materiel.IdentifiantM
 AND emprunt.IdentifiantPe = personne.IdentifiantPe

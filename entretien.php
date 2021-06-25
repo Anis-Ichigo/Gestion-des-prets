@@ -69,7 +69,7 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
@@ -81,7 +81,7 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="Statistiques.html"><i class=" fi-rr-stats"></i> Statistiques</a>
+              <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
@@ -96,7 +96,7 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -189,7 +189,34 @@ date_default_timezone_set('Europe/Paris');
     }
   }
   ?>
+  <div class="modal fade" id="succes_info" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="alert alert-success d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
 
+                      <div>
+                          <?php echo "Le matériel a été ajouté avec sucess"; ?>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                  <div class="col text-center">
+                      <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+      $(window).load(function() {
+          $('#succes_info').modal('show');
+      });
+  </script>
 
   <Table class="table table-striped table-hover sortable" style="text-align: center;">
     <thead style="text-align: center;">
@@ -207,7 +234,7 @@ date_default_timezone_set('Europe/Paris');
           Marque
         </th>
         <th data-sortable="true">
-          RAM
+          RAM (Go)
         </th>
         <th data-sortable="true">
           Processeur
@@ -305,7 +332,7 @@ date_default_timezone_set('Europe/Paris');
                   <label for="floatingInput"><?php echo "Numéro du matériel"; ?>:</label>
                 </div>
 
-                <label>type de matériel :</label>
+                <label>Type de matériel :</label>
                 <SELECT size="1" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
                   <?php
                   $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
@@ -342,12 +369,12 @@ date_default_timezone_set('Europe/Paris');
                 </div>
 
                 <div class="form-floating mb-3">
-                  <input type='text' class='form-control' placeholder=" " name='RAM' required>
+                  <input type='text' class='form-control' placeholder=" " name='RAM'>
                   <label for="floatingInput"><?php echo "RAM"; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                  <input type='text' class='form-control' placeholder=" " name='Processeur' required>
+                  <input type='text' class='form-control' placeholder=" " name='Processeur'>
                   <label for="floatingInput"><?php echo "Processeur"; ?> :</label>
                 </div>
 
@@ -386,7 +413,7 @@ date_default_timezone_set('Europe/Paris');
             <div class="modal-body">
               <input type='hidden' name='numero_materiel' value="<?php echo $_POST['numeroM']; ?>">
 
-              <p>Êtes-vous sûr de vouloir supprimer ce matériel</p>
+              <p>Êtes-vous sûr de vouloir supprimer ce matériel ?</p>
 
             </div>
             <div class="modal-footer">
