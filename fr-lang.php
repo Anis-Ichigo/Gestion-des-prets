@@ -69,7 +69,7 @@ define('TXT_RESTITUER', 'Restituer le matériel');
 define('TXT_DATERA', 'Date de retour actuelle');
 define('TXT_DATERS', 'Nouvelle date de retour souhaitée');
 define('TXT_ALERTE_SUCCES_PROLONGATION', 'Votre demande de prolongation a bien été transmise');
-define('TXT_ERREUR_DATE', 'Veuillez saisir une date valide');
+define('TXT_ERREUR_DATE', 'Veuillez saisir une date de retour valide');
 define('TXT_TITRE', 'Titre');
 define('TXT_DESCRIPTION', 'Description');
 define('TXT_ALERTE_SUCCES_DEMANDE', 'Votre demande a bien été envoyée');

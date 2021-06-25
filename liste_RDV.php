@@ -3,6 +3,7 @@ require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
+
 ?>
 
 <!DOCTYPE html>
@@ -33,6 +34,11 @@ date_default_timezone_set('Europe/Paris');
 
   <?php
   $identifiant = $_SESSION['identifiant'];
+
+  $param_date_r = mysqli_query($session, "UPDATE personne SET date_r = NULL WHERE IdentifiantPe = '$identifiant'");
+  $param_categorie = mysqli_query($session, "UPDATE personne SET categorie = '' WHERE IdentifiantPe = '$identifiant'");
+  $suivant = mysqli_query($session, "UPDATE personne SET semaine = 0 WHERE IdentifiantPe = '$identifiant'");
+
   $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
   $resultat = mysqli_query($session, $role_pe);
   foreach ($resultat as $row) {
@@ -164,7 +170,7 @@ date_default_timezone_set('Europe/Paris');
 
         $query_liste_rdv = "
                             SELECT 	p.IdentifiantPe as ide, p.PrenomPe as prenom, p.NomPe as nom, e.DateEmprunt as date_rdv,
-                                    cal.HoraireCal as heure, e.IdentifiantM as idm, m.CategorieM as type, cal.IdentifiantCal as idc, e.motif as motif, e.IdentifiantE as idemprunt
+                                    cal.HoraireCal as heure, e.IdentifiantM as idm, m.CategorieM as type, cal.IdentifiantCal as idc, e.motif as motif, e.IdentifiantE as idemprunt, e.Horaire_modif as horaire_modif, e.Contrat as contrat
                             FROM 	materiel m, emprunt e, personne p, calendrier cal
                             WHERE 	p.IdentifiantPe= e.IdentifiantPe
                             AND		e.IdentifiantM = m.IdentifiantM
@@ -198,9 +204,21 @@ date_default_timezone_set('Europe/Paris');
                 <td>
                   <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['date_rdv'] ?>" name='date_rdv' readonly>
                 </td>
-                <td>
-                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['heure'] ?>" name='heure' readonly>
-                </td>
+                <?php
+                if ($ligne_liste_rdv['horaire_modif'] != '') {
+                ?>
+                  <td>
+                    <input type='time' step="2" class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['horaire_modif'] ?>" name='heure' readonly>
+                  </td>
+                <?php
+                } else {
+                ?>
+                  <td>
+                    <input type='time' step="2" class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['heure'] ?>" name='heure' readonly>
+                  </td>
+                <?php
+                }
+                ?>
                 <td>
                   <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idm'] ?>" id="idm" name='idm' readonly>
                 </td>
@@ -209,16 +227,35 @@ date_default_timezone_set('Europe/Paris');
                 </td>
                 <input type='hidden' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['idc'] ?>" id="idc" name='idc' readonly>
                 <td>
-                  <?php if ($ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now")) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && $ligne_liste_rdv['heure'] <= date('H:i:s'))) {
+
+                  <?php if (
+                    $ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now")) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now"))
+                      && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s"))) &&
+                    ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")))
+                  ) {
 
                   ?>
-                    <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="RDV terminé" name="RDV_termine">
+                    <?php
+                    if ($ligne_liste_rdv['contrat'] == 'signe') {
+                    ?>
+                      <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="RDV terminé" name="RDV_termine">
+                    <?php
+                    } else if ($ligne_liste_rdv['contrat'] == NULL) {
+                    ?>
+                      <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="Générer contrat" name="generer_contrat">
                   <?php
+                    }
                   }
                   ?>
                 </td>
                 <td>
-                  <input type="submit" class="btn btn-primary" value="Modifier" name="Modifier_RDV">
+                  <?php
+                  if ($ligne_liste_rdv['contrat'] != 'a signer' && $ligne_liste_rdv['contrat'] != 'signe') {
+                  ?>
+                    <input type="submit" class="btn btn-primary" value="Modifier" name="Modifier_RDV">
+                  <?php
+                  }
+                  ?>
                 </td>
 
               </tr>
@@ -232,13 +269,26 @@ date_default_timezone_set('Europe/Paris');
       </Table>
 
       <?php
+      if (isset($_POST['generer_contrat'])) {
+        $ide = $_POST['ide'];
+        $idm = $_POST['idm'];
+        $generer_contrat = ("UPDATE emprunt SET Contrat = 'a signer' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+        $result_generer_contrat = mysqli_query($session, $generer_contrat);
+      ?>
+        <script type="text/javascript">
+          document.location.href = 'liste_RDV.php';
+        </script>
+
+      <?php
+      }
+
       if (isset($_POST['RDV_termine'])) {
         if ($_POST['motif'] == 'Prêt') {
           $ide = $_POST['ide'];
           $idm = $_POST['idm'];
           $idc = $_POST['idc'];
 
-          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé', Contrat = 'a signer' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_update_RDV = mysqli_query($session, $update_RDV);
           $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_update_cal = mysqli_query($session, $update_cal);
@@ -262,7 +312,6 @@ date_default_timezone_set('Europe/Paris');
 
       <?php
       }
-
 
       if (isset($_POST['Modifier_RDV'])) {
       ?>
@@ -302,14 +351,25 @@ date_default_timezone_set('Europe/Paris');
                   </div>
 
                   <div class="form-floating mb-3">
-                    <input type='text' class='form-control' value="<?php echo $_POST['heure'] ?>" name='heure' readonly>
+                    <input type='time' step="2" class='form-control' value="<?php echo $_POST['heure'] ?>" name='heure'>
                     <label for="floatingInput"><?php echo "Heure"; ?> :</label>
                   </div>
 
-                  <div class="form-floating mb-3">
-                    <input type='text' class='form-control' value="<?php echo $_POST['idm'] ?>" name='nouveau_idm'>
-                    <label for="floatingInput"><?php echo "Identifiant du matériel"; ?> :</label>
-                  </div>
+                  <label for="nouveau_idm">Veuillez choisir un numéro de matériel :</label>
+                  <input list="choix_idm" id="nouveau_idm" name="nouveau_idm" value="<?php echo $_POST['idm']; ?>" />
+
+                  <datalist id="choix_idm">
+                    <?php
+                    $liste_idm = "SELECT * FROM materiel WHERE EtatM LIKE 'Dispo'";
+                    $res = mysqli_query($session, $liste_idm);
+                    foreach ($res as $row) {
+                    ?>
+                      <option value="<?php echo $row['IdentifiantM'] ?>">
+                      <?php
+                    }
+                      ?>
+                  </datalist>
+
 
                   <div class="form-floating mb-3">
                     <input type='text' class='form-control' value="<?php echo $_POST['type'] ?>" name='type' readonly>
@@ -317,7 +377,7 @@ date_default_timezone_set('Europe/Paris');
                   </div>
 
                   <div class="form-floating mb-3">
-                    <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc' readonly>
+                    <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc'>
                   </div>
                 </div>
 
@@ -344,50 +404,130 @@ date_default_timezone_set('Europe/Paris');
 
 
         if (isset($_POST['confirmer_modifier_RDV'])) {
+
+
           $ide = $_POST['ide'];
           $idm = $_POST['idm'];
           $nouveau_idm = $_POST['nouveau_idm'];
           $idc = $_POST['idc'];
           $date_rdv = $_POST['date_rdv'];
           $idemprunt = $_POST['idemprunt'];
+          $heure = $_POST['heure'];
 
+          $existe_idm = "SELECT * FROM materiel WHERE IdentifiantM = '$nouveau_idm'";
+          $res_existe_idm = mysqli_query($session, $existe_idm);
 
-          $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
-          $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
-          $modifier_id_materiel = ("UPDATE materiel SET IdentifiantM = '$nouveau_idm' WHERE IdentifiantM = '$idm'");
-          $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
+          $dispo_idm = "SELECT * FROM materiel WHERE IdentifiantM = '$nouveau_idm' AND EtatM LIKE 'Non Dispo'";
+          $res_dispo_idm = mysqli_query($session, $dispo_idm);
+
+          if (mysqli_num_rows($res_dispo_idm) > 1) {
         ?>
+            <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
 
-          <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <div class="alert alert-success d-flex align-items-center" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                    </svg>
-
-                    <div>
-                      <?php echo "Les modifications ont bien été effectuées" ?>
+                      <div>
+                        <?php echo "Ce matériel n'est pas disponible" ?>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="modal-footer">
-                  <div class="col text-center">
-                    <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-        <?php
-          echo "<script>
+          <?php
+            echo "<script>
+  $(window).load(function() {
+      $('#succes_mdp').modal('show');
+  });
+</script>";
+          } else if (mysqli_num_rows($res_existe_idm) == 0) {
+          ?>
+
+            <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
+
+                      <div>
+                        <?php echo "Veuillez choisir un numéro de matériel existant" ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <?php
+            echo "<script>
     $(window).load(function() {
         $('#succes_mdp').modal('show');
     });
 </script>";
+          } else {
+
+            $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv', Horaire_modif = '$heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
+            $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
+            $modifier_id_nouveau_materiel = ("UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$nouveau_idm'");
+            if ($idm != $nouveau_idm) {
+              $modifier_id_materiel = ("UPDATE materiel SET EtatM = 'Dispo' WHERE IdentifiantM = '$idm'");
+            }
+            $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
+            $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
+          ?>
+
+            <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-success d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
+
+                      <div>
+                        <?php echo "Les modifications ont bien été effectuées" ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input type="button" class="btn btn-primary" onclick='document.location.href="liste_RDV.php"' value="<?php echo TXT_OK; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <?php
+            echo "<script>
+    $(window).load(function() {
+        $('#succes_mdp').modal('show');
+    });
+</script>";
+          }
         }
         ?>
 

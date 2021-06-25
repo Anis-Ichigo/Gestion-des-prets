@@ -138,7 +138,7 @@ if (isset($_POST['inscription'])) {
           <TR>
             <TD align=right>
               <div class="form-floating mb-2">
-                <input type="number" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="tel" value="" required>
+                <input type="number" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="tel" pattern="[0-9]{10}" value="" required>
                 <label for="floatingInput"><?php echo TXT_TEL; ?> : </label>
               </div>
             </TD>
@@ -300,65 +300,108 @@ if (isset($_POST['inscription'])) {
 
   $chaine = "aaaa@ut-capitole.fr";
 
+
   if (isset($_POST['inscription'])) {
+    $id = $_POST['email'];
+    $stmt = mysqli_prepare($session, "SELECT IdentifiantPe from personne where IdentifiantPe = ?");
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_fetch($stmt) == TRUE) {
+      $existe = False;
+    } else {
+      $existe = True;
+    }
     if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['tel']) && !empty($_POST['motPasse']) && !empty($_POST['motPasse2'])) {
-      if (substr($chaine, -15, 15) == substr($_POST['email'], -15, 15)) {
-        if (strlen($_POST['motPasse']) >= 4) {
-          if ($_POST['motPasse'] == $_POST['motPasse2']) {
-            // Cryptage mdp
-            $mdp = $_POST['motPasse'];
-            $mdp_crypté = sha1($mdp);
+      if ($existe == True) {
+        if (substr($chaine, -15, 15) == substr($_POST['email'], -15, 15)) {
+          if (strlen($_POST['motPasse']) >= 4) {
+            if ($_POST['motPasse'] == $_POST['motPasse2']) {
+              // Cryptage mdp
+              $mdp = $_POST['motPasse'];
+              $mdp_crypté = sha1($mdp);
 
-            $nom = $_POST['nom'];
-            $prenom = $_POST['prenom'];
-            $email = $_POST['email'];
-            $tel = $_POST['tel'];
-            $statut = $_POST['statut'];
-            $formation = $_POST['formation'];
+              $nom = $_POST['nom'];
+              $prenom = $_POST['prenom'];
+              $email = $_POST['email'];
+              $tel = $_POST['tel'];
+              $statut = $_POST['statut'];
+              $formation = $_POST['formation'];
 
-            $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
+              $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
         VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', 'Emprunteur')";
-            $result = mysqli_query($session, $query);
+              $result = mysqli_query($session, $query);
 
-            $_SESSION['user'] = $email;
-            $_SESSION['nom'] = "$prenom $nom";
-            $_SESSION['identifiant'] = $email;
-            $_SESSION['psw'] = $mdp_crypté;
-            $_SESSION['tel'] = $tel;
-            $_SESSION['statut'] = $statut;
-            $_SESSION['formation'] = $formation;
-            $_SESSION['role'] = "Empruteur";
+              $_SESSION['user'] = $email;
+              $_SESSION['nom'] = "$prenom $nom";
+              $_SESSION['identifiant'] = $email;
+              $_SESSION['psw'] = $mdp_crypté;
+              $_SESSION['tel'] = $tel;
+              $_SESSION['statut'] = $statut;
+              $_SESSION['formation'] = $formation;
+              $_SESSION['role'] = "Empruteur";
 
   ?>
-            <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <div class="alert alert-success d-flex align-items-center" role="alert">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                      </svg>
-                      <div>
-                        <?php echo ALERTE_SUCCES_COMPTE; ?>
+              <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="alert alert-success d-flex align-items-center" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <div>
+                          <?php echo ALERTE_SUCCES_COMPTE; ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <div class="col text-center">
-                      <a type="button" class="btn btn-primary" href="reservation_portable.php"><?php echo VALIDER; ?></a>
+                    <div class="modal-footer">
+                      <div class="col text-center">
+                        <a type="button" class="btn btn-primary" href="reservation_portable.php"><?php echo VALIDER; ?></a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <?php
-            echo "<script>
+            <?php
+              echo "<script>
                         $(window).load(function() {
                             $('#alerte').modal('show');
                         });
                     </script>";
+            } else {
+            ?>
+              <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                        </svg>
+                        <div style="margin-left: auto; margin-right: auto;">
+                          <?php echo ALERTE_ERREUR_MDP; ?>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="col text-center">
+                        <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php
+              echo "<script>
+                        $(window).load(function() {
+                            $('#alerte').modal('show');
+                        });
+                    </script>";
+            }
           } else {
-          ?>
+            ?>
+
             <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -369,7 +412,7 @@ if (isset($_POST['inscription'])) {
                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                       </svg>
                       <div style="margin-left: auto; margin-right: auto;">
-                        <?php echo ALERTE_ERREUR_MDP; ?>
+                        <?php echo ERREUR_MDP_COURT; ?>
                       </div>
                     </div>
                   </div>
@@ -401,7 +444,7 @@ if (isset($_POST['inscription'])) {
                       <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                     </svg>
                     <div style="margin-left: auto; margin-right: auto;">
-                      <?php echo ERREUR_MDP_COURT; ?>
+                      <?php echo TXT_MAIL_INCORRECT; ?>
                     </div>
                   </div>
                 </div>
@@ -433,7 +476,7 @@ if (isset($_POST['inscription'])) {
                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                   </svg>
                   <div style="margin-left: auto; margin-right: auto;">
-                    <?php echo TXT_MAIL_INCORRECT; ?>
+                    <?php echo "Ce mail est déjà utilisé"; ?>
                   </div>
                 </div>
               </div>

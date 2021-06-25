@@ -69,7 +69,7 @@ define('TXT_RESTITUER', '归还设备');
 define('TXT_DATERA', '现归还时间');
 define('TXT_DATERS', '期望新归还时间');
 define('TXT_ALERTE_SUCCES_PROLONGATION', '您的延期申请已提交');
-define('TXT_ERREUR_DATE', '请选择有效日期');
+define('TXT_ERREUR_DATE', '请选择归还日期');
 define('TXT_TITRE', '标题');
 define('TXT_DESCRIPTION', '描述');
 define('TXT_ALERTE_SUCCES_DEMANDE', '您的申请已提交');

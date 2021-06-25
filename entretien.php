@@ -3,6 +3,7 @@ require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,6 +42,11 @@ date_default_timezone_set('Europe/Paris');
 <body>
   <?php
   $identifiant = $_SESSION['identifiant'];
+
+  $param_date_r = mysqli_query($session, "UPDATE personne SET date_r = NULL WHERE IdentifiantPe = '$identifiant'");
+  $param_categorie = mysqli_query($session, "UPDATE personne SET categorie = '' WHERE IdentifiantPe = '$identifiant'");
+  $suivant = mysqli_query($session, "UPDATE personne SET semaine = 0 WHERE IdentifiantPe = '$identifiant'");
+
   $role_pe = "SELECT * FROM personne WHERE IdentifiantPe = '$identifiant'";
   $resultat = mysqli_query($session, $role_pe);
   foreach ($resultat as $row) {
