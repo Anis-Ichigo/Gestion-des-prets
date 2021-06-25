@@ -147,7 +147,7 @@ date_default_timezone_set('Europe/Paris');
                     <label><?php echo TXT_DEMANDE_CONCERNE; ?> :</label>
                 </td>
                 <td>
-                    <SELECT name="categorie" style="width:100%">
+                    <SELECT name="categorie" style="width:100%" required>
                         <?php
                         if ($c != NULL) {
                             $res = mysqli_query($session, "SELECT CategorieM FROM materiel WHERE EtatM LIKE 'Dispo' AND StatutM LIKE 'Existant' AND CategorieM NOT LIKE '$c' GROUP BY CategorieM");
@@ -180,11 +180,11 @@ date_default_timezone_set('Europe/Paris');
                 <td>
                     <?php if ($d != NULL) {
                     ?>
-                        <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy" value="<?php echo $d ?>">
+                        <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy" value="<?php echo $d ?>" required>
                     <?php
                     } else {
                     ?>
-                        <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy">
+                        <input type="date" class="form-control" name="DateRetour" id="DateRetour" onchange="test()" placeholder="dd-mm-yyyy" required>
                     <?php
                     }
                     ?>
@@ -732,7 +732,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         ?>
             <input type="button" class="accordion" value="<?php
                                                             $premierJour = strftime("%d/%m/%Y", strtotime("+{$s} friday"));
-                                                            echo TXT_VENDREDI . " $premierJour" . 1;
+                                                            echo TXT_VENDREDI . " $premierJour" ;
                                                             ?>">
         <?php
         } else if ($s == 0 && (date('w') < 5) || ($s > 0 && date('w') <= 5)) {
@@ -740,7 +740,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         ?>
             <input type="button" class="accordion" value="<?php
                                                             $premierJour = strftime("%d/%m/%Y", strtotime("+{$s2} friday"));
-                                                            echo TXT_VENDREDI . " $premierJour" . 2;
+                                                            echo TXT_VENDREDI . " $premierJour" ;
                                                             ?>">
 
         <?php
@@ -749,7 +749,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         ?>
             <input type="button" class="accordion" value="<?php
                                                             $premierJour = strftime("%d/%m/%Y", strtotime("$s Friday"));
-                                                            echo TXT_VENDREDI . " $premierJour" . 3;
+                                                            echo TXT_VENDREDI . " $premierJour" ;
                                                             ?>">
 
         <?php
@@ -758,7 +758,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
         ?>
             <input type="button" class="accordion" value="<?php
                                                             $premierJour = strftime("%d/%m/%Y", strtotime("$s3 Friday"));
-                                                            echo TXT_VENDREDI . " $premierJour" . 4;
+                                                            echo TXT_VENDREDI . " $premierJour" ;
                                                             ?>">
 
             <?php
@@ -768,7 +768,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
             ?>
                 <input type="button" name="date_vendredi" class="accordion" value="<?php
                                                                                     $premierJour = strftime("%d/%m/%Y", strtotime("last Friday"));
-                                                                                    echo TXT_VENDREDI . " $premierJour" . 5;
+                                                                                    echo TXT_VENDREDI . " $premierJour" ;
                                                                                     ?>" disabled>
 
             <?php
@@ -776,7 +776,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
             ?>
                 <input type="button" name="date_vendredi" class="accordion" value="<?php
                                                                                     $premierJour = strftime("%d/%m/%Y", strtotime("last Friday"));
-                                                                                    echo TXT_VENDREDI . " $premierJour" . 6;
+                                                                                    echo TXT_VENDREDI . " $premierJour" ;
                                                                                     ?>">
 
                 }
@@ -1114,9 +1114,105 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
             }
             ?>
 
+    <div class="box">
+        <a class="button" href="#popup1">Une urgence ?</a>
+    </div>
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <p>
+            <h2>Une urgence ?</h2>
+            <a class="close" href="#"> &times;</a>
+            </p>
+            <div class="content" style="text-align: justify; font-size: 16px">
+                Pour une urgence voir directement avec la responsable Mme BALLABRIGA Lydie bureau XXX
+            </div>
+        </div>
+    </div>
+
+    <style>
+
+        .box {
+            width: 40%;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.2);
+            padding: 30px;
+            border: 2px solid #fff;
+            border-radius: 20px/50px;
+            background-clip: padding-box;
+            text-align: center;
+        }
+
+        .button {
+            font-size: 1em;
+            padding: 10px;
+            border-radius: 20px/30px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+        }
+        .button:hover {
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            transition: opacity 500ms;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .overlay:target {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup {
+            margin: 70px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            width: 30%;
+            position: relative;
+            transition: all 5s ease-in-out;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #333;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+        .popup .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: all 200ms;
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+        .popup .close:hover {
+            color: #33a6cc;
+        }
+        .popup .content {
+            max-height: 30%;
+            overflow: auto;
+        }
+
+        @media screen and (max-width: 700px){
+            .box{
+                width: 70%;
+            }
+            .popup{
+                width: 70%;
+            }
+        }
+    </style>
 
 </body>
 
-<footer><?php echo TXT_RES_URG; ?></footer>
 
 </html>
