@@ -175,8 +175,39 @@ require('fpdf183/fpdf.php');
 
         $modif_profil = ("UPDATE personne SET PrenomPe = '$modif_PrenomPe', NomPe = '$modif_NomPe', EmailPe = '$modif_EmailPe', AdressePe = '$modif_AdressePe', TelPe = '$modif_TelPe', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantPe = '$identifiant'");
         $result_modif_profil = mysqli_query($session, $modif_profil);
-    }
+        ?>
+        <div class="modal fade" id="succes_info" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-success d-flex align-items-center" role="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                            </svg>
 
+                            <div>
+                                <?php echo TXT_SUCCES_INFO; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col text-center">
+                            <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(window).load(function() {
+                $('#succes_info').modal('show');
+            });
+        </script>
+    <?php
+    }
+    ?>
+<?php
     $emprunteur = ("SELECT * FROM personne where IdentifiantPe = '$identifiant'");
     $result_emprunteur = mysqli_query($session, $emprunteur);
     foreach ($result_emprunteur as $row) {
@@ -718,7 +749,7 @@ require('fpdf183/fpdf.php');
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_EmailPe" value="<?php echo $_POST['EmailPe']; ?>" pattern="^[a-zA-Z0-9_-\.]+@ut-capitole\.fr$" required>
+                                    <input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_EmailPe" value="<?php echo $_POST['EmailPe']; ?>" pattern="^[a-zA-Z0-9_-\.]+@ut-capitole\.fr$" readonly>
                                     <label for="floatingInput"><?php echo TXT_EMAIL; ?></label>
                                 </div>
 
@@ -728,17 +759,81 @@ require('fpdf183/fpdf.php');
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_TelPe" value="<?php echo $_POST['TelPe']; ?>" required>
+                                    <input type="tel" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_TelPe" value="<?php echo $_POST['TelPe']; ?>" pattern="^[0-9]{10}$" required>
                                     <label for="floatingInput"><?php echo TXT_TEL; ?></label>
                                 </div>
-
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>" required>
+                                    <!--<input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>" required> -->
+                                    <SELECT id="floatingInput" name="modif_Statut" class="form-select">
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Statut']=='Etudiant'){
+                                                echo "selected";
+                                            }?>>Etudiant</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Statut']=='Enseignant'){
+                                                echo "selected";
+                                            }?>>Enseignant</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Statut']=='Personnel Administratif'){
+                                                echo "selected";
+                                            }?>>Personnel Administratif</OPTION>
+                                    </SELECT>
                                     <label for="floatingInput"><?php echo TXT_IDENTITE; ?></label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>" required>
+                                    <!--<input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>" required>-->
+                                    <SELECT id="floatingInput" name="modif_Formation" class="form-select">
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='L3 MIASHS TI'){
+                                                echo "selected";
+                                            }?>>L3 MIASHS TI</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='LICENCE PRO RTAI'){
+                                                echo "selected";
+                                            }?>>LICENCE PRO RTAI</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M1 MIAGE IM'){
+                                                echo "selected";
+                                            }?>>M1 MIAGE IM</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M1 MIAGE 2IS'){
+                                                echo "selected";
+                                            }?>>M1 MIAGE 2IS</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M1 MIAGE IDA'){
+                                                echo "selected";
+                                            }?>>M1 MIAGE IDA</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M2 MIAGE IPM'){
+                                                echo "selected";
+                                            }?>>M2 MIAGE IPM</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M2 MIAGE ISIAD'){
+                                                echo "selected";
+                                            }?>>M2 MIAGE ISIAD</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M2 MIAGE 2IS'){
+                                                echo "selected";
+                                            }?>>M2 MIAGE 2IS</OPTION>
+                                        <OPTION
+                                            <?php
+                                            if ($_POST['Formation']=='M2 MIAGE IDA'){
+                                                echo "selected";
+                                            }?>>M2 MIAGE IDA</OPTION>
+                                        <OPTION>AUTRE</OPTION>
+                                    </SELECT>
                                     <label for="floatingInput"><?php echo TXT_FORMATION; ?></label>
                                 </div>
 
@@ -1543,7 +1638,7 @@ require('fpdf183/fpdf.php');
                     $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je suis d'accord que la signature est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
 
 
-                    $pdf->Output('F', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
+                    $pdf->Output('', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
                 }
 
                 ?>

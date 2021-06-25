@@ -138,7 +138,7 @@ if (isset($_POST['inscription'])) {
           <TR>
             <TD align=right>
               <div class="form-floating mb-2">
-                <input type="number" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="tel" pattern="[0-9]{10}" value="" required>
+                <input type="tel" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="tel" pattern="[0-9]{10}" value="" required>
                 <label for="floatingInput"><?php echo TXT_TEL; ?> : </label>
               </div>
             </TD>
