@@ -14,6 +14,9 @@ define('TXT_IDENTITE', '您是');
 define('TXT_FORMATION', '专业');
 define('TXT_MODIFP', '修改个人信息');
 
+//Modifiez info
+define('TXT_SUCCES_INFO', '您的个人信息已修改成功。');
+
 //Mot de passe
 
 define('TXT_MDP', '我的密码');
@@ -69,7 +72,7 @@ define('TXT_RESTITUER', '归还设备');
 define('TXT_DATERA', '现归还时间');
 define('TXT_DATERS', '期望新归还时间');
 define('TXT_ALERTE_SUCCES_PROLONGATION', '您的延期申请已提交');
-define('TXT_ERREUR_DATE', '请选择归还日期');
+define('TXT_ERREUR_DATE', '请选择有效归还日期');
 define('TXT_TITRE', '标题');
 define('TXT_DESCRIPTION', '描述');
 define('TXT_ALERTE_SUCCES_DEMANDE', '您的申请已提交');
@@ -97,6 +100,9 @@ define('MDP_COURT', '密码太短了！');
 define('MDP_CHAMPS', '请填写所有信息！');
 define('TXT_CHOIX_CRENEAU','请选择领取时间：');
 define('TXT_ERREUR_JOUR', '请选择工作日时间');
+define('TXT_BTN_URG', '紧急情况？');
+define('TXT_RES_URG',"如有紧急情况，您可以选择最早的可用时间并直接去往 XXX，找负责人Mme BALLABRIGA Lydie。");
+
 //Page_Inscription.php
 
 define('TXT_ACCUEIL_INSCRIPTION', '注册');
@@ -335,5 +341,6 @@ define('ENREGISTRER', '保存');
 
 define('DECONNEXION', '退出');
 define('FAQ', '常见问题');
+define('PROFIL', '个人信息');
 
  ?>

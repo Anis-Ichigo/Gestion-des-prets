@@ -15,6 +15,9 @@ define('TXT_IDENTITE', 'You are');
 define('TXT_FORMATION', 'Formation');
 define('TXT_MODIFP', 'Modify profile');
 
+//Modifiez info
+define('TXT_SUCCES_INFO', 'Your information has been modified.');
+
 //password
 define('TXT_MDP', 'My password');
 define('TXT_ANCIENMDP', 'Your current password');
