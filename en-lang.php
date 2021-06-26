@@ -56,7 +56,7 @@ define('TXT_ALERTE_SUCCES_MODIFIER', 'Your slot has been modified');
 
 //my reservations
 
-define('TXT_ACCUEIL_RESERVATION', 'My reservations');
+define('TXT_ACCUEIL_RESERVATION', 'My loans');
 define('TXT_RETRAIT', 'Date of withdrawal');
 define('TXT_DATER', 'Return date');
 define('TXT_PROLONGER', 'Extend');
@@ -111,7 +111,8 @@ define('VALIDER', 'Confirm');
 define('ALERTE_ERREUR_MDP', 'The passwords do not match. Please try again !');
 define('ERREUR_MDP_COURT', 'The password is too short !');
 define('TXT_MAIL_INCORRECT', 'Please enter your universitary mail');
-define('TXT_RES_URG',"NB : In case of an emergency, please take the first slot available and contact the secretariat");
+define('TXT_BTN_URG', 'An emergency ?');
+define('TXT_RES_URG',"For an emergency, please take the first slot available and see directly with the person in charge Mrs BALLABRIGA Lydie office XXXX.");
 
 
 //FAQ.php
@@ -335,3 +336,4 @@ define('ENREGISTRER', 'Record');
 //menu2.php
 define('DECONNEXION', 'Logout');
 define('FAQ', 'FAQ');
+define('PROFIL', 'Profile');

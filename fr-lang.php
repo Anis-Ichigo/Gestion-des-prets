@@ -60,7 +60,7 @@ define('TXT_CONFIRMER_MODIFIER', 'Confirmer modification RDV');
 define('TXT_ALERTE_SUCCES_MODIFIER', 'Votre créneau a bien été modifié');
 //mes_reservations.php
 
-define('TXT_ACCUEIL_RESERVATION', 'Mes Réservations');
+define('TXT_ACCUEIL_RESERVATION', 'Mes emprunts');
 define('TXT_RETRAIT', 'Date de retrait');
 define('TXT_DATER', 'Date de retour');
 define('TXT_PROLONGER', 'Prolonger');
@@ -97,7 +97,8 @@ define('MDP_COURT', 'Le mot de passe est trop court !');
 define('MDP_CHAMPS', 'Veuillez saisir tous les champs !');
 define('TXT_CHOIX_CRENEAU','Veuillez choisir un créneau pour récuperer le matériel');
 define('TXT_ERREUR_JOUR', 'Veuillez choisir une date autre que le samedi ou le dimanche');
-define('TXT_RES_URG',"NB : Dans le cas d'une urgence merci de prendre le premier creneau disponible et de s'adresser au secretariat");
+define('TXT_BTN_URG', 'Une urgence ?');
+define('TXT_RES_URG',"Pour une urgence merci de prendre le premier créneau disponible et de voir directement avec la responsable Mme BALLABRIGA Lydie bureau XXXX.");
 
 //Page_Inscription.php
 
@@ -338,5 +339,6 @@ define('ENREGISTRER', 'Enregistrer');
 
 define('DECONNEXION', 'Déconnexion');
 define('FAQ', 'FAQ');
+define('PROFIL', 'Profil');
 
  ?>

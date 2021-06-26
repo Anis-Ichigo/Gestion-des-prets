@@ -90,19 +90,19 @@ date_default_timezone_set('Europe/Paris');
                     } else if ($role_user == "Emprunteur") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                            <a class="nav-link" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" style="background-color: none; color:black" href="FAQ.php"><i class=" fi-rr-interrogation"></i> FAQ</a>
+                            <a class="nav-link" style="background-color: none; color:black" href="FAQ.php"><i class=" fi-rr-interrogation"></i> <?php echo FAQ;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+                            <a class="nav-link" href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
                         </li>
                     <?php
                     }
