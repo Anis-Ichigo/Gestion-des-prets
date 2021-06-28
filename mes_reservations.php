@@ -457,8 +457,8 @@ date_default_timezone_set('Europe/Paris');
                 if ($dateProlongation >= $dateDuJour) {
                     $query_demander_prolongation = "UPDATE emprunt SET DateProlongation = '$dateProlongation' WHERE IdentifiantE = '$identifiantE' ";
                     $result_demande_prolongation = mysqli_query($session, $query_demander_prolongation);
-                    $query_en_attente = "UPDATE materiel SET EtatM = 'En attente' WHERE IdentifiantM = '$identifiantM'";
-                    $result_en_attente = mysqli_query($session, $query_en_attente);
+                    /*$query_en_attente = "UPDATE materiel SET EtatM = 'En attente' WHERE IdentifiantM = '$identifiantM'";
+                    $result_en_attente = mysqli_query($session, $query_en_attente);*/
                 ?>
 
                     <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
