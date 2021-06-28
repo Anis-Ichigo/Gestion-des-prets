@@ -133,7 +133,27 @@ require('fpdf183/fpdf.php');
     </nav>
 
 
-    <br><br>
+    <br>
+
+    <?php
+    if ($role_user == "Responsable") {
+    ?>
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="profil.php">Mon profil </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="definir_vacataire.php">Vacataire </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="choix_dispo.php">Choix disponibilitée</a>
+      </li>
+    </ul>
+
+    <?php
+      }
+     ?>
 
     <?php
 
@@ -1642,6 +1662,7 @@ require('fpdf183/fpdf.php');
                 }
 
                 ?>
+
 
 
 </body>
