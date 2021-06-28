@@ -102,19 +102,19 @@ require('fpdf183/fpdf.php');
                     } else if ($role_user == "Emprunteur") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
+                            <a class="nav-link" href="profil.php" style="background-color: none; color:black"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="FAQ.php"><i class=" fi-rr-interrogation"></i> <?php echo FAQ;?></a>
+                            <a class="nav-link" href="FAQ.php"><i class=" fi-rr-interrogation"></i> <?php echo FAQ; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
+                            <a class="nav-link" href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
                         </li>
                     <?php
                     }
@@ -195,7 +195,7 @@ require('fpdf183/fpdf.php');
 
         $modif_profil = ("UPDATE personne SET PrenomPe = '$modif_PrenomPe', NomPe = '$modif_NomPe', EmailPe = '$modif_EmailPe', AdressePe = '$modif_AdressePe', TelPe = '$modif_TelPe', Statut = '$modif_Statut', Formation = '$modif_Formation' WHERE IdentifiantPe = '$identifiant'");
         $result_modif_profil = mysqli_query($session, $modif_profil);
-        ?>
+    ?>
         <div class="modal fade" id="succes_info" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -227,7 +227,7 @@ require('fpdf183/fpdf.php');
     <?php
     }
     ?>
-<?php
+    <?php
     $emprunteur = ("SELECT * FROM personne where IdentifiantPe = '$identifiant'");
     $result_emprunteur = mysqli_query($session, $emprunteur);
     foreach ($result_emprunteur as $row) {
@@ -748,11 +748,6 @@ require('fpdf183/fpdf.php');
 
         ?>
             <FORM method="POST" action="profil.php">
-                <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
-                <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
-                <input type="hidden" name="DateEmprunt" value="<?php echo $_POST['DateEmprunt']; ?>">
-                <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
-                <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
                 <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -785,21 +780,18 @@ require('fpdf183/fpdf.php');
                                 <div class="form-floating mb-3">
                                     <!--<input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Statut" value="<?php echo $_POST['Statut']; ?>" required> -->
                                     <SELECT id="floatingInput" name="modif_Statut" class="form-select">
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Statut']=='Etudiant'){
-                                                echo "selected";
-                                            }?>>Etudiant</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Statut']=='Enseignant'){
-                                                echo "selected";
-                                            }?>>Enseignant</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Statut']=='Personnel Administratif'){
-                                                echo "selected";
-                                            }?>>Personnel Administratif</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Statut'] == 'Etudiant') {
+                                                    echo "selected";
+                                                } ?>>Etudiant</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Statut'] == 'Enseignant') {
+                                                    echo "selected";
+                                                } ?>>Enseignant</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Statut'] == 'Personnel Administratif') {
+                                                    echo "selected";
+                                                } ?>>Personnel Administratif</OPTION>
                                     </SELECT>
                                     <label for="floatingInput"><?php echo TXT_IDENTITE; ?></label>
                                 </div>
@@ -807,51 +799,42 @@ require('fpdf183/fpdf.php');
                                 <div class="form-floating mb-3">
                                     <!--<input type="text" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="modif_Formation" value="<?php echo $_POST['Formation']; ?>" required>-->
                                     <SELECT id="floatingInput" name="modif_Formation" class="form-select">
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='L3 MIASHS TI'){
-                                                echo "selected";
-                                            }?>>L3 MIASHS TI</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='LICENCE PRO RTAI'){
-                                                echo "selected";
-                                            }?>>LICENCE PRO RTAI</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M1 MIAGE IM'){
-                                                echo "selected";
-                                            }?>>M1 MIAGE IM</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M1 MIAGE 2IS'){
-                                                echo "selected";
-                                            }?>>M1 MIAGE 2IS</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M1 MIAGE IDA'){
-                                                echo "selected";
-                                            }?>>M1 MIAGE IDA</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M2 MIAGE IPM'){
-                                                echo "selected";
-                                            }?>>M2 MIAGE IPM</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M2 MIAGE ISIAD'){
-                                                echo "selected";
-                                            }?>>M2 MIAGE ISIAD</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M2 MIAGE 2IS'){
-                                                echo "selected";
-                                            }?>>M2 MIAGE 2IS</OPTION>
-                                        <OPTION
-                                            <?php
-                                            if ($_POST['Formation']=='M2 MIAGE IDA'){
-                                                echo "selected";
-                                            }?>>M2 MIAGE IDA</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'L3 MIASHS TI') {
+                                                    echo "selected";
+                                                } ?>>L3 MIASHS TI</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'LICENCE PRO RTAI') {
+                                                    echo "selected";
+                                                } ?>>LICENCE PRO RTAI</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M1 MIAGE IM') {
+                                                    echo "selected";
+                                                } ?>>M1 MIAGE IM</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M1 MIAGE 2IS') {
+                                                    echo "selected";
+                                                } ?>>M1 MIAGE 2IS</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M1 MIAGE IDA') {
+                                                    echo "selected";
+                                                } ?>>M1 MIAGE IDA</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M2 MIAGE IPM') {
+                                                    echo "selected";
+                                                } ?>>M2 MIAGE IPM</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M2 MIAGE ISIAD') {
+                                                    echo "selected";
+                                                } ?>>M2 MIAGE ISIAD</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M2 MIAGE 2IS') {
+                                                    echo "selected";
+                                                } ?>>M2 MIAGE 2IS</OPTION>
+                                        <OPTION <?php
+                                                if ($_POST['Formation'] == 'M2 MIAGE IDA') {
+                                                    echo "selected";
+                                                } ?>>M2 MIAGE IDA</OPTION>
                                         <OPTION>AUTRE</OPTION>
                                     </SELECT>
                                     <label for="floatingInput"><?php echo TXT_FORMATION; ?></label>
@@ -1049,8 +1032,8 @@ require('fpdf183/fpdf.php');
 
                 <FORM method="POST" action="profil.php">
 
-                    <input type="text" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
-                    <input type="text" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
+                    <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
+                    <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
                     <input type="hidden" name="DateEmprunt" value="<?php echo $_POST['DateEmprunt']; ?>">
                     <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
                     <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
