@@ -215,7 +215,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                       FROM emprunt, calendrier
                                       WHERE calendrier.JourCal = 'Vendredi'
                                       AND emprunt.DateEmprunt = '2021-06-25'
-                                      AND emprunt.Statut_RDV LIKE 'à venir'); */
+                                      AND emprunt.Statut_RDV LIKE 'a venir'); */
 
         ?>
         <?php if ($s > 0) {
@@ -347,7 +347,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                 FROM emprunt, calendrier
                                                 WHERE calendrier.JourCal = 'Lundi'
                                                 AND emprunt.DateEmprunt = '$date_lundi'
-                                                AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 } else {
@@ -359,7 +359,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                 FROM emprunt, calendrier
                                                 WHERE calendrier.JourCal = 'Lundi'
                                                 AND emprunt.DateEmprunt = '$date_lundi'
-                                                AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 }
@@ -471,7 +471,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mardi'
                                                         AND emprunt.DateEmprunt = '$date_mardi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 } else {
@@ -483,7 +483,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mardi'
                                                         AND emprunt.DateEmprunt = '$date_mardi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 }
@@ -579,7 +579,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mercredi'
                                                         AND emprunt.DateEmprunt = '$date_mercredi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 } else {
@@ -591,7 +591,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mercredi'
                                                         AND emprunt.DateEmprunt = '$date_mercredi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 }
@@ -686,7 +686,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Jeudi'
                                                         AND emprunt.DateEmprunt = '$date_jeudi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 } else {
@@ -698,7 +698,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Jeudi'
                                                         AND emprunt.DateEmprunt = '$date_jeudi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 }
@@ -805,7 +805,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Vendredi'
                                                         AND emprunt.DateEmprunt = '$date_vendredi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 } else {
@@ -817,7 +817,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Vendredi'
                                                         AND emprunt.DateEmprunt = '$date_vendredi'
-                                                        AND emprunt.Statut_RDV LIKE 'à venir');";
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                     $res = mysqli_query($session, $sql);
                     $num = mysqli_num_rows($res);
                 }
@@ -1078,7 +1078,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
 
 
                 $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`)
-                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Prêt', '$identifiantM', '$identifiantPe', '$identifiantCal')");
+                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Pret', '$identifiantM', '$identifiantPe', '$identifiantCal')");
                 $result_insert_rdv = mysqli_query($session, $insert_rdv);
 
             ?>

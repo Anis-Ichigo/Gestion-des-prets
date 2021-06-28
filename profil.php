@@ -3,7 +3,7 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 require('decide-lang.php');
 require('fpdf183/fpdf.php');
-
+header( 'content-type: text/html; charset=utf-8' );
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,8 @@ require('fpdf183/fpdf.php');
 
 <head>
 
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="styletest.css" type="text/css">
     <link rel="stylesheet" href="menu.css" type="text/css">
@@ -139,21 +140,21 @@ require('fpdf183/fpdf.php');
     if ($role_user == "Responsable") {
     ?>
 
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="profil.php">Mon profil </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="definir_vacataire.php">Vacataire </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="choix_dispo.php">Choix disponibilitée</a>
-      </li>
-    </ul>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="profil.php">Mon profil </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="definir_vacataire.php">Vacataire </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="choix_dispo.php">Choix disponibilitée</a>
+            </li>
+        </ul>
 
     <?php
-      }
-     ?>
+    }
+    ?>
 
     <?php
 
@@ -554,7 +555,7 @@ require('fpdf183/fpdf.php');
         <?php
 
         $reservations = ("SELECT *
-                            FROM emprunt, personne, materiel, calendrier
+                            FROM emprunt, personne, materiel, calendrier, parametres
                             WHERE emprunt.IdentifiantM = materiel.IdentifiantM
                             AND emprunt.IdentifiantPe = personne.IdentifiantPe
                             AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
@@ -600,6 +601,14 @@ require('fpdf183/fpdf.php');
                                                         <table>
                                                             <tr>
                                                                 <td style="text-align : left">
+                                                                    Motif RDV :
+                                                                </td>
+                                                                <td>
+                                                                    <?php echo "  " . $row['Motif'] ?>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="text-align : left">
                                                                     <?php echo TXT_DATE; ?>
                                                                 </td>
                                                                 <td>
@@ -636,15 +645,19 @@ require('fpdf183/fpdf.php');
                                                                     <?php echo  TXT_BUREAU; ?>
                                                                 </td>
                                                                 <td>
-
+                                                                    <input type="hidden" value="<?php echo $row['Bureau'] ?>" name="bureau">
+                                                                    <?php echo "  " . $row['Bureau'] ?>
                                                                 </td>
                                                             </tr>
 
                                                         </table>
-
-                                                        <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                                        <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
+                                                        <?php if ($row['Statut_RDV'] != "termine") { ?>
+                                                            <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
+                                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                            <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </div>
                     </div>
@@ -664,6 +677,14 @@ require('fpdf183/fpdf.php');
                                     <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
 
                                     <table>
+                                        <tr>
+                                            <td style="text-align : left">
+                                                Motif RDV :
+                                            </td>
+                                            <td>
+                                                <?php echo "  " . $row['Motif'] ?>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td style="text-align : left">
                                                 <?php echo TXT_DATE; ?>
@@ -702,15 +723,19 @@ require('fpdf183/fpdf.php');
                                                 <?php echo  TXT_BUREAU; ?>
                                             </td>
                                             <td>
-
+                                                <input type="hidden" value="<?php echo $row['Bureau'] ?>" name="bureau">
+                                                <?php echo "  " . $row['Bureau'] ?>
                                             </td>
                                         </tr>
 
                                     </table>
-
-                                    <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
+                                    <?php if ($row['Statut_RDV'] != "termine") { ?>
+                                        <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
+                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
+                                    <?php
+                                            }
+                                    ?>
                                 </div>
                             </div>
                 </div>
@@ -928,7 +953,7 @@ require('fpdf183/fpdf.php');
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col col-form-label"><?php echo TXT_BUREAU; ?> : </label>
                                     <div class="col">
-                                        <input type="text" class="form-control-plaintext" name="bureau" value="" readonly>
+                                        <input type="text" class="form-control-plaintext" name="bureau" value="<?php echo $_POST['bureau']; ?>" readonly>
                                     </div>
                                 </div>
 

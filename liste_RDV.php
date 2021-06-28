@@ -175,7 +175,7 @@ date_default_timezone_set('Europe/Paris');
                             WHERE 	p.IdentifiantPe= e.IdentifiantPe
                             AND		e.IdentifiantM = m.IdentifiantM
                             AND 	e.IdentifiantCal = cal.IdentifiantCal
-                            AND Statut_RDV LIKE 'à venir'
+                            AND Statut_RDV LIKE 'a venir'
                             ORDER BY e.DateEmprunt ASC
                             ";
         $result_liste_rdv = mysqli_query($session, $query_liste_rdv);
@@ -240,6 +240,10 @@ date_default_timezone_set('Europe/Paris');
                     ?>
                       <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="RDV terminé" name="RDV_termine">
                     <?php
+                    } else if ($ligne_liste_rdv['contrat'] == 'a signer') {
+                    ?>
+                      <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="Annuler" name="Annuler">
+                    <?php
                     } else if ($ligne_liste_rdv['contrat'] == NULL) {
                     ?>
                       <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="Générer contrat" name="generer_contrat">
@@ -283,12 +287,12 @@ date_default_timezone_set('Europe/Paris');
       }
 
       if (isset($_POST['RDV_termine'])) {
-        if ($_POST['motif'] == 'Prêt') {
+        if ($_POST['motif'] == 'Pret') {
           $ide = $_POST['ide'];
           $idm = $_POST['idm'];
           $idc = $_POST['idc'];
 
-          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'termine' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_update_RDV = mysqli_query($session, $update_RDV);
           $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_update_cal = mysqli_query($session, $update_cal);
@@ -297,7 +301,7 @@ date_default_timezone_set('Europe/Paris');
           $idm = $_POST['idm'];
           $idc = $_POST['idc'];
 
-          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'terminé' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'termine' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_update_RDV = mysqli_query($session, $update_RDV);
           $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_update_cal = mysqli_query($session, $update_cal);
@@ -521,13 +525,72 @@ date_default_timezone_set('Europe/Paris');
               </div>
             </div>
 
-        <?php
+          <?php
             echo "<script>
     $(window).load(function() {
         $('#succes_mdp').modal('show');
     });
 </script>";
           }
+        }
+
+        if (isset($_POST['Annuler'])) {
+
+          ?>
+          <form action="" method="POST">
+            <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc'>
+            <input type='hidden' class='form-control' value="<?php echo $_POST['ide'] ?>" name='ide'>
+            <input type='hidden' class='form-control' value="<?php echo $_POST['idm'] ?>" name='idm'>
+
+            <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
+
+                      <div>
+                        <?php echo "Êtes-vous sûr de vouloir annuler cet emprunt ?" ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input type="submit" name="Annuler_emprunt" class="btn btn-primary" value="<?php echo "Oui"; ?>">
+                      <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo "Annuler"; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        <?php
+          echo "<script>
+    $(window).load(function() {
+        $('#succes_mdp').modal('show');
+    });
+</script>";
+        }
+
+
+        if (isset($_POST['Annuler_emprunt'])) {
+          $ide = $_POST['ide'];
+          $idm = $_POST['idm'];
+          $idc = $_POST['idc'];
+
+          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
+
+        ?>
+          <script type="text/javascript">
+            document.location.href = 'liste_RDV.php';
+          </script>
+          
+        <?php
         }
         ?>
 
