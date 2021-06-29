@@ -27,7 +27,8 @@ date_default_timezone_set('Europe/Paris');
     WHERE emprunt.IdentifiantM = materiel.IdentifiantM
     AND emprunt.IdentifiantPe = personne.IdentifiantPe
     AND materiel.IdentifiantMo = modele.IdentifiantMo
-    AND emprunt.Contrat LIKE 'a signer'";
+    AND emprunt.Contrat LIKE 'a signer'
+    GROUP BY emprunt.IdentifiantE, materiel.IdentifiantM, materiel.CategorieM, emprunt.DateRetour, modele.IdentifiantMo, modele.Marque, emprunt.DateEmprunt, emprunt.IdentifiantE, personne.PrenomPe, personne.NomPe";
     $result = mysqli_query($session, $informations);
 
     foreach ($result as $row) {

@@ -327,6 +327,8 @@ date_default_timezone_set('Europe/Paris');
 
                   <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idemprunt'] ?>" name='idemprunt' readonly>
                   <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['idm'] ?>" name='idm' readonly>
+                  <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['date_rdv'] ?>" name='date_rdv' readonly>
+                  <input type='hidden' class='form-control-plaintext' value="<?php echo $_POST['heure'] ?>" name='heure' readonly>
 
 
                   <div class="form-floating mb-3">
@@ -350,12 +352,12 @@ date_default_timezone_set('Europe/Paris');
                   </div>
 
                   <div class="form-floating mb-3">
-                    <input type='text' class='form-control' value="<?php echo $_POST['date_rdv'] ?>" name='date_rdv'>
+                    <input type='text' class='form-control' value="<?php echo $_POST['date_rdv'] ?>" name='nouvelle_date_rdv'>
                     <label for="floatingInput"><?php echo "Date du RDV"; ?> :</label>
                   </div>
 
                   <div class="form-floating mb-3">
-                    <input type='time' step="2" class='form-control' value="<?php echo $_POST['heure'] ?>" name='heure'>
+                    <input type='time' step="2" class='form-control' value="<?php echo $_POST['heure'] ?>" name='nouvelle_heure'>
                     <label for="floatingInput"><?php echo "Heure"; ?> :</label>
                   </div>
 
@@ -415,8 +417,11 @@ date_default_timezone_set('Europe/Paris');
           $nouveau_idm = $_POST['nouveau_idm'];
           $idc = $_POST['idc'];
           $date_rdv = $_POST['date_rdv'];
+          $nouvelle_date_rdv = $_POST['nouvelle_date_rdv'];
           $idemprunt = $_POST['idemprunt'];
           $heure = $_POST['heure'];
+          $nouvelle_heure = $_POST['nouvelle_heure'];
+
 
           $existe_idm = "SELECT * FROM materiel WHERE IdentifiantM = '$nouveau_idm'";
           $res_existe_idm = mysqli_query($session, $existe_idm);
@@ -494,11 +499,18 @@ date_default_timezone_set('Europe/Paris');
             $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv', Horaire_modif = '$heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
             $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
             $modifier_id_nouveau_materiel = ("UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$nouveau_idm'");
+            $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
+
             if ($idm != $nouveau_idm) {
               $modifier_id_materiel = ("UPDATE materiel SET EtatM = 'Dispo' WHERE IdentifiantM = '$idm'");
+              $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
             }
-            $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
-            $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
+
+            if (($nouvelle_date_rdv != $date_rdv) || ($nouvelle_heure != $heure)) {
+              $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+              $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
+            }
+
           ?>
 
             <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
@@ -582,14 +594,16 @@ date_default_timezone_set('Europe/Paris');
           $idm = $_POST['idm'];
           $idc = $_POST['idc'];
 
-          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
+          $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+          $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
 
         ?>
           <script type="text/javascript">
             document.location.href = 'liste_RDV.php';
           </script>
-          
+
         <?php
         }
         ?>
