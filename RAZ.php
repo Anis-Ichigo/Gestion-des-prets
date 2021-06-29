@@ -1,8 +1,8 @@
 <?php
-session_start();
+require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
-
+date_default_timezone_set('Europe/Paris');
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +74,7 @@ mysqli_set_charset($session, "utf8");
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
@@ -166,7 +166,7 @@ mysqli_set_charset($session, "utf8");
                 while ($ligne = mysqli_fetch_array($result_raz)) {
             ?>
 
-                    <form action="" method="POST">
+                    <form action="reparer_materiel.php" method="POST">
 
                         <TR>
                             <TD>
@@ -192,6 +192,7 @@ mysqli_set_charset($session, "utf8");
 
         </Table>
     </div>
+
     </main>
 </body>
 

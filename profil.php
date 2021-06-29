@@ -4,6 +4,8 @@ mysqli_set_charset($session, "utf-8");
 require('decide-lang.php');
 require('fpdf183/fpdf.php');
 header( 'content-type: text/html; charset=utf-8' );
+date_default_timezone_set('Europe/Paris');
+
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +87,7 @@ header( 'content-type: text/html; charset=utf-8' );
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                            <a class="nav-link" href="entretien.php"><i class="fi-rr-computer"></i> Entretien machine</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
@@ -1657,16 +1659,16 @@ header( 'content-type: text/html; charset=utf-8' );
                     $pdf->MultiCell(0, 10, iconv('UTF-8', 'windows-1252', "Fait le {$date_emprunt}"));
 
                     $pdf->Ln(15);
-                    $pdf->Image('box.png', 31, 133, 5, 0, '');
+                    $pdf->Image('box.png', 31, 192, 5, 0, '');
                     $pdf->SetLeftMargin(40);
                     $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je certifie sur l'honneur être d'accord avec le présent contrat."));
                     $pdf->Ln(15);
-                    $pdf->Image('box.png', 31, 147, 5, 0, '');
+                    $pdf->Image('box.png', 31, 206, 5, 0, '');
                     $pdf->SetLeftMargin(40);
                     $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
 
 
-                    $pdf->Output('', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
+                    $pdf->Output('F', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
                 }
 
                 ?>

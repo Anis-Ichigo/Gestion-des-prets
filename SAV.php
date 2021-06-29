@@ -1,19 +1,27 @@
 <?php
-session_start();
+require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
+date_default_timezone_set('Europe/Paris');
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>SAV</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <link rel="stylesheet" href="menu.css" />
+    <link rel="stylesheet" href="menu.css" type="text/css">
     <script src="https://kit.fontawesome.com/27e9b6ce5f.js" crossorigin="anonymous"></script>
     <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -65,7 +73,7 @@ mysqli_set_charset($session, "utf8");
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien
+                            <a class="nav-link" style="background-color: none; color:black" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien
                                 machine</a>
                         </li>
                         <li class="nav-item  text-center">
@@ -125,12 +133,13 @@ mysqli_set_charset($session, "utf8");
                 <a class="nav-link " href="entretien.php">Mise a jour du parc</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="RAZ.php">RAZ des machines </a>
+                <a class="nav-link" href="RAZ.php">RAZ des machines</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">SAV</a>
             </li>
         </ul>
+
 
         <Table class="table table-striped table-hover">
             <TR>
@@ -156,20 +165,19 @@ mysqli_set_charset($session, "utf8");
 
             <?php
             $query_pb = "SELECT *
-                        FROM materiel M, emprunt E, probleme P, personne pe
-                        WHERE M.IdentifiantM = E.IdentifiantM
-                        AND M.IdentifiantM = P.IdentifiantM
-                        AND pe.IdentifiantPe = e.IdentifiantPe
-                        AND pe.IdentifiantPe = p.IdentifiantPe
-                        AND M.EtatM = 'Non Dispo'
-                        AND P.Resolution LIKE 'Non résolu'";
+                            FROM materiel M, probleme P, personne pe
+                            WHERE M.IdentifiantM = P.IdentifiantM
+                            AND pe.IdentifiantPe = p.IdentifiantPe
+                            AND M.EtatM = 'Non Dispo'
+                            AND P.Resolution LIKE 'Non résolu'";
             $result_pb = mysqli_query($session, $query_pb);
             if ($result_pb != NULL) {
                 while ($ligne = mysqli_fetch_array($result_pb)) {
             ?>
-                    <form action="reparer_materiel.php" method="POST">
+                    <form action="" method="POST">
 
                         <TR>
+                            <input type="hidden" name="IdentifiantP" class="form-control-plaintext" value="<?php echo $ligne['IdentifiantP'] ?>" readonly>
                             <input type="hidden" name="nom" class="form-control-plaintext" value="<?php echo $ligne['NomPe'] ?>" readonly>
                             <input type="hidden" name="prenom" class="form-control-plaintext" value="<?php echo $ligne['PrenomPe'] ?>" readonly>
 
@@ -191,9 +199,8 @@ mysqli_set_charset($session, "utf8");
                                 <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['Description'] ?>" readonly>
                             </TD>
                             <td>
-                                <input type="submit" class="btn btn-primary btn-sm" name="reparation" value="Problème résolu">
+                                <input type="submit" class="btn btn-primary btn-sm" name="repondre" value="Répondre">
                                 <input type="submit" class="btn btn-secondary btn-sm" name="transferer" value="Transférer">
-
                             </td>
                         </TR>
                     </form>
@@ -206,6 +213,132 @@ mysqli_set_charset($session, "utf8");
         </Table>
 
     </div>
+
+    <?php
+
+    if (isset($_POST['transferer'])) {
+        $identifiantM = $_POST['numero'];
+        $identifiantP = $_POST['IdentifiantP'];
+
+        $transferer = "UPDATE materiel SET EtatM = 'DSI' WHERE IdentifiantM = '$identifiantM'";
+        $result = mysqli_query($session, $transferer);
+        $transfer = "UPDATE probleme SET Resolution = 'Transféré' WHERE IdentifiantP = '$identifiantP'";
+        $result_transfer = mysqli_query($session, $transfer);
+        //header('Location: SAV.php');
+
+
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        $description = $_POST['probleme'];
+
+
+        $destinataire = $_POST["IdentifiantPe"];
+        $objet = "Remise du matériel pour panne";
+        $message = "Veuillez prendre un RDV pour effectuer un nouvel emprunt et pour ramener le matériel deffectueux";
+        $headers = 'From: vacataire' . "\r\n" .
+            'Reply-To: vacataire' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+        mail("$destinataire", $objet, $message, $headers);
+
+
+        $destinataire = "responsable@ut-capitole.fr";
+        $objet = "Remise du matériel pour panne";
+        $message = "Le matériel '$identifiantM', emprunté par '$prenom' ' ' '$nom' doit être envoyé à la DSI pour réparation. Le problème est le suivant : '$description'";
+        $headers = 'From: vacataire' . "\r\n" .
+            'Reply-To: vacataire' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+        mail("$destinataire", $objet, $message, $headers);
+
+    ?>
+        <script type="text/javascript">
+            document.location.href = 'SAV.php';
+        </script>
+    <?php
+    }
+
+    if (isset($_POST['repondre'])) {
+
+    ?>
+
+        <?php
+        ?>
+        <form action="" method="POST">
+            <input type="hidden" name="numero" class="form-control-plaintext" value="<?php echo $_POST['numero'] ?>" readonly>
+
+            <div class="modal fade" id="alerte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><?php echo "Répondre au problème"; ?></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col col-form-label"><?php echo "De"; ?> : </label>
+                                <div class="col">
+                                    <input type="text" class="form-control-plaintext" name="expediteur" value="<?php echo $identifiant; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col col-form-label"><?php echo "Destinataire"; ?> : </label>
+                                <div class="col">
+                                    <input type="text" class="form-control-plaintext" name="IdentifiantPe" value="<?php echo $_POST['mail']; ?>" readonly>
+                                </div>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" name="titre" autocomplete="off" placeholder=" " required>
+                                <label for="floatingInput"><?php echo TXT_TITRE; ?></label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="floatingTextarea" style="height: 200px" name="description" cols="60" rows="10" autocomplete="off" placeholder=" " required></textarea>
+                                <label for="floatingTextarea"><?php echo TXT_DESCRIPTION; ?></label>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_RETOUR; ?>">
+                            <input type="submit" class="btn btn-primary" name="envoyer_reponse_probleme" value="<?php echo TXT_ENVOYER; ?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+            echo "<script>
+    $(window).load(function() {
+        $('#alerte').modal('show');
+    });
+</script>";
+
+            ?>
+        </form>
+    <?php
+    }
+
+    if (isset($_POST['envoyer_reponse_probleme'])) {
+        $resolution = "Problème résolu";
+        $identifiantM = $_POST['numero'];
+        $date_reparation = strftime('%Y-%m-%d');
+        $reparer = "UPDATE probleme SET Resolution = '$resolution', DateResolution = '$date_reparation' WHERE IdentifiantM = '$identifiantM'";
+        $result = mysqli_query($session, $reparer);
+
+        $destinataire = $_POST['IdentifiantPe'];
+        $objet = $_POST['titre'];
+        $message = $_POST['description'];
+        $headers = "From: $identifiant" . "\r\n" .
+            "Reply-To: $identifiant" . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+        mail("$destinataire", $objet, $message, $headers);
+
+    ?>
+        <script type="text/javascript">
+            document.location.href = 'SAV.php';
+        </script>
+    <?php
+    }
+
+    ?>
 
 
 </body>

@@ -94,7 +94,7 @@ mysqli_set_charset($session, "utf8");
 
                         header("HTTP/1.1 301 Moved Permanently");
 
-                        header("Location: ../portable/menu3.php");
+                        header("Location: ../Gestion-des-reservation-portable/menu3.php");
 
                     } else {
 
