@@ -53,7 +53,7 @@ mysqli_set_charset($session, "utf8");
                   <h4>Vérifiez votre identifiant et votre mot de passe.</h4><br>
                   <button><a href='index.html'>Merci de recommencer.</a></button><br>";
                     echo "Ou <br>
-                     <form action='Page_Inscription.php' method='post' >
+                     <form action='ins.php' method='post' >
                         <input type='hidden' name='lang' value=$lange>
                         <button type='submit' name='creer_compte' class='compte'>Créer un compte.</button>
                      </form>
