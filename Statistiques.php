@@ -122,14 +122,14 @@ mysqli_set_charset($session, "utf-8");
 
 
     <main>
-        <div>
-            <canvas id="graph" class="chartjs-render-monitor" height="400" width="1000"></canvas>
+        <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+            <canvas id="graph" class="chartjs-render-monitor"></canvas>
         </div>
     </main>
 
     <main>
-        <div>
-            <canvas id="graphe2" class="chartjs-render-monitor" height="400" width="1000"></canvas>
+        <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+            <canvas id="graphe2" class="chartjs-render-monitor"></canvas>
         </div>
     </main>
 
@@ -193,7 +193,8 @@ mysqli_set_charset($session, "utf-8");
     </script>
 
     <form action="" method="POST">
-        <SELECT size="1" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+        <label style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" for="">Type de matériel</label>
+        <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
             <?php
             $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
             $result_categories = mysqli_query($session, $categories);
@@ -204,7 +205,7 @@ mysqli_set_charset($session, "utf-8");
             }
             ?>
         </SELECT>
-        <input type="submit" name="valider" value="Valider">
+        <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider" value="Valider">
     </form>
 
     <script>
@@ -213,7 +214,6 @@ mysqli_set_charset($session, "utf-8");
         }
     </script>
 
-    }
     <?php
     $categorie = "Ordinateur";
     if (isset($_POST['valider'])) {
@@ -289,7 +289,7 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                     },
                     title: {
                         display: true,
-                        text: "Nombre de jours de réservation par type de matériel"
+                        text: "Nombre de jours de réservation par mois pour le matériel sélectionné "
                     }
                 },
 
