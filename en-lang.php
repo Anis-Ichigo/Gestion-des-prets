@@ -340,3 +340,41 @@ define('ENREGISTRER', 'Record');
 define('DECONNEXION', 'Logout');
 define('FAQ', 'FAQ');
 define('PROFIL', 'Profile');
+
+//entretien.php
+
+define('TXT_ACCUEIL_ENTRETIEN','Machine maintenance');
+define('TXT_MAJ_PARC','Park update');
+define('TXT_RAZ','Machines Reset');
+define('TXT_SAV','SAV');
+define('TXT_NUM_MAT','Equipment number');
+define('TXT_TYPEMAT','Equipment type');
+define('TXT_MODELE','Model');
+define('TXT_MARQUE','Brand');
+define('TXT_RAM',' RAM (Go)');
+define('TXT_PROCESS','Processor');
+define('TXT_CAPS','Storage capacity');
+define('TXT_DATERECEP','Date of receipt');
+define('TXT_ETAT','State');
+define('TXT_NOUVEAU','New');
+define('TXT_ALERTESUPP','Are you sure you want to delete this equipment?');
+define('TXT_ALERTESUPP2','As a reminder, the equipment will no longer be available for loan but all the informations will be kept in memory.');
+define('TXT_ALERTEMAT','The equipment was added successfully');
+define('TXT_NOUVELLECAT','New category');
+define('TXT_NUM_BON','Purchase order number');
+define('TXT_OUI','Yes');
+define('TXT_NON','No');
+define('TXT_ENTRETIEN','Maintenance');
+define('TXT_AJOUTER','ADD');
+
+//RAZ.PHP
+
+define('TXT_RAZ_TERMINE','Reset completed');
+
+//SAV.PHP
+
+define('TXT_REPONDRE','Reply');
+define('TXT_TRANSFERER','Transfer');
+
+
+

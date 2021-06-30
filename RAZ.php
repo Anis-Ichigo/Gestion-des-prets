@@ -9,7 +9,7 @@ date_default_timezone_set('Europe/Paris');
 <html>
 
 <head>
-    <title>RAZ</title>
+    <title><?php echo TXT_RAZ;?> </title>
     <meta charset="utf-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <link rel="stylesheet" href="menu.css" />
@@ -68,19 +68,19 @@ date_default_timezone_set('Europe/Paris');
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien machine</a>
+                            <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i>  <?php echo PROFIL;?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i><?php echo TXT_ACCUEIL_REGLAGE;?></a>
                         </li>
                     <?php
                     } else if ($role_user == "Emprunteur") {
@@ -122,26 +122,26 @@ date_default_timezone_set('Europe/Paris');
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link " href="entretien.php">Mise a jour du parc</a>
+                <a class="nav-link " href="entretien.php"><?php echo TXT_MAJ_PARC;?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">RAZ des machines</a>
+                <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_RAZ;?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="SAV.php">SAV</a>
+                <a class="nav-link" href="SAV.php"><?php echo TXT_SAV;?></a>
             </li>
         </ul>
 
         <Table class="table table-striped table-hover">
             <TR>
                 <th>
-                    Numéro du materiel
+                <?php echo TXT_NUM_MAT;?>
                 </Th>
                 <th>
-                    Type de materiel
+                <?php echo TXT_TYPEMAT;?>
                 </Th>
                 <th>
-                    Etat
+                <?php echo TXT_ETAT;?>
                 </Th>
                 <th>
 
@@ -179,7 +179,7 @@ date_default_timezone_set('Europe/Paris');
                                 <input type="text" name="etat" class="form-control-plaintext" value="<?php echo $ligne['EtatM'] ?>">
                             </TD>
                             <TD>
-                                <input type="submit" name="raz" class="btn btn-primary" value="RAZ Terminée">
+                                <input type="submit" name="raz" class="btn btn-primary" value="<?php echo TXT_RAZ_TERMINE; ?>">
                             </TD>
                         </TR>
 

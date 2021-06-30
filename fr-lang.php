@@ -344,4 +344,42 @@ define('DECONNEXION', 'Déconnexion');
 define('FAQ', 'FAQ');
 define('PROFIL', 'Profil');
 
+
+//entretien.php
+
+define('TXT_ACCUEIL_ENTRETIEN','Entretien machine');
+define('TXT_MAJ_PARC','Mise à jour du parc');
+define('TXT_RAZ','RAZ des machines');
+define('TXT_SAV','SAV');
+define('TXT_NUM_MAT','Numéro du matériel');
+define('TXT_TYPEMAT','Type de matériel');
+define('TXT_MODELE','Modèle');
+define('TXT_MARQUE','Marque');
+define('TXT_RAM',' RAM (Go)');
+define('TXT_PROCESS','Processeur');
+define('TXT_CAPS','Capacité de stockage');
+define('TXT_DATERECEP','Date de réception');
+define('TXT_ETAT','Etat ');
+define('TXT_NOUVEAU','Nouveau ');
+define('TXT_ALERTESUPP','Êtes-vous sûr de vouloir supprimer ce matériel ? ');
+define('TXT_ALERTESUPP2','Pour rappel, le matériel ne sera plus disponible au prêt mais toutes les informations seront gardées en mémoire. ');
+define('TXT_ALERTEMAT','Le matériel a été ajouté avec succès');
+define('TXT_NOUVELLECAT','Nouvelle catégorie');
+define('TXT_NUM_BON','Numéro du bon de commande');
+define('TXT_OUI','Oui');
+define('TXT_NON','Non');
+define('TXT_ENTRETIEN','Entretien');
+define('TXT_AJOUTER','Ajouter');
+
+//RAZ.PHP
+
+define('TXT_RAZ_TERMINE','RAZ Terminée');
+
+//SAV.PHP
+
+define('TXT_REPONDRE','Répondre');
+define('TXT_TRANSFERER','Transférer');
+
+
+
  ?>

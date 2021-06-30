@@ -9,7 +9,7 @@ date_default_timezone_set('Europe/Paris');
 <html>
 
 <head>
-  <title>Entretien</title>
+  <title><?php echo TXT_ENTRETIEN;?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
   <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
 
@@ -70,13 +70,13 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes réservations</a>
+              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
@@ -85,43 +85,43 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
             </li>
           <?php
           } else if ($role_user == "Vacataire") {
           ?>
             <li class="nav-item  text-center">
-              <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien machine</a>
+              <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
+              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
+              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
+              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
             </li>
           <?php
           } else if ($role_user == "Emprunteur") {
           ?>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
+              <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> Mes réservations</a>
+              <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> Profil</a>
+              <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> Réglages</a>
+              <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
             </li>
           <?php
           }
@@ -143,13 +143,13 @@ date_default_timezone_set('Europe/Paris');
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Mise a jour du parc</a>
+      <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_MAJ_PARC;?></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="RAZ.php">RAZ des machines </a>
+      <a class="nav-link" href="RAZ.php"><?php echo TXT_RAZ;?></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="SAV.php">SAV</a>
+      <a class="nav-link" href="SAV.php"><?php echo TXT_SAV;?> </a>
     </li>
   </ul>
 
@@ -200,7 +200,7 @@ date_default_timezone_set('Europe/Paris');
                         </svg>
 
                         <div>
-                            <?php echo "Le matériel a été ajouté avec succès"; ?>
+                            <?php echo TXT_ALERTEMAT; ?>
                         </div>
                     </div>
                 </div>
@@ -228,31 +228,31 @@ date_default_timezone_set('Europe/Paris');
     <thead style="text-align: center;">
       <TR>
         <th data-sortable="true">
-          Numéro du matériel
+         <?php echo TXT_NUM_MAT;?>
         </th>
         <th data-sortable="true">
-          Type de matériel
+        <?php echo TXT_TYPEMAT;?>
         </th>
         <th data-sortable="true">
-          Modèle
+         <?php echo TXT_MODELE;?>
         </th>
         <th data-sortable="true">
-          Marque
+        <?php echo TXT_MARQUE;?>
         </th>
         <th data-sortable="true">
-          RAM (Go)
+         <?php echo TXT_RAM;?>
         </th>
         <th data-sortable="true">
-          Processeur
+         <?php echo TXT_PROCESS;?>
         </th>
         <th data-sortable="true">
-          Capacité de stockage
+         <?php echo TXT_CAPS;?>
         </th>
         <th data-sortable="true">
-          Date de réception
+         <?php echo TXT_DATERECEP;?>
         </Th>
         <th data-sortable="true">
-          Etat
+         <?php echo TXT_ETAT;?>
         </Th>
         <th width="15%" data-sortable="false" data-field="bouttons">
         </th>
@@ -307,7 +307,7 @@ date_default_timezone_set('Europe/Paris');
             <input type="text" readonly name="" class="form-control-plaintext text-center" value="<?php echo $ligne['EtatM'] ?>">
           </td>
           <td>
-            <input type="submit" class='btn btn-secondary supprimer' name="supprimer" value="Supprimer">
+            <input type="submit" class='btn btn-secondary supprimer' name="supprimer" value="<?php echo TXT_SUPPRIMER;?>">
           </td>
         </tr>
       </form>
@@ -319,7 +319,7 @@ date_default_timezone_set('Europe/Paris');
 
 
   <form action="" method="POST">
-    <input type="submit" class='btn btn-primary' name="ajouter" value="Ajouter">
+    <input type="submit" class='btn btn-primary' name="ajouter" value="<?php echo TXT_AJOUTER;?>">
   </form>
 
   <?php
@@ -335,10 +335,10 @@ date_default_timezone_set('Europe/Paris');
               <div>
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='numero' required>
-                  <label for="floatingInput"><?php echo "Numéro du matériel"; ?>:</label>
+                  <label for="floatingInput"><?php echo TXT_NUM_MAT; ?>:</label>
                 </div>
 
-                <label>Type de matériel :</label>
+                <label><?php echo TXT_TYPEMAT;?> :</label>
                 <SELECT size="1" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
                   <?php
                   $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
@@ -349,51 +349,51 @@ date_default_timezone_set('Europe/Paris');
                   <?php
                   }
                   ?>
-                  <option id="nouveau">Nouveau</option>
+                  <option id="nouveau"><?php echo TXT_NOUVEAU;?></option>
                 </SELECT>
 
                 <div class="form-floating mb-3" id="nouvelleCategorie" style="display: none;">
                   <input type='text' class='form-control' placeholder=" " name='nouvelle_categorie'>
-                  <label for="floatingInput"><?php echo "Nouvelle catégorie"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_NOUVELLECAT; ?> :</label>
                 </div>
 
                 <input type='date' class='form-control mb-3' placeholder=" " name='date' required>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='NumBonCommande' required>
-                  <label for="floatingInput"><?php echo "Numéro du bon de commande"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_NUM_BON; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='IdentifiantMo' required>
-                  <label for="floatingInput"><?php echo "Modèle"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_MODELE; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='Marque' required>
-                  <label for="floatingInput"><?php echo "Marque"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_MARQUE; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='RAM'>
-                  <label for="floatingInput"><?php echo "RAM"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_RAM; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='Processeur'>
-                  <label for="floatingInput"><?php echo "Processeur"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_PROCESS; ?> :</label>
                 </div>
 
                 <div class="form-floating mb-3">
                   <input type='text' class='form-control' placeholder=" " name='CapaciteStockage' required>
-                  <label for="floatingInput"><?php echo "Capacité de stockage"; ?> :</label>
+                  <label for="floatingInput"><?php echo TXT_CAPS; ?> :</label>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <div class="col text-center">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo "Annuler"; ?>">
-                <input type="submit" class="btn btn-primary" name="valider_ajout" value="Valider">
+                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_ANNULER; ?>">
+                <input type="submit" class="btn btn-primary" name="valider_ajout" value="<?php echo VALIDER; ?>">
               </div>
             </div>
           </div>
@@ -419,14 +419,14 @@ date_default_timezone_set('Europe/Paris');
             <div class="modal-body">
               <input type='hidden' name='numero_materiel' value="<?php echo $_POST['numeroM']; ?>">
 
-              <p>Êtes-vous sûr de vouloir supprimer ce matériel ?</p>
-              <p>Pour rappel, le matériel ne sera plus disponible au prêt mais toutes les informations seront gardées en mémoire.</p>
+              <p><?php echo TXT_ALERTESUPP;?></p>
+              <p><?php echo TXT_ALERTESUPP2;?></p>
 
             </div>
             <div class="modal-footer">
               <div class="col text-center">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo "Non"; ?>">
-                <input type="submit" class="btn btn-primary" name="supprimer_materiel" value="<?php echo "Oui"; ?>">
+                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_OUI; ?>">
+                <input type="submit" class="btn btn-primary" name="supprimer_materiel" value="<?php echo TXT_NON; ?>">
               </div>
             </div>
           </div>
