@@ -18,7 +18,7 @@ date_default_timezone_set('Europe/Paris');
 
   <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
- 
+
   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -179,13 +179,16 @@ date_default_timezone_set('Europe/Paris');
         </thead>
 
 
-        <form action="gestion_prolongation.php" method="POST">
-          <?php
+        <?php
 
-          foreach ($result_emprunt as $row) {
+        foreach ($result_emprunt as $row) {
 
-          ?>
+        ?>
+
+          <form action="gestion_prolongation.php" method="POST">
+
             <tr>
+              <input type="hidden" class="form-control-plaintext" name="IdentifiantE" value="<?php echo $row['IdentifiantE'] ?>" readonly>
 
               <td>
                 <input type="text" class="form-control-plaintext" name="IdentifiantPe" value="<?php echo $row['IdentifiantPe'] ?>" readonly>
@@ -207,17 +210,18 @@ date_default_timezone_set('Europe/Paris');
                 <input type="submit" class="btn btn-secondary" name="refuser" value="Refuser">
               </td>
             </tr>
+          </form>
 
-          <?php
-          }
-          ?>
-        </form>
-
+        <?php
+        }
+        ?>
       </table>
+
     <?php
     }
-
     ?>
+
+
     <br><br>
 
     <div class="contenu">

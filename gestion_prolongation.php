@@ -7,9 +7,11 @@ if (isset($_POST['valider'])) {
     $identifiantPe = $_POST['IdentifiantPe'];
     $identifiantM = $_POST['IdentifiantM'];
     $categorieM = $_POST['CategorieM'];
+    $identifiantE = $_POST['IdentifiantE'];
 
 
-    $prolongation_validee = ("UPDATE emprunt set DateRetour = '$date_retour', DateProlongation = NULL  WHERE IdentifiantPe = '$identifiantPe' AND IdentifiantM = '$identifiantM'");
+
+    $prolongation_validee = ("UPDATE emprunt set DateRetour = '$date_retour', DateProlongation = NULL  WHERE IdentifiantE = '$identifiantE' AND IdentifiantPe = '$identifiantPe' AND IdentifiantM = '$identifiantM'");
     $result_prolongation_validee = mysqli_query($session, $prolongation_validee);
 
 

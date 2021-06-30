@@ -159,7 +159,6 @@ date_default_timezone_set('Europe/Paris');
 
     ?>
         <div style="display: block ;" class="form-group row">
-            <input type="button" class="accordion" style="text-align: center; font-weight:bold" value="<?php echo TXT_RDV; ?>">
             <?php // echo TXT_RDV;
             ?>
 

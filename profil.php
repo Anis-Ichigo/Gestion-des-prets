@@ -38,7 +38,7 @@ date_default_timezone_set('Europe/Paris');
     $identifiant = $_SESSION['identifiant'];
 
     $date_actuelle = strftime('%Y-%m-%d', strtotime("now"));
-    $param_date_r = mysqli_query($session, "UPDATE personne SET date_r = '$date_actuelle' WHERE IdentifiantPe = '$identifiant'");
+    $param_date_r = mysqli_query($session, "UPDATE personne SET date_r = NULL WHERE IdentifiantPe = '$identifiant'");
     $param_categorie = mysqli_query($session, "UPDATE personne SET categorie = '' WHERE IdentifiantPe = '$identifiant'");
     $suivant = mysqli_query($session, "UPDATE personne SET semaine = 0 WHERE IdentifiantPe = '$identifiant'");
 
@@ -653,7 +653,7 @@ date_default_timezone_set('Europe/Paris');
                                                             </tr>
 
                                                         </table>
-                                                        <?php if ($row['Statut_RDV'] != "termine") { ?>
+                                                        <?php if (($row['Statut_RDV'] != "termine") && ($row['Motif'] != "annule")) { ?>
                                                             <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
                                                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                             <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
@@ -731,7 +731,7 @@ date_default_timezone_set('Europe/Paris');
                                         </tr>
 
                                     </table>
-                                    <?php if ($row['Statut_RDV'] != "termine") { ?>
+                                    <?php if (($row['Statut_RDV'] != "termine") && ($row['Motif'] != "annule")) { ?>
                                         <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
                                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                         <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
