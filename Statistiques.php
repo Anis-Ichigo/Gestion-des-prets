@@ -127,17 +127,23 @@ mysqli_set_charset($session, "utf-8");
         </div>
     </main>
 
+    <main>
+        <div>
+            <canvas id="graphe2" class="chartjs-render-monitor" height="400" width="1000"></canvas>
+        </div>
+    </main>
+
     <?php
-    $stat1 = "SELECT DATEDIFF(DateRetour, DateEmprunt) as 'Nombre de jour', materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM  GROUP BY materiel.CategorieM";
+    $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM  GROUP BY materiel.CategorieM";
     $resultat_stat1 = mysqli_query($session, $stat1);
     $date = array();
     $categorie = array();
     foreach ($resultat_stat1 as $row) {
-      array_push($date, $row['Nombre de jour']);
-      array_push($categorie, $row['categorie']);
-
+        array_push($date, $row['Nombre de jour']);
+        array_push($categorie, $row['categorie']);
     }
-     ?>
+
+    ?>
 
     <script>
         var lb = <?php echo json_encode($date); ?>;
@@ -154,11 +160,13 @@ mysqli_set_charset($session, "utf-8");
                     data: lb,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
+                        'rgba(15, 69, 98, 0.2)',
                         'rgba(54, 162, 235, 0.2)'
 
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
+                        'rgba(15, 69, 98, 1)',
                         'rgba(54, 162, 235, 1)'
                     ],
                     borderWidth: 1
@@ -171,7 +179,117 @@ mysqli_set_charset($session, "utf-8");
                     },
                     title: {
                         display: true,
-                        text: "Nombre de réservations par type de matériel"
+                        text: "Nombre de jours de réservation par type de matériel"
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <form action="" method="POST">
+        <SELECT size="1" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+            <?php
+            $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
+            $result_categories = mysqli_query($session, $categories);
+            foreach ($result_categories as $row) {
+            ?>
+                <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+            <?php
+            }
+            ?>
+        </SELECT>
+        <input type="submit" name="valider" value="Valider">
+    </form>
+
+    <script>
+        function nouvelleCategorie() {
+            return document.getElementById('categorie').value;
+        }
+    </script>
+
+    }
+    <?php
+    $categorie = "Ordinateur";
+    if (isset($_POST['valider'])) {
+        $categorie = $_POST['type'];
+    }
+
+    $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',  ( SELECT CASE MONTH(emprunt.DateEmprunt)
+    WHEN 1 THEN 'janvier'
+    WHEN 2 THEN 'février'
+    WHEN 3 THEN 'mars'
+    WHEN 4 THEN 'avril'
+    WHEN 5 THEN 'mai'
+    WHEN 6 THEN 'juin'
+    WHEN 7 THEN 'juillet'
+    WHEN 8 THEN 'août'
+    WHEN 9 THEN 'septembre'
+    WHEN 10 THEN 'octobre'
+    WHEN 11 THEN 'novembre'
+    ELSE 'décembre'
+END)  as 'mois', materiel.CategorieM as 'categorie' 
+FROM emprunt, materiel 
+WHERE emprunt.IdentifiantM = materiel.IdentifiantM
+AND materiel.CategorieM = '$categorie'
+GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
+
+
+    $resultat_stat1 = mysqli_query($session, $stat1);
+    $date = array();
+    $categorie = array();
+    $mois = array();
+    foreach ($resultat_stat1 as $row) {
+        array_push($date, $row['Nombre de jour']);
+        array_push($categorie, $row['categorie']);
+        array_push($mois, $row['mois']);
+    }
+
+    ?>
+
+    <script>
+        var lb = <?php echo json_encode($date); ?>;
+        var dt = <?php echo json_encode($categorie); ?>;
+        var dt_mois = <?php echo json_encode($mois); ?>;
+
+
+
+        var ctx = document.getElementById('graphe2').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+
+            data: {
+                labels: dt_mois,
+                datasets: [{
+                    data: lb,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(15, 69, 98, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(15, 69, 98, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: "Nombre de jours de réservation par type de matériel"
                     }
                 },
 

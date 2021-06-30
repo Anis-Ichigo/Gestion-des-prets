@@ -1670,6 +1670,13 @@ date_default_timezone_set('Europe/Paris');
 
 
                     $pdf->Output();
+
+                    /*$verif_contrat = "SELECT * 
+                                        FROM emprunt, personne
+                                        WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
+                                        AND personne.IdentifiantPe = '$identifiantPe'
+                                        AND emprunt.IdentifiantE = '$IdentifiantE'";
+                    $result_verif_contrat = mysqli_query($session, $verif_contrat);*/
                 }
 
                 ?>
