@@ -496,7 +496,7 @@ date_default_timezone_set('Europe/Paris');
 </script>";
           } else {
 
-            $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$date_rdv', Horaire_modif = '$heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
+            $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
             $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
             $modifier_id_nouveau_materiel = ("UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$nouveau_idm'");
             $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
