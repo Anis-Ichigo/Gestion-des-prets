@@ -176,7 +176,7 @@ date_default_timezone_set('Europe/Paris');
                                 $prenom = $row['PrenomPe'];
                                 $nom = $row['NomPe'];
                             ?>
-                                <form action="" method="post">
+
                                     <?php
 
                                     if ($i % 3 != 0) {
@@ -185,6 +185,7 @@ date_default_timezone_set('Europe/Paris');
 
                                             <div class="card mb-2">
                                                 <div class="card-body">
+                                                    <form action="" method="post">
                                                     <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
                                                     <p class="card-text">
                                                     <table>
@@ -234,8 +235,6 @@ date_default_timezone_set('Europe/Paris');
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Voir le contrat</a>
-
                                                     <?php if ($row['EtatE'] == "Non rendu") {
                                                     ?>
                                                         <div class="text-center">
@@ -246,23 +245,29 @@ date_default_timezone_set('Europe/Paris');
                                                     <?php
                                                     }
                                                     ?>
+                                                    </form>
 
+                                                    <form action="pdf.php" method="post">
+                                                        <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
+                                                        <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </td>
-                                </form>
+
                             <?php
                                     } else if ($i % 3 == 0) {
 
                             ?>
 
                         <tr>
-                            <form action="" method="POST">
-                                <td>
-                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
 
+                                <td>
                                     <div class="card mb-2">
                                         <div class="card-body">
+
+                                    <form action="" method="POST">
+                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
                                             <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
                                             <p class="card-text">
                                             <table>
@@ -310,7 +315,7 @@ date_default_timezone_set('Europe/Paris');
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <a target="_blank" href="contrats/<?php echo "{$nom}_{$prenom}_{$IdentifiantE}" ?>.pdf">Voir le contrat</a>
+
                                             <?php if ($row['EtatE'] == "Non rendu") {
                                             ?>
                                                 <div class="text-center">
@@ -321,12 +326,17 @@ date_default_timezone_set('Europe/Paris');
                                             <?php
                                             }
                                             ?>
+                                    </form>
+                                            <form action="pdf.php" method="post">
+                                                <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
+                                                <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                            </form>
 
                                         </div>
                                     </div>
                                 </td>
 
-                            </form>
+
 
                     <?php
 
