@@ -727,6 +727,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_lundi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_lundi, $date_Y));
 
                                 ?>
+                                <input type="hidden" name="dt_lundi" value="<?php echo $date_lundi; ?>">
                                 <input type="button" name="date_lundi" class="accordion" value="<?php echo TXT_LUNDI . " $date_lundi"; ?>">
 
 
@@ -810,6 +811,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_mardi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mardi, $date_Y));
 
                                 ?>
+                                <input type="text" name="dt_mardi" value="<?php echo $date_mardi; ?>">
                                 <input type="button" name="date_mardi" class="accordion" value="<?php echo TXT_MARDI . " $date_mardi"; ?>">
 
 
@@ -880,6 +882,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_mercredi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mercredi, $date_Y));
 
                                 ?>
+                                <input type="hidden" name="dt_mercredi" value="<?php echo $date_mercredi; ?>">
                                 <input type="button" name="date_mercredi" class="accordion" value="<?php echo TXT_MERCREDI . " $date_mercredi"; ?>">
 
                                 <div class="panel">
@@ -947,6 +950,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_jeudi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_jeudi, $date_Y));
 
                                 ?>
+                                <input type="text" name="dt_jeudi" value="<?php echo $date_jeudi; ?>">
                                 <input type="button" name="date_jeudi" class="accordion" value="<?php echo TXT_JEUDI . " $date_jeudi"; ?>">
 
                                 <div class="panel">
@@ -1020,6 +1024,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_vendredi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_vendredi, $date_Y));
 
                                 ?>
+                                <input type="hidden" name="dt_vendredi" value="<?php echo $date_vendredi; ?>">
                                 <input type="button" name="date_vendredi" class="accordion" value="<?php echo TXT_VENDREDI . " $date_vendredi"; ?>">
 
 
@@ -1129,25 +1134,25 @@ date_default_timezone_set('Europe/Paris');
             if (isset($_POST['Lundi'])) {
                 $jour = "Lundi";
                 $horaire = $_POST['Lundi'];
-                $date_emprunt = strftime("%d/%m/%Y", strtotime("monday"));
+                $date_retour = $_POST['dt_lundi'];
             } else if (isset($_POST['Mardi'])) {
                 $jour = "Mardi";
                 $horaire = $_POST['Mardi'];
-                $date_emprunt = strftime("%d/%m/%Y", strtotime("tuesday"));
+                $date_retour =$_POST['dt_mardi'];
             } else if (isset($_POST['Mercredi'])) {
                 $jour = "Mercredi";
                 $horaire = $_POST['Mercredi'];
-                $date_emprunt = strftime("%d/%m/%Y", strtotime("wednesday"));
+                $date_retour = $_POST['dt_mercredi'];
             } else if (isset($_POST['Jeudi'])) {
                 $jour = "Jeudi";
                 $horaire = $_POST['Jeudi'];
-                $date_emprunt = strftime("%d/%m/%Y", strtotime("thursday"));
+                $date_retour =$_POST['dt_jeudi'];
             } else if (isset($_POST['Vendredi'])) {
                 $jour = "Vendredi";
                 $horaire = $_POST['Vendredi'];
-                $date_emprunt = strftime("%d/%m/%Y", strtotime("Friday"));
+                $date_retour = $_POST['dt_vendredi'];
             }
-            $date_retour = strftime("%d/%m/%Y", strtotime($_POST['DateRetour']));
+            $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
             $categorieM = $_POST['CategorieM'];
 
             /*$id_materiel = ("SELECT * FROM materiel WHERE EtatM LIKE 'Dispo' AND StatutM LIKE 'Existant' AND CategorieM = '$categorieM' LIMIT 1");
@@ -1204,7 +1209,7 @@ date_default_timezone_set('Europe/Paris');
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col col-form-label"><?php echo TXT_DATER; ?> : </label>
                                     <div class="col">
-                                        <input type="text" class="form-control-plaintext" name="date_retour" value="<?php echo $date_retour; ?>" readonly>
+                                        <input type="text" class="form-control-plaintext" name="date_retour" value="<?php echo strftime('%Y-%m-%d',strtotime($date_retour)); ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1249,19 +1254,19 @@ date_default_timezone_set('Europe/Paris');
 
             <?php
             if (isset($_POST['confirmer_restitution'])) {
-                $dateRetour = $_POST['DateRetour'];
+                echo $date_Retour = $_POST['DateRetour'].";";
+                echo $dateRetour =strftime('%Y-%m-%d',strtotime($date_Retour)).";";
 
-                $horaire = $_POST['horaire'];
-                $jour = $_POST['jour'];
-                $date_Emprunt = $_POST['date_emprunt'];
-                $dt = DateTime::createFromFormat('d/m/Y', $date_Emprunt);
-                $dateEmprunt = $dt->format('Y-m-d');
+                echo $horaire = $_POST['horaire'].";";
+                echo $jour = $_POST['jour'].";";
+                echo $date_Emprunt = $_POST['date_emprunt'].";";
+                echo $dateEmprunt =strftime("%Y-%m-%d",strtotime($date_Emprunt)).";";
 
-                $categorie = $_POST['CategorieM'];
-                $identifiantM = $_POST['IdentifiantM'];
-                $identifiantCal = $_POST['IdentifiantCal'];
+                echo $categorie = $_POST['CategorieM'].";";
+                echo $identifiantM = $_POST['IdentifiantM'].";";
+                echo $identifiantCal = $_POST['IdentifiantCal'].";";
 
-                $identifiantPe = $identifiant;
+                echo $identifiantPe = $identifiant.";";
 
 
                 $restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
@@ -1276,9 +1281,13 @@ date_default_timezone_set('Europe/Paris');
 
 
                 $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`, `Contrat`)
-                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$IdentifiantCal', 'signe')");
+                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$identifiantCal', 'signe')");
 
                 $result_insert_rdv = mysqli_query($session, $insert_rdv);
+
+
+
+
 
 
             ?>
