@@ -143,18 +143,18 @@ $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Le prêt comprend :<br>- {$var} 
 $pdf->Ln();
 $pdf->WriteHTML(iconv('UTF-8', 'windows-1252',"- une sacoche"));
 
-$pdf->Ln(40);
+$pdf->Ln(30);
 $pdf->SetLeftMargin(135);
 $pdf->MultiCell(0, 10, iconv('UTF-8', 'windows-1252', "Fait le {$date_emprunt}"));
 
 $pdf->SetLeftMargin(30);
 $pdf->SetRightMargin(15);
 $pdf->Ln(15);
-$pdf->Image('box.png', 31, 202, 5, 0, '');
+$pdf->Image('box.png', 31, 192, 5, 0, '');
 $pdf->SetLeftMargin(40);
 $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je certifie sur l'honneur être d'accord avec le présent contrat."));
 $pdf->Ln(15);
-$pdf->Image('box.png', 31, 217, 5, 0, '');
+$pdf->Image('box.png', 31, 207, 5, 0, '');
 $pdf->SetLeftMargin(40);
 $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
 
