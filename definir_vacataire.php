@@ -384,17 +384,17 @@ date_default_timezone_set('Europe/Paris');
                   <input type="password" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="motPasse" value="" required>
                   <label for="floatingInput"><?php echo TXT_MDP_INS; ?> : </label>
                 </div>
-                  <div class="form-floating mb-2">
-                    <input type="password" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="motPasse2" value="" required>
-                    <label for="floatingInput"><?php echo TXT_CONFIRMER_MDP_INS; ?> : </label>
-                  </div>
-                  <div class="legals_flex">
-                    <CENTER>
-                      <input id="checkbox_newletter" name="checkbox_confidentiality_notice" required type="checkbox">
-                      <a name="confidentialite" id="confidentialite" href="" data-toggle="modal" data-target="#alerte" for="checkbox_newletter"><?php echo TXT_CONFIDENTIEL; ?></a><br>
-                      <input id="checkbox_general_condition" name="checkbox_general_condition" required type="checkbox">
-                      <a name="cgu" id="cgu" href="" class="checkbox_container" data-toggle="modal" data-target="#alerte" for="checkbox_general_condition"><?php echo TXT_CGU; ?></a>
-                  </div>
+                <div class="form-floating mb-2">
+                  <input type="password" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="motPasse2" value="" required>
+                  <label for="floatingInput"><?php echo TXT_CONFIRMER_MDP_INS; ?> : </label>
+                </div>
+                <div class="legals_flex">
+                  <CENTER>
+                    <input id="checkbox_newletter" name="checkbox_confidentiality_notice" required type="checkbox">
+                    <a name="confidentialite" id="confidentialite" href="" data-toggle="modal" data-target="#alerte" for="checkbox_newletter"><?php echo TXT_CONFIDENTIEL; ?></a><br>
+                    <input id="checkbox_general_condition" name="checkbox_general_condition" required type="checkbox">
+                    <a name="cgu" id="cgu" href="" class="checkbox_container" data-toggle="modal" data-target="#alerte" for="checkbox_general_condition"><?php echo TXT_CGU; ?></a>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
@@ -475,7 +475,7 @@ date_default_timezone_set('Europe/Paris');
       })
     </script>
 
-  <?php
+    <?php
     echo "<script>
     $(window).load(function() {
         $('#alerte').modal('show');
@@ -492,130 +492,163 @@ date_default_timezone_set('Europe/Paris');
     } else {
       $existe = True;
     }
-    if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['tel']) && !empty($_POST['motPasse']) && !empty($_POST['motPasse2'] && !empty($_POST['role'] ))) {
+    if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['tel']) && !empty($_POST['motPasse']) && !empty($_POST['motPasse2'] && !empty($_POST['role']))) {
       if ($existe == True) {
-          if (strlen($_POST['motPasse']) >= 4) {
-            if ($_POST['motPasse'] == $_POST['motPasse2']) {
-              // Cryptage mdp
-              $mdp = $_POST['motPasse'];
-              $mdp_crypté = sha1($mdp);
+        if (strlen($_POST['motPasse']) >= 4) {
+          if ($_POST['motPasse'] == $_POST['motPasse2']) {
+            // Cryptage mdp
+            $mdp = $_POST['motPasse'];
+            $mdp_crypté = sha1($mdp);
 
-              $nom = $_POST['nom'];
-              $prenom = $_POST['prenom'];
-              $email = $_POST['email'];
-              $tel = $_POST['tel'];
-              $statut = $_POST['statut'];
-              $formation = $_POST['formation'];
-              $role = $_POST['role'];
-              echo $role;
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $email = $_POST['email'];
+            $tel = $_POST['tel'];
+            $statut = $_POST['statut'];
+            $formation = $_POST['formation'];
+            $role = $_POST['role'];
+            echo $role;
 
-              $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
+            $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
         VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', '$role')";
-              $result = mysqli_query($session, $query);
+            $result = mysqli_query($session, $query);
 
-              $_SESSION['user'] = $email;
-              $_SESSION['nom'] = "$prenom $nom";
-              $_SESSION['identifiant'] = $email;
-              $_SESSION['psw'] = $mdp_crypté;
-              $_SESSION['tel'] = $tel;
-              $_SESSION['statut'] = $statut;
-              $_SESSION['formation'] = $formation;
-              $_SESSION['role'] = $role;
+            $_SESSION['user'] = $email;
+            $_SESSION['nom'] = "$prenom $nom";
+            $_SESSION['identifiant'] = $email;
+            $_SESSION['psw'] = $mdp_crypté;
+            $_SESSION['tel'] = $tel;
+            $_SESSION['statut'] = $statut;
+            $_SESSION['formation'] = $formation;
+            $_SESSION['role'] = $role;
     ?>
-    <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-              </svg>
-              <div style="margin-left: auto; margin-right: auto;">
-                <?php echo ALERTE_ERREUR_MDP; ?>
+            <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-success d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                      </svg>
+
+                      <div>
+                        <?php echo "L'utilisateur a été ajouté avec succès"; ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script>
+              $(window).load(function() {
+                $('#succes_ajouter').modal('show');
+              });
+            </script>
+          <?php
+          } else {
+          ?>
+            <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                      </svg>
+                      <div style="margin-left: auto; margin-right: auto;">
+                        <?php echo ALERTE_ERREUR_MDP; ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col text-center">
+                      <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php
+            echo "<script>
+              $(window).load(function() {
+                  $('#alerte').modal('show');
+              });
+          </script>";
+          }
+        } else {
+          ?>
+
+          <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                    </svg>
+                    <div style="margin-left: auto; margin-right: auto;">
+                      <?php echo ERREUR_MDP_COURT; ?>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="col text-center">
+                    <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <div class="col text-center">
-              <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php
-    echo "<script>
+        <?php
+          echo "<script>
               $(window).load(function() {
                   $('#alerte').modal('show');
               });
           </script>";
-    }
-    } else {
-    ?>
+        }
+      } else {
 
-    <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-            </svg>
-            <div style="margin-left: auto; margin-right: auto;">
-              <?php echo ERREUR_MDP_COURT; ?>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="col text-center">
-            <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <?php
-    echo "<script>
-              $(window).load(function() {
-                  $('#alerte').modal('show');
-              });
-          </script>";
-    }
-}
-}
-    ?>
-    <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        ?>
+
+
+        <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-body">
-                    <div class="alert alert-success d-flex align-items-center" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                        </svg>
-
-                        <div>
-                            <?php echo "L'utilisateur a été ajouté avec succès"; ?>
-                        </div>
-                    </div>
+              <div class="modal-body">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                  </svg>
+                  <div style="margin-left: auto; margin-right: auto;">
+                    <?php echo "Ce mail est déjà utilisé"; ?>
+                  </div>
                 </div>
-
-                <div class="modal-footer">
-                    <div class="col text-center">
-                        <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
-                    </div>
+              </div>
+              <div class="modal-footer">
+                <div class="col text-center">
+                  <input data-bs-dismiss="modal" class="btn btn-secondary" value="<?php echo TXT_OK; ?>">
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-    <script>
-        $(window).load(function() {
-            $('#succes_ajouter').modal('show');
-        });
-    </script>
-
   <?php
+        echo "<script>
+                $(window).load(function() {
+                    $('#alerte').modal('show');
+                });
+            </script>";
+      }
+    }
   }
   ?>
 
