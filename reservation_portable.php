@@ -78,7 +78,7 @@ date_default_timezone_set('Europe/Paris');
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien machine</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" style="background-color: none; color:black" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>

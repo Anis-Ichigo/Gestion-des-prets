@@ -88,7 +88,7 @@ date_default_timezone_set('Europe/Paris');
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-interrogation"></i> Entretien machine</a>
+                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-computer"></i> Entretien machine</a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
@@ -159,7 +159,7 @@ date_default_timezone_set('Europe/Paris');
 
     ?>
         <div style="display: block ;" class="form-group row">
-            <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
+            <input type="button" class="accordion" style="text-align: center; font-weight:bold" value="<?php echo TXT_RDV; ?>">
             <?php // echo TXT_RDV;
             ?>
 
