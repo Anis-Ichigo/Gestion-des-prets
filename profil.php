@@ -1669,7 +1669,7 @@ date_default_timezone_set('Europe/Paris');
                     $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
 
 
-                    $pdf->Output('F', "contrats/{$nom}_{$prenom}_{$IdentifiantE}.pdf");
+                    $pdf->Output();
                 }
 
                 ?>

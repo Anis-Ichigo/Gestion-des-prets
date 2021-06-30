@@ -118,7 +118,7 @@ if (isset($_SESSION['lang'])) {
           <TR>
             <TD align=right>
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" value="@ut-capitole.fr" autocomplete="off" name="email" placeholder=" " required>
+                <input type="email" class="form-control" id="floatingInput" value="@ut-capitole.fr" autocomplete="off" name="email" placeholder="xxx@ut-capitole.fr" pattern="^[a-zA-Z0-9_-\.]+@ut-capitole\.fr$" required>
                 <label for="floatingInput"><?php echo TXT_EMAIL; ?> : </label>
               </div>
             </TD>
