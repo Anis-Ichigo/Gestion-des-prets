@@ -600,6 +600,8 @@ date_default_timezone_set('Europe/Paris');
                                                         <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
                                                         <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
                                                         <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
+                                                        <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
+
 
 
                                                         <table>
@@ -650,17 +652,33 @@ date_default_timezone_set('Europe/Paris');
                                                                 </td>
                                                             </tr>
 
-
-
-                                                            <tr>
-                                                                <td style="text-align : left">
-                                                                    <?php echo  TXT_HEURE; ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
-                                                                    <?php echo $row['HoraireCal'] ?>
-                                                                </td>
-                                                            </tr>
+                                                            <?php
+                                                            if ($row['Horaire_modif'] != NULL) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td style="text-align : left">
+                                                                        <?php echo  TXT_HEURE; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="hidden" name="horaire" value="<?php echo $row['Horaire_modif']; ?>">
+                                                                        <?php echo $row['Horaire_modif'] ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            } else if ($row['Horaire_modif'] == NULL) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td style="text-align : left">
+                                                                        <?php echo  TXT_HEURE; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
+                                                                        <?php echo $row['HoraireCal'] ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
 
                                                             <tr>
                                                                 <td style="text-align : left; width: 70%">
@@ -708,6 +726,7 @@ date_default_timezone_set('Europe/Paris');
                                     <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
                                     <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
                                     <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
+                                    <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
 
 
                                     <table>
@@ -758,16 +777,33 @@ date_default_timezone_set('Europe/Paris');
                                             </td>
                                         </tr>
 
-
-                                        <tr>
-                                            <td style="text-align : left">
-                                                <?php echo  TXT_HEURE; ?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
-                                                <?php echo $row['HoraireCal'] ?>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            if ($row['Horaire_modif'] != NULL) {
+                                        ?>
+                                            <tr>
+                                                <td style="text-align : left">
+                                                    <?php echo  TXT_HEURE; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="horaire" value="<?php echo $row['Horaire_modif']; ?>">
+                                                    <?php echo $row['Horaire_modif'] ?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            } else if ($row['Horaire_modif'] == NULL) {
+                                        ?>
+                                            <tr>
+                                                <td style="text-align : left">
+                                                    <?php echo  TXT_HEURE; ?>
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
+                                                    <?php echo $row['HoraireCal'] ?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
 
                                         <tr>
                                             <td style="text-align : left; width: 70%">
@@ -821,11 +857,6 @@ date_default_timezone_set('Europe/Paris');
 
 
         </div>
-        </div>
-
-
-        </div>
-
 
 
         <?php
@@ -1668,6 +1699,8 @@ date_default_timezone_set('Europe/Paris');
                     <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
                     <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
                     <input type="hidden" name="motif" value="<?php echo $_POST['motif']; ?>">
+                    <input type="hidden" name="horaire_modif" value="<?php echo $_POST['horaire_modif']; ?>">
+
 
 
                     <div class="modal fade" id="alerte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1792,7 +1825,7 @@ date_default_timezone_set('Europe/Paris');
                     $identifiantPe = $identifiant;
 
                     $motif = $_POST['motif'];
-
+                    $horaire_modif = $_POST['horaire_modif'];
 
                     $emprunt = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
                     $result_emprunt = mysqli_query($session, $emprunt);
@@ -1807,11 +1840,15 @@ date_default_timezone_set('Europe/Paris');
                     if ($motif == 'Pret') {
                         $modifier_rdv = ("UPDATE `emprunt` SET DateEmprunt = '$dateEmprunt' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
                         $result_insert_rdv = mysqli_query($session, $modifier_rdv);
-                    } else {
+                    } else if ($motif == 'Retour') {
                         $modifier_rdv = ("UPDATE `emprunt` SET DateRetour = '$date_retour' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
                         $result_insert_rdv = mysqli_query($session, $modifier_rdv);
                     }
 
+                    if ($horaire_modif != NULL) {
+                        $modifier_heure_rdv = ("UPDATE `emprunt` SET Horaire_modif = '$horaire' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
+                        $result_modifier_heure_rdv = mysqli_query($session, $modifier_heure_rdv);
+                    }
 
 
                     ?>
