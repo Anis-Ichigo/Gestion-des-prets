@@ -10,7 +10,7 @@ date_default_timezone_set('Europe/Paris');
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 
 
@@ -576,22 +576,24 @@ date_default_timezone_set('Europe/Paris');
 
                 <div class="collapse in show">
                     <div style="display: block ;text-align :center;">
-                        <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
 
-                            <tr>
+                            <table style="display:inline; text-align: center; border-collapse: separate; border-spacing: 20px;">
+
+
+
 
                                 <?php
                                 $i = 0;
                                 foreach ($result_reservations as $row) {
                                 ?>
-                                    <form action="profil.php" method="post">
+
                                         <?php
 
                                         if ($i % 3 != 0) {
                                         ?>
 
-
-                                            <td>
+                                    <td>
+                                        <form action="profil.php" method="post">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
@@ -711,149 +713,153 @@ date_default_timezone_set('Europe/Paris');
                                                         ?>
                                                     </div>
                                                 </div>
-                    </div>
-                    </td>
+                                        </form>
+                                    </td>
                 <?php
                                         } else if ($i % 3 == 0) {
 
                 ?>
-                    <tr>
-                        <td>
-                            <div class="card">
-                                <div class="card-body">
-                                    <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
-                                    <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
-                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
-                                    <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
-                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
-                                    <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
-                                    <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
-                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                <tr>
+                                    <td>
+                                        <form action="profil.php" method="post">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <input type="hidden" name="CategorieM" value="<?php echo $row['CategorieM']; ?>">
+                                                <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
+                                                <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+                                                <input type="hidden" name="cal" value="<?php echo $row['IdentifiantCal']; ?>">
+                                                <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
+                                                <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
+                                                <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
+                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
 
 
+                                                <table>
+                                                    <tr>
+                                                        <?php echo "RDV " . $row['Statut_RDV']; ?>
+                                                    </tr>
 
-                                    <table>
-                                        <tr>
-                                            <?php echo "RDV " . $row['Statut_RDV']; ?>
-                                        </tr>
+                                                    <?php
+                                                        if ($row['Statut_RDV'] != 'annule') {
+                                                    ?>
+                                                        <tr>
+                                                            <td style="text-align : left">
+                                                                Motif RDV :
+                                                            </td>
+                                                            <td>
+                                                                <?php echo "  " . $row['Motif'] ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
 
-                                        <?php
-                                            if ($row['Statut_RDV'] != 'annule') {
-                                        ?>
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    Motif RDV :
-                                                </td>
-                                                <td>
-                                                    <?php echo "  " . $row['Motif'] ?>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                            }
-                                        ?>
+                                                    <tr>
+                                                        <td style="text-align : left">
+                                                            <?php echo TXT_DATE; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if ($row['Motif'] == 'Retour') {
+                                                            ?>
+                                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                                <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
+                                                                <?php $dt = $row['DateRetour'];
+                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                echo $dateAffichee; ?>
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
+                                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                                <?php $dt = $row['DateEmprunt'];
+                                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                $dateAffichee = $date->format('d/m/Y');
+                                                                echo $dateAffichee; ?>
+                                                            <?php
+                                                            } ?>
 
-                                        <tr>
-                                            <td style="text-align : left">
-                                                <?php echo TXT_DATE; ?>
-                                            </td>
-                                            <td>
+                                                        </td>
+                                                    </tr>
+
+                                                    <?php
+                                                        if ($row['Horaire_modif'] != NULL) {
+                                                    ?>
+                                                        <tr>
+                                                            <td style="text-align : left">
+                                                                <?php echo  TXT_HEURE; ?>
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" name="horaire" value="<?php echo $row['Horaire_modif']; ?>">
+                                                                <?php echo $row['Horaire_modif'] ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        } else if ($row['Horaire_modif'] == NULL) {
+                                                    ?>
+                                                        <tr>
+                                                            <td style="text-align : left">
+                                                                <?php echo  TXT_HEURE; ?>
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
+                                                                <?php echo $row['HoraireCal'] ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                        }
+                                                    ?>
+
+                                                    <tr>
+                                                        <td style="text-align : left; width: 70%">
+                                                            <?php echo TXT_NUMERO; ?>
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] . "  "; ?>">
+                                                            <?php echo "  " . $row['IdentifiantM'] ?>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="text-align : left">
+                                                            <?php echo  TXT_BUREAU; ?>
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" value="<?php echo $row['Bureau'] ?>" name="bureau">
+                                                            <?php echo "  " . $row['Bureau'] ?>
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+
+                                                <?php if (($row['Statut_RDV'] != "termine") && ($row['Motif'] != "annule")) { ?>
+                                                    <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                    <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
                                                 <?php
-                                                if ($row['Motif'] == 'Retour') {
+                                                        }
                                                 ?>
-                                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
-                                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
-                                                    <?php $dt = $row['DateRetour'];
-                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                    $dateAffichee = $date->format('d/m/Y');
-                                                    echo $dateAffichee; ?>
-                                                <?php
-                                                } else {
-                                                ?>
-                                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
-                                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
-                                                    <?php $dt = $row['DateEmprunt'];
-                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                    $dateAffichee = $date->format('d/m/Y');
-                                                    echo $dateAffichee; ?>
-                                                <?php
-                                                } ?>
-                                            </td>
-                                        </tr>
+                                        </div>
+                                    </div>
+                                        </form>
 
-                                        <?php
-                                            if ($row['Horaire_modif'] != NULL) {
-                                        ?>
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    <?php echo  TXT_HEURE; ?>
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="horaire" value="<?php echo $row['Horaire_modif']; ?>">
-                                                    <?php echo $row['Horaire_modif'] ?>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                            } else if ($row['Horaire_modif'] == NULL) {
-                                        ?>
-                                            <tr>
-                                                <td style="text-align : left">
-                                                    <?php echo  TXT_HEURE; ?>
-                                                </td>
-                                                <td>
-                                                    <input type="hidden" name="horaire" value="<?php echo $row['HoraireCal']; ?>">
-                                                    <?php echo $row['HoraireCal'] ?>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                            }
-                                        ?>
-
-                                        <tr>
-                                            <td style="text-align : left; width: 70%">
-                                                <?php echo TXT_NUMERO; ?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="IdentifiantM" value="<?php echo $row['IdentifiantM'] . "  "; ?>">
-                                                <?php echo "  " . $row['IdentifiantM'] ?>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="text-align : left">
-                                                <?php echo  TXT_BUREAU; ?>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" value="<?php echo $row['Bureau'] ?>" name="bureau">
-                                                <?php echo "  " . $row['Bureau'] ?>
-                                            </td>
-                                        </tr>
-
-                                    </table>
-                                    <?php if (($row['Statut_RDV'] != "termine") && ($row['Motif'] != "annule")) { ?>
-                                        <input type='submit' class='btn btn-primary' name='supprimer_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_SUPPRIMER; ?>'>
-                                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type='submit' class='btn btn-primary' name='modifier_rdv' data-bs-toggle='modal' data-bs-target='#exampleModal' value='<?php echo TXT_MODIFIER ?>'>
-                                    <?php
-                                            }
-                                    ?>
-                                </div>
-                            </div>
-                </div>
-                </td>
-                </form>
+                                    </td>
 
         <?php
 
                                         }
 
-                                        $i += 1;
+                                        $i += 1; ?>
+
+                <?php
                                     }
         ?>
+                            </table>
 
-        </tr>
+                    </div>
+                </div>
 
-        </table>
-            </div>
         <?php
         }
         ?>
@@ -1279,11 +1285,11 @@ date_default_timezone_set('Europe/Paris');
                                             if ($date_lundi == Date("d/m/Y")) {
                                                 $HeureActuelle = date('H:i:s', time());
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Lundi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND HoraireCal >= '$HeureActuelle'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM calendrier
+                                                        WHERE calendrier.JourCal='Lundi'
+                                                        AND calendrier.EtatCal = 'Disponible'
+                                                        AND HoraireCal >= '$HeureActuelle'
+                                                        AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                                                     FROM emprunt, calendrier
                                                                                     WHERE calendrier.JourCal = 'Lundi'          
                                                                                     AND (emprunt.DateEmprunt = '$dt_lundi' 
@@ -1293,15 +1299,15 @@ date_default_timezone_set('Europe/Paris');
                                                 $num = mysqli_num_rows($res);
                                             } else {
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Lundi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Lundi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_lundi' 
-                                                                                         OR emprunt.DateRetour = '$dt_lundi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+            FROM calendrier
+            WHERE calendrier.JourCal='Lundi'
+            AND calendrier.EtatCal = 'Disponible'
+            AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                FROM emprunt, calendrier
+                                                WHERE calendrier.JourCal = 'Lundi'
+                                                AND (emprunt.DateEmprunt = '$dt_lundi' 
+                                                    OR emprunt.DateRetour = '$dt_lundi')
+                                                AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             }
@@ -1390,29 +1396,29 @@ date_default_timezone_set('Europe/Paris');
                                             if ($date_mardi == Date("d/m/Y")) {
                                                 $HeureActuelle = date('H:i:s', time());
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Mardi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND HoraireCal >= '$HeureActuelle'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Mardi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_mardi' 
-                                                                                         OR emprunt.DateRetour = '$dt_mardi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Mardi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND HoraireCal >= '$HeureActuelle'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Mardi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mardi' 
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             } else {
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Mardi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Mardi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_mardi' 
-                                                                                         OR emprunt.DateRetour = '$dt_mardi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Mardi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Mardi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mardi' 
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             }
@@ -1481,29 +1487,29 @@ date_default_timezone_set('Europe/Paris');
                                             if ($date_mercredi == Date("d/m/Y")) {
                                                 $HeureActuelle = date('H:i:s', time());
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Mercredi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND HoraireCal >= '$HeureActuelle'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Mercredi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_mercredi' 
-                                                                                         OR emprunt.DateRetour = '$dt_mercredi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Mercredi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND HoraireCal >= '$HeureActuelle'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Mercredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mercredi' 
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             } else {
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Mercredi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Mercredi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_mercredi' 
-                                                                                         OR emprunt.DateRetour = '$dt_mercredi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Mercredi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Mercredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mercredi' 
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             }
@@ -1573,29 +1579,29 @@ date_default_timezone_set('Europe/Paris');
                                             if ($date_jeudi == Date("d/m/Y")) {
                                                 $HeureActuelle = date('H:i:s', time());
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Jeudi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND HoraireCal >= '$HeureActuelle'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Jeudi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_jeudi' 
-                                                                                         OR emprunt.DateRetour = '$dt_jeudi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Jeudi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND HoraireCal >= '$HeureActuelle'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Jeudi'
+                                                         AND (emprunt.DateEmprunt = '$dt_jeudi' 
+                                                            OR emprunt.DateRetour = '$dt_jeudi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             } else {
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Jeudi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Jeudi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_jeudi' 
-                                                                                         OR emprunt.DateRetour = '$dt_jeudi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Jeudi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Jeudi'
+                                                         AND (emprunt.DateEmprunt = '$dt_jeudi' 
+                                                            OR emprunt.DateRetour = '$dt_jeudi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             }
@@ -1673,29 +1679,29 @@ date_default_timezone_set('Europe/Paris');
                                             if ($date_vendredi == Date("d/m/Y")) {
                                                 $HeureActuelle = date('H:i:s', time());
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Vendredi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND HoraireCal >= '$HeureActuelle'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Vendredi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_vendredi' 
-                                                                                         OR emprunt.DateRetour = '$dt_vendredi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Vendredi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND HoraireCal >= '$HeureActuelle'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Vendredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_vendredi' 
+                                                            OR emprunt.DateRetour = '$dt_vendredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             } else {
                                                 $sql = "SELECT *
-                                                FROM calendrier
-                                                WHERE calendrier.JourCal='Vendredi'
-                                                AND calendrier.EtatCal = 'Disponible'
-                                                AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
-                                                                                    FROM emprunt, calendrier
-                                                                                    WHERE calendrier.JourCal = 'Vendredi'          
-                                                                                    AND (emprunt.DateEmprunt = '$dt_vendredi' 
-                                                                                         OR emprunt.DateRetour = '$dt_vendredi')
-                                                                                    AND emprunt.Statut_RDV LIKE 'a venir')";
+                    FROM calendrier
+                    WHERE calendrier.JourCal='Vendredi'
+                    AND calendrier.EtatCal = 'Disponible'
+                    AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
+                                                        FROM emprunt, calendrier
+                                                        WHERE calendrier.JourCal = 'Vendredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_vendredi' 
+                                                            OR emprunt.DateRetour = '$dt_vendredi')
+                                                        AND emprunt.Statut_RDV LIKE 'a venir');";
                                                 $res = mysqli_query($session, $sql);
                                                 $num = mysqli_num_rows($res);
                                             }
@@ -1765,33 +1771,64 @@ date_default_timezone_set('Europe/Paris');
 
             <?php
             if (isset($_POST['Lundi']) || isset($_POST['Mardi']) || isset($_POST['Mercredi']) || isset($_POST['Jeudi']) || isset($_POST['Vendredi'])) {
+                if($_POST['motif']=='Retour'){
+                    if (isset($_POST['Lundi'])) {
+                        $jour = "Lundi";
+                        $horaire = $_POST['Lundi'];
+                        $date_emprunt = $_POST['DateEmprunt'];
+                        $date_retour = $_POST['dt_lundi'];
+                    } else if (isset($_POST['Mardi'])) {
+                        $jour = "Mardi";
+                        $horaire = $_POST['Mardi'];
+                        $date_emprunt = $_POST['DateEmprunt'];
+                        $date_retour = $_POST['dt_mardi'];
+                    } else if (isset($_POST['Mercredi'])) {
+                        $jour = "Mercredi";
+                        $horaire = $_POST['Mercredi'];
+                        $date_emprunt = $_POST['DateEmprunt'];
+                        $date_retour = $_POST['dt_mercredi'];
+                    } else if (isset($_POST['Jeudi'])) {
+                        $jour = "Jeudi";
+                        $horaire = $_POST['Jeudi'];
+                        $date_emprunt = $_POST['DateEmprunt'];
+                        $date_retour = $_POST['dt_jeudi'];
+                    } else if (isset($_POST['Vendredi'])) {
+                        $jour = "Vendredi";
+                        $horaire = $_POST['Vendredi'];
+                        $date_emprunt = $_POST['DateEmprunt'];
+                        $date_retour = $_POST['dt_vendredi'];
+                    }
 
-                if (isset($_POST['Lundi'])) {
-                    $jour = "Lundi";
-                    $horaire = $_POST['Lundi'];
-                    $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
-                    $date_retour = $_POST['dt_lundi'];
-                } else if (isset($_POST['Mardi'])) {
-                    $jour = "Mardi";
-                    $horaire = $_POST['Mardi'];
-                    $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
-                    $date_retour = $_POST['dt_mardi'];
-                } else if (isset($_POST['Mercredi'])) {
-                    $jour = "Mercredi";
-                    $horaire = $_POST['Mercredi'];
-                    $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
-                    $date_retour = $_POST['dt_mercredi'];
-                } else if (isset($_POST['Jeudi'])) {
-                    $jour = "Jeudi";
-                    $horaire = $_POST['Jeudi'];
-                    $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
-                    $date_retour = $_POST['dt_jeudi'];
-                } else if (isset($_POST['Vendredi'])) {
-                    $jour = "Vendredi";
-                    $horaire = $_POST['Vendredi'];
-                    $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
-                    $date_retour = $_POST['dt_vendredi'];
+                }elseif ($_POST['motif']='Pret'){
+                    if (isset($_POST['Lundi'])) {
+                        $jour = "Lundi";
+                        $horaire = $_POST['Lundi'];
+                        $date_retour = $_POST['DateRetour'];
+                        $date_emprunt = $_POST['dt_lundi'];
+                    } else if (isset($_POST['Mardi'])) {
+                        $jour = "Mardi";
+                        $horaire = $_POST['Mardi'];
+                        $date_retour = $_POST['DateRetour'];
+                        $date_emprunt = $_POST['dt_mardi'];
+                    } else if (isset($_POST['Mercredi'])) {
+                        $jour = "Mercredi";
+                        $horaire = $_POST['Mercredi'];
+                        $date_retour = $_POST['DateRetour'];
+                        $date_emprunt = $_POST['dt_mercredi'];
+                    } else if (isset($_POST['Jeudi'])) {
+                        $jour = "Jeudi";
+                        $horaire = $_POST['Jeudi'];
+                        $date_retour = $_POST['DateRetour'];
+                        $date_emprunt = $_POST['dt_jeudi'];
+                    } else if (isset($_POST['Vendredi'])) {
+                        $jour = "Vendredi";
+                        $horaire = $_POST['Vendredi'];
+                        $date_retour = $_POST['DateRetour'];
+                        $date_emprunt = $_POST['dt_vendredi'];
+                    }
                 }
+
+
                 $categorieM = $_POST['CategorieM'];
 
                 /*$id_materiel = ("SELECT * FROM materiel WHERE EtatM LIKE 'Dispo' AND StatutM LIKE 'Existant' AND CategorieM = '$categorieM' LIMIT 1");
@@ -1834,8 +1871,6 @@ date_default_timezone_set('Europe/Paris');
                                 <div class="modal-body">
                                     <input type="hidden" name="IdentifiantM" value="<?php echo $IdentifiantM; ?>">
                                     <input type="hidden" name="IdentifiantCal" value="<?php echo $IdentifiantCal; ?>">
-                                    <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
-
 
                                     <div class="form-group row">
                                         <label for="staticEmail" class="col col-form-label"><?php echo TXT_CHOIX_MATERIEL; ?> : </label>
@@ -1897,45 +1932,11 @@ date_default_timezone_set('Europe/Paris');
 
                 <?php
                 if (isset($_POST['confirmer_modif_rdv'])) {
-                    $dateRetour = $_POST['DateRetour'];
-                    if (strftime('%A', $dateRetour) == "Saturday" || strftime('%A', $dateRetour) == "Sunday") {
-                ?>
-                        <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                                            </svg>
-                                            <div>
-
-                                                <?php echo TXT_ERREUR_DATE; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="col text-center">
-                                            <input type="button" class="btn btn-primary" onclick='document.location.href="profil.php"' value="<?php echo TXT_OK; ?> ">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                        echo "<script>
-      $(window).load(function() {
-          $('#alerte').modal('show');
-      });
-  </script>";
-                    }
 
                     $horaire = $_POST['horaire'];
                     $jour = $_POST['jour'];
-                    $date_Emprunt = $_POST['date_emprunt'];
-                    $dt = DateTime::createFromFormat('d/m/Y', $date_Emprunt);
-                    $dateEmprunt = $dt->format('Y-m-d');
+                    $date_emprunt = $_POST['date_emprunt'];
+
 
                     $date_retour = $_POST['date_retour'];
 
@@ -1959,10 +1960,10 @@ date_default_timezone_set('Europe/Paris');
                     }
 
                     if ($motif == 'Pret') {
-                        $modifier_rdv = ("UPDATE `emprunt` SET DateEmprunt = '$dateEmprunt' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
+                        $modifier_rdv = ("UPDATE `emprunt` SET DateEmprunt = '$date_emprunt' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'AND Statut_RDV not like 'termine'");
                         $result_insert_rdv = mysqli_query($session, $modifier_rdv);
                     } else if ($motif == 'Retour') {
-                        $modifier_rdv = ("UPDATE `emprunt` SET DateRetour = '$date_retour' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'");
+                        $modifier_rdv = ("UPDATE `emprunt` SET DateRetour = '$date_retour' , IdentifiantCal= '$IdentifiantCal' WHERE IdentifiantPe = '$identifiant' AND IdentifiantM = '$identifiantM'AND Statut_RDV not like 'termine'");
                         $result_insert_rdv = mysqli_query($session, $modifier_rdv);
                     }
 
@@ -1984,7 +1985,7 @@ date_default_timezone_set('Europe/Paris');
                                         </svg>
                                         <div>
 
-                                            <?php echo TXT_ALERTE_SUCCES_CRENEAU; ?>
+                                            <?php echo TXT_ALERTE_SUCCES_CRENEAU ; ?>
                                         </div>
                                     </div>
                                 </div>
