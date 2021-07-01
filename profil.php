@@ -1220,12 +1220,19 @@ date_default_timezone_set('Europe/Paris');
                                     //echo $_POST['DateRetour'];
                                     //echo strftime('%A', strtotime($_POST['DateRetour']));
                                     //echo strftime("%d/%m/%Y", strtotime($_POST['DateRetour']));
-                                    $date = date_create($_POST['DateRetour']);
+                                    $date_retour = date_create($_POST['DateRetour']);
+                                    $date_emprunt = date_create($_POST['DateEmprunt']);
 
+                                    if ($_POST['motif'] == 'Pret') {
+                                        $date_m = $date_emprunt->format('m');
+                                        $date_d = $date_emprunt->format('d');
+                                        $date_Y = $date_emprunt->format('Y');
+                                    } else if ($_POST['motif'] == 'Retour') {
+                                        $date_m = $date_retour->format('m');
+                                        $date_d = $date_retour->format('d');
+                                        $date_Y = $date_retour->format('Y');
+                                    }
 
-                                    $date_m = $date->format('m');
-                                    $date_d = $date->format('d');
-                                    $date_Y = $date->format('Y');
 
                                     if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
                                         $nb_jours_lundi = 0;
@@ -1329,7 +1336,7 @@ date_default_timezone_set('Europe/Paris');
                                     $date_mardi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mardi, $date_Y));
 
                                     ?>
-                                    <input type="text" name="dt_mardi" value="<?php echo $dt_mardi; ?>">
+                                    <input type="hidden" name="dt_mardi" value="<?php echo $dt_mardi; ?>">
                                     <input type="button" name="date_mardi" class="accordion" value="<?php echo TXT_MARDI . " $date_mardi"; ?>">
 
 
@@ -1468,7 +1475,7 @@ date_default_timezone_set('Europe/Paris');
                                     $date_jeudi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_jeudi, $date_Y));
 
                                     ?>
-                                    <input type="text" name="dt_jeudi" value="<?php echo $dt_jeudi; ?>">
+                                    <input type="hidden" name="dt_jeudi" value="<?php echo $dt_jeudi; ?>">
                                     <input type="button" name="date_jeudi" class="accordion" value="<?php echo TXT_JEUDI . " $date_jeudi"; ?>">
 
                                     <div class="panel">
@@ -1886,7 +1893,7 @@ date_default_timezone_set('Europe/Paris');
 
                 </div>
 
-               
+
 
 
 
