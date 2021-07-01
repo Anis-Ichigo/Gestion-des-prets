@@ -9,7 +9,7 @@ date_default_timezone_set('Europe/Paris');
 <html>
 
 <head>
-  <title><?php echo TXT_ENTRETIEN;?></title>
+  <title><?php echo TXT_ENTRETIEN; ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
   <link href="uicons-regular-rounded/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
 
@@ -70,13 +70,13 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
+              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
+              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
+              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
@@ -85,43 +85,43 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
+              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
             </li>
           <?php
           } else if ($role_user == "Vacataire") {
           ?>
             <li class="nav-item  text-center">
-              <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN;?></a>
+              <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
+              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
+              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
+              <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
+              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
             </li>
           <?php
           } else if ($role_user == "Emprunteur") {
           ?>
             <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
+              <a class="nav-link " aria-current="page" href="#"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION;?></a>
+              <a class="nav-link" href="#"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> <?php echo PROFIL;?></a>
+              <a class="nav-link  active" href="#"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="#"><i class=" fi-rr-interrogation"></i> FAQ</a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE;?></a>
+              <a class="nav-link " href="#"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
             </li>
           <?php
           }
@@ -143,83 +143,124 @@ date_default_timezone_set('Europe/Paris');
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_MAJ_PARC;?></a>
+      <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_MAJ_PARC; ?></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="RAZ.php"><?php echo TXT_RAZ;?></a>
+      <a class="nav-link" href="RAZ.php"><?php echo TXT_RAZ; ?></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="SAV.php"><?php echo TXT_SAV;?> </a>
+      <a class="nav-link" href="SAV.php"><?php echo TXT_SAV; ?> </a>
     </li>
   </ul>
 
   <?php
   if (isset($_POST['valider_ajout'])) {
 
-    $numero = $_POST["numero"];
 
-    if (!empty($_POST['nouvelle_categorie'])) {
-      $type = $_POST['nouvelle_categorie'];
+    $idm = $_POST['numero'];
+    $stmt = mysqli_prepare($session, "SELECT IdentifiantM from materiel where IdentifiantM = ?");
+    mysqli_stmt_bind_param($stmt, "s", $idm);
+    mysqli_stmt_execute($stmt);
+    if (mysqli_stmt_fetch($stmt) == TRUE) {
+  ?>
+      <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
+
+                <div>
+                  <?php echo "Ce numéro de matériel existe déjà"; ?>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <input type="button" class="btn btn-primary" onclick='document.location.href="entretien.php"'  value="<?php echo TXT_OK; ?>">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(window).load(function() {
+          $('#succes_ajouter').modal('show');
+        });
+      </script>
+
+    <?php
     } else {
-      $type = $_POST["type"];
-    }
 
-    $date = $_POST["date"];
-    $etat = 'Dispo';
-    $statut = 'Existant';
-    $identifiantMo = $_POST['IdentifiantMo'];
-    $NumBonCommande = $_POST['NumBonCommande'];
+      $numero = $_POST["numero"];
+
+      if (!empty($_POST['nouvelle_categorie'])) {
+        $type = $_POST['nouvelle_categorie'];
+      } else {
+        $type = $_POST["type"];
+      }
+
+      $date = $_POST["date"];
+      $etat = 'Dispo';
+      $statut = 'Existant';
+      $identifiantMo = $_POST['IdentifiantMo'];
+      $NumBonCommande = $_POST['NumBonCommande'];
 
 
-    $ajouter = "INSERT INTO materiel (IdentifiantM, DateReception, EtatM, CategorieM, StatutM, NumBonCommande, IdentifiantMo) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    if ($stmt = mysqli_prepare($session, $ajouter)) {
-      mysqli_stmt_bind_param($stmt, 'sssssss', $numero, $date, $etat, $type, $statut, $NumBonCommande, $identifiantMo);
-      mysqli_stmt_execute($stmt);
-    }
+      $ajouter = "INSERT INTO materiel (IdentifiantM, DateReception, EtatM, CategorieM, StatutM, NumBonCommande, IdentifiantMo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      if ($stmt = mysqli_prepare($session, $ajouter)) {
+        mysqli_stmt_bind_param($stmt, 'sssssss', $numero, $date, $etat, $type, $statut, $NumBonCommande, $identifiantMo);
+        mysqli_stmt_execute($stmt);
+      }
 
 
-    $marque = $_POST['Marque'];
-    $RAM = $_POST['RAM'];
-    $processeur = $_POST['Processeur'];
-    $capaciteStockage = $_POST['CapaciteStockage'];
+      $marque = $_POST['Marque'];
+      $RAM = $_POST['RAM'];
+      $processeur = $_POST['Processeur'];
+      $capaciteStockage = $_POST['CapaciteStockage'];
 
-    $ajouter_modele = "INSERT INTO modele (IdentifiantMo, Marque, RAM, CapaciteStockage, Processeur) VALUES (?, ?, ?, ?, ?)";
-    if ($stmt = mysqli_prepare($session, $ajouter_modele)) {
-      mysqli_stmt_bind_param($stmt, 'sssss', $identifiantMo, $marque, $RAM, $capaciteStockage, $processeur);
-      mysqli_stmt_execute($stmt);
-    }
+      $ajouter_modele = "INSERT INTO modele (IdentifiantMo, Marque, RAM, CapaciteStockage, Processeur) VALUES (?, ?, ?, ?, ?)";
+      if ($stmt = mysqli_prepare($session, $ajouter_modele)) {
+        mysqli_stmt_bind_param($stmt, 'sssss', $identifiantMo, $marque, $RAM, $capaciteStockage, $processeur);
+        mysqli_stmt_execute($stmt);
+      }
+
     ?>
 
-    <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="alert alert-success d-flex align-items-center" role="alert">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                        </svg>
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg>
 
-                        <div>
-                            <?php echo TXT_ALERTEMAT; ?>
-                        </div>
-                    </div>
+                <div>
+                  <?php echo TXT_ALERTEMAT; ?>
                 </div>
-
-                <div class="modal-footer">
-                    <div class="col text-center">
-                        <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
-                    </div>
-                </div>
+              </div>
             </div>
+
+            <div class="modal-footer">
+              <div class="col text-center">
+                <input type="button" class="btn btn-primary" data-bs-dismiss="modal" value="<?php echo TXT_OK; ?>">
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <script>
+      </div>
+      <script>
         $(window).load(function() {
-            $('#succes_ajouter').modal('show');
+          $('#succes_ajouter').modal('show');
         });
-    </script>
+      </script>
 
   <?php
+    }
   }
   ?>
 
@@ -228,31 +269,31 @@ date_default_timezone_set('Europe/Paris');
     <thead style="text-align: center;">
       <TR>
         <th data-sortable="true">
-         <?php echo TXT_NUM_MAT;?>
+          <?php echo TXT_NUM_MAT; ?>
         </th>
         <th data-sortable="true">
-        <?php echo TXT_TYPEMAT;?>
+          <?php echo TXT_TYPEMAT; ?>
         </th>
         <th data-sortable="true">
-         <?php echo TXT_MODELE;?>
+          <?php echo TXT_MODELE; ?>
         </th>
         <th data-sortable="true">
-        <?php echo TXT_MARQUE;?>
+          <?php echo TXT_MARQUE; ?>
         </th>
         <th data-sortable="true">
-         <?php echo TXT_RAM;?>
+          <?php echo TXT_RAM; ?>
         </th>
         <th data-sortable="true">
-         <?php echo TXT_PROCESS;?>
+          <?php echo TXT_PROCESS; ?>
         </th>
         <th data-sortable="true">
-         <?php echo TXT_CAPS;?>
+          <?php echo TXT_CAPS; ?>
         </th>
         <th data-sortable="true">
-         <?php echo TXT_DATERECEP;?>
+          <?php echo TXT_DATERECEP; ?>
         </Th>
         <th data-sortable="true">
-         <?php echo TXT_ETAT;?>
+          <?php echo TXT_ETAT; ?>
         </Th>
         <th width="15%" data-sortable="false" data-field="bouttons">
         </th>
@@ -307,7 +348,7 @@ date_default_timezone_set('Europe/Paris');
             <input type="text" readonly name="" class="form-control-plaintext text-center" value="<?php echo $ligne['EtatM'] ?>">
           </td>
           <td>
-            <input type="submit" class='btn btn-secondary supprimer' name="supprimer" value="<?php echo TXT_SUPPRIMER;?>">
+            <input type="submit" class='btn btn-secondary supprimer' name="supprimer" value="<?php echo TXT_SUPPRIMER; ?>">
           </td>
         </tr>
       </form>
@@ -319,7 +360,7 @@ date_default_timezone_set('Europe/Paris');
 
 
   <form action="" method="POST">
-    <input type="submit" class='btn btn-primary' name="ajouter" value="<?php echo TXT_AJOUTER;?>">
+    <input type="submit" class='btn btn-primary' name="ajouter" value="<?php echo TXT_AJOUTER; ?>">
   </form>
 
   <?php
@@ -338,7 +379,7 @@ date_default_timezone_set('Europe/Paris');
                   <label for="floatingInput"><?php echo TXT_NUM_MAT; ?>:</label>
                 </div>
 
-                <label><?php echo TXT_TYPEMAT;?> :</label>
+                <label><?php echo TXT_TYPEMAT; ?> :</label>
                 <SELECT size="1" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
                   <?php
                   $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
@@ -349,7 +390,13 @@ date_default_timezone_set('Europe/Paris');
                   <?php
                   }
                   ?>
-                  <option id="nouveau"><?php echo TXT_NOUVEAU;?></option>
+                  <?php if (mysqli_num_rows($result_categories) == 0) {
+                  ?>
+                    <option></option>
+                  <?php
+                  }
+                  ?>
+                  <option id="nouveau"><?php echo TXT_NOUVEAU; ?></option>
                 </SELECT>
 
                 <div class="form-floating mb-3" id="nouvelleCategorie" style="display: none;">
@@ -357,6 +404,7 @@ date_default_timezone_set('Europe/Paris');
                   <label for="floatingInput"><?php echo TXT_NOUVELLECAT; ?> :</label>
                 </div>
 
+                <label for="">Date de réception</label>
                 <input type='date' class='form-control mb-3' placeholder=" " name='date' required>
 
                 <div class="form-floating mb-3">
@@ -385,7 +433,7 @@ date_default_timezone_set('Europe/Paris');
                 </div>
 
                 <div class="form-floating mb-3">
-                  <input type='text' class='form-control' placeholder=" " name='CapaciteStockage' required>
+                  <input type='text' class='form-control' placeholder=" " name='CapaciteStockage'>
                   <label for="floatingInput"><?php echo TXT_CAPS; ?> :</label>
                 </div>
               </div>
@@ -419,8 +467,8 @@ date_default_timezone_set('Europe/Paris');
             <div class="modal-body">
               <input type='hidden' name='numero_materiel' value="<?php echo $_POST['numeroM']; ?>">
 
-              <p><?php echo TXT_ALERTESUPP;?></p>
-              <p><?php echo TXT_ALERTESUPP2;?></p>
+              <p><?php echo TXT_ALERTESUPP; ?></p>
+              <p><?php echo TXT_ALERTESUPP2; ?></p>
 
             </div>
             <div class="modal-footer">

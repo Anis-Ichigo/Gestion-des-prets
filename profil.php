@@ -242,7 +242,7 @@ date_default_timezone_set('Europe/Paris');
             <div style="display: block ;text-align :center;">
                 <FORM method="POST" action="profil.php">
                     <div style="display: block ;text-align :center;" class="form-group row">
-                        <input type="button" class="accordion" value="<?php echo TXT_INFORMATION; ?>">
+                        <input type="button" class="accordion" style="text-align: center; font-weight:bold" value="<?php echo TXT_INFORMATION; ?>">
                         <!-- <H2><?php echo TXT_INFORMATION; ?></H2> -->
 
                         <div class="collapse in show" style=" text-align: center">
@@ -299,15 +299,19 @@ date_default_timezone_set('Europe/Paris');
                                     </TD>
                                 </TR>
 
-                                <TR>
-                                    <TD style="text-align : left">
-                                        <?php echo TXT_FORMATION; ?>:
-                                    </TD>
-                                    <TD>
-                                        <input type="text" readonly class="form-control-plaintext" name="Formation" value="<?php echo $row['Formation']; ?>">
-                                    </TD>
-                                </TR>
-
+                                <?php if ($row['Statut'] == 'Etudiant') {
+                                ?>
+                                    <TR>
+                                        <TD style="text-align : left">
+                                            <?php echo TXT_FORMATION; ?>:
+                                        </TD>
+                                        <TD>
+                                            <input type="text" readonly class="form-control-plaintext" name="Formation" value="<?php echo $row['Formation']; ?>">
+                                        </TD>
+                                    </TR>
+                                <?php
+                                }
+                                ?>
 
                             </TABLE>
 
@@ -570,7 +574,7 @@ date_default_timezone_set('Europe/Paris');
         ?>
 
             <div style="display: block ;" class="form-group row">
-                <input type="button" class="accordion" value="<?php echo TXT_RDV; ?>">
+                <input type="button" class="accordion" style="text-align: center; font-weight:bold" value="<?php echo TXT_RDV; ?>">
                 <?php // echo TXT_RDV;
                 ?>
 

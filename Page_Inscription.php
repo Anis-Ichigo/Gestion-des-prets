@@ -6,13 +6,13 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 
 if (isset($_SESSION['lang'])) {
-    if ($_SESSION['lang'] == 'fr') {
-        include('fr-lang.php');
-    } else if ($_SESSION['lang'] == 'en') {
-        include('en-lang.php');
-    } else if ($_SESSION['lang'] == 'cn') {
-        include('cn-lang.php');
-    }
+  if ($_SESSION['lang'] == 'fr') {
+    include('fr-lang.php');
+  } else if ($_SESSION['lang'] == 'en') {
+    include('en-lang.php');
+  } else if ($_SESSION['lang'] == 'cn') {
+    include('cn-lang.php');
+  }
 }
 
 
@@ -137,7 +137,7 @@ if (isset($_SESSION['lang'])) {
             <TD>
               <label for="statut"><?php echo TXT_IDENTITE; ?> : </label>
 
-              <SELECT id="statut" name="statut" class="form-select">
+              <SELECT id="statut" name="statut" onchange="changementStatut()" class="form-select">
                 <OPTION>Etudiant</OPTION>
                 <OPTION>Enseignant</OPTION>
                 <OPTION>Personnel Administratif</OPTION>
@@ -147,10 +147,10 @@ if (isset($_SESSION['lang'])) {
 
           <TR>
             <TD>
-              <label for="formation"><?php echo TXT_FORMATION; ?> : </label>
+              <label for="formation" style="display: block;" id="formation"><?php echo TXT_FORMATION; ?> : </label>
 
 
-              <SELECT id="formation" name="formation" class="form-select">
+              <SELECT id="formation" name="formation" class="form-select" style="display: block;">
                 <OPTION>L3 MIASHS TI</OPTION>
                 <OPTION>LICENCE PRO RTAI</OPTION>
                 <OPTION>M1 MIAGE IM</OPTION>
@@ -518,6 +518,20 @@ if (isset($_SESSION['lang'])) {
   }
 
   ?>
+
+  <script>
+    function changementStatut() {
+
+      var statut = document.getElementById('statut').value;
+      if (statut == 'Personnel Administratif' || statut == 'Enseignant') {
+        document.getElementById('formation').style.display = 'none';
+      } else {
+        document.getElementById('formation').style.display = 'block';
+      }
+
+    }
+  </script>
+
 </body>
 
 </html>

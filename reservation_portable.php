@@ -1014,6 +1014,10 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 $IdentifiantCal = $creneau['IdentifiantCal'];
             }
 
+            $Bureau = ("SELECT * FROM parametres");
+            $result_Bureau = mysqli_query($session, $Bureau);
+            $row_bureau = mysqli_fetch_array($result_Bureau);
+
         ?>
             <!-- Modal -->
 
@@ -1058,6 +1062,13 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                     <label for="staticEmail" class="col col-form-label"><?php echo TXT_CRENEAU; ?> : </label>
                                     <div class="col">
                                         <input type="text" class="form-control-plaintext" name="horaire" value="<?php echo $horaire; ?>" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col col-form-label"><?php echo TXT_BUREAU; ?> : </label>
+                                    <div class="col">
+                                        <input type="text" class="form-control-plaintext" name="bureau" value="<?php echo $row_bureau['Bureau']; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -1164,7 +1175,10 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                     <a class="close" href="#"> &times;</a>
                     </p>
                     <div class="content" style="text-align: justify; font-size: 16px">
-                        <?php echo TXT_RES_URG; ?>
+                        <?php $Bureau = ("SELECT * FROM parametres");
+                        $result_Bureau = mysqli_query($session, $Bureau);
+                        $row_bureau = mysqli_fetch_array($result_Bureau);
+                        echo TXT_RES_URG . $row_bureau['Bureau'] . "."; ?>
                     </div>
                 </div>
             </div>

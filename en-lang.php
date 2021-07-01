@@ -353,7 +353,7 @@ define('TXT_MODELE','Model');
 define('TXT_MARQUE','Brand');
 define('TXT_RAM',' RAM (Go)');
 define('TXT_PROCESS','Processor');
-define('TXT_CAPS','Storage capacity');
+define('TXT_CAPS','Storage capacity (Go)');
 define('TXT_DATERECEP','Date of receipt');
 define('TXT_ETAT','State');
 define('TXT_NOUVEAU','New');

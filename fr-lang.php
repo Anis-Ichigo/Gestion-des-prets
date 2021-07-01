@@ -101,7 +101,7 @@ define('MDP_CHAMPS', 'Veuillez saisir tous les champs !');
 define('TXT_CHOIX_CRENEAU','Veuillez choisir un créneau pour récuperer le matériel');
 define('TXT_ERREUR_JOUR', 'Veuillez choisir une date autre que le samedi ou le dimanche');
 define('TXT_BTN_URG', 'Une urgence ?');
-define('TXT_RES_URG',"Pour une urgence merci de prendre le premier créneau disponible et de voir directement avec la responsable Mme BALLABRIGA Lydie bureau XXXX.");
+define('TXT_RES_URG',"Pour une urgence merci de prendre le premier créneau disponible et de voir directement avec la responsable Mme BALLABRIGA Lydie bureau ");
 
 //Page_Inscription.php
 
@@ -142,7 +142,7 @@ define('TXT_REPONSE5_B', 'ici');
 define('TXT_QUESTION6', "Relire les conditions générales d'utilisation des données");
 define('TXT_REPONSE6', "Veuillez trouver les Conditions Générales d'Utilisation");
 define('TXT_QUESTION7', 'Vous avez une autre question?');
-define('TXT_REPONSE7', "En cas d'autres questions de votre part, ou en cas de souhait de plus de précisions sur un point, Nous nous tenons à votre disposition pour toute demande. Vous pouvez nous contacter via la page Mes Réservations que vous trouverez");
+define('TXT_REPONSE7', "En cas d'autres questions de votre part, ou en cas de souhait de plus de précisions sur un point, Nous nous tenons à votre disposition pour toute demande. Vous pouvez contacter Madame BALLABRIGA, la responsable de la gestion des prêts de matériel, ou en cas de problème technique vous pouvez déclarer un problème dans la page 'Mes emprunts', dans ce cas, une personne s'occupera de votre question.");
 
 //CGU.php
 
@@ -357,7 +357,7 @@ define('TXT_MODELE','Modèle');
 define('TXT_MARQUE','Marque');
 define('TXT_RAM',' RAM (Go)');
 define('TXT_PROCESS','Processeur');
-define('TXT_CAPS','Capacité de stockage');
+define('TXT_CAPS','Capacité de stockage (Go)');
 define('TXT_DATERECEP','Date de réception');
 define('TXT_ETAT','Etat ');
 define('TXT_NOUVEAU','Nouveau ');
