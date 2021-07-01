@@ -505,14 +505,15 @@ date_default_timezone_set('Europe/Paris');
 </script>";
           } else {
 
-            if($_POST['motif'] == 'Pret'){
+            if ($_POST['motif'] == 'Pret') {
               $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
               $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
-            }if($_POST['motif'] == 'Retour'){
+            }
+            if ($_POST['motif'] == 'Retour') {
               $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateRetour = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
               $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
             }
-            
+
 
             $modifier_id_nouveau_materiel = ("UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$nouveau_idm'");
             $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
@@ -609,8 +610,9 @@ date_default_timezone_set('Europe/Paris');
           $ide = $_POST['ide'];
           $idm = $_POST['idm'];
           $idc = $_POST['idc'];
+          $idemprunt = $_POST['idemprunt'];
 
-          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
           $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
