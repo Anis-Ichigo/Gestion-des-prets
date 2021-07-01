@@ -133,11 +133,6 @@ mysqli_set_charset($session, "utf-8");
         </div>
     </main>
 
-    <main>
-        <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
-            <canvas id="graphe3" class="chartjs-render-monitor"></canvas>
-        </div>
-    </main>
 
     <?php
     $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM  GROUP BY materiel.CategorieM";
@@ -226,7 +221,7 @@ mysqli_set_charset($session, "utf-8");
         $categorie = $_POST['type'];
     }
 
-    $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',  ( SELECT CASE MONTH(emprunt.DateEmprunt)
+    $stat1 = "SELECT COUNT(materiel.IdentifiantM) as 'nombre',  ( SELECT CASE MONTH(emprunt.DateEmprunt)
     WHEN 1 THEN 'janvier'
     WHEN 2 THEN 'février'
     WHEN 3 THEN 'mars'
@@ -251,7 +246,7 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
     $categorie = array();
     $mois = array();
     foreach ($resultat_stat1 as $row) {
-        array_push($date, $row['Nombre de jour']);
+        array_push($date, $row['nombre']);
         array_push($categorie, $row['categorie']);
         array_push($mois, $row['mois']);
     }
@@ -273,6 +268,7 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                 labels: dt_mois,
                 datasets: [{
                     data: lb,
+                    label: 'Nb matériel réservé pour ce mois ',
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(15, 69, 98, 0.2)',
@@ -295,7 +291,7 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                     },
                     title: {
                         display: true,
-                        text: "Nombre de jours de réservation par mois pour le matériel sélectionné "
+                        text: "Nombre de réservation par mois pour le matériel sélectionné "
                     }
                 },
 
@@ -304,24 +300,6 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                         beginAtZero: true
                     }
                 }
-              tooltip:{
-                callbacks:{
-                  label: function(tooltipItem, data) {
-      //get the concerned dataset
-      var dataset = data.datasets[tooltipItem.datasetIndex];
-      //calculate the total of this data set
-      var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-        return previousValue + currentValue;
-      });
-      //get the current items value
-      var currentValue = dataset.data[tooltipItem.index];
-      //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
-      var percentage = Math.floor(((currentValue/total) * 100)+0.5);
-
-      return percentage + "%";
-    }
-  }
-}
             }
         });
     </script>
@@ -352,10 +330,15 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
     </div>
 </main>
 
+<main>
+    <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+        <canvas id="graphe3" class="chartjs-render-monitor"></canvas>
+    </div>
+</main>
 
 <form action="" method="POST">
     <label style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" for="">Type de matériel</label>
-    <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+    <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type2" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
         <?php
         $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
         $result_categories = mysqli_query($session, $categories);
@@ -366,7 +349,7 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
         }
         ?>
     </SELECT>
-    <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider" value="Valider">
+    <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider2" value="Valider">
 </form>
 
 <script>
@@ -377,11 +360,11 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
 
 <?php
 $categorie = "Ordinateur";
-if (isset($_POST['valider'])) {
-    $categorie = $_POST['type'];
+if (isset($_POST['valider2'])) {
+    $categorie = $_POST['type2'];
 }
 
-  $stat3 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour', WEEKOFYEAR(emprunt.DateEmprunt) as 'semaine', materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM GROUP BY WEEKOFYEAR(emprunt.DateEmprunt), materiel.CategorieM";
+  $stat3 = "SELECT WEEKOFYEAR(emprunt.DateEmprunt) as 'semaine', COUNT(materiel.IdentifiantM) as 'Nombre', materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.CategorieM = '$categorie' GROUP BY WEEKOFYEAR(emprunt.DateEmprunt), materiel.CategorieM ";
   $resultat3 = mysqli_query($session, $stat3);
 
   $semaine = array();
@@ -390,7 +373,7 @@ if (isset($_POST['valider'])) {
 
   foreach ($resultat3 as $row) {
       array_push($semaine, $row['semaine']);
-      array_push($jour, $row['Nombre de jour']);
+      array_push($jour, $row['Nombre']);
       array_push($categorie, $row['categorie']);
   }
 
@@ -408,9 +391,10 @@ if (isset($_POST['valider'])) {
         type: 'bar',
 
         data: {
-            labels: dt_mois,
+            labels: dt_semaine,
             datasets: [{
                 data: lb,
+                label: 'Nombre de matériel emprunté cette semaine',
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(15, 69, 98, 0.2)',
@@ -433,7 +417,7 @@ if (isset($_POST['valider'])) {
                 },
                 title: {
                     display: true,
-                    text: "Nombre de jours de réservation par semaine pour le matériel sélectionné "
+                    text: "Nombre de réservation par semaine pour le matériel sélectionné "
                 }
             },
 
@@ -444,6 +428,9 @@ if (isset($_POST['valider'])) {
             }
           }
       });
+
+
+
   </script>
 </body>
 
