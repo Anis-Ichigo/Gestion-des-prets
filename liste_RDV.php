@@ -230,10 +230,10 @@ date_default_timezone_set('Europe/Paris');
 
                   <?php if (
                     ($ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now"))) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now"))
-                      && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s"))) ||
-                    ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")))
-                  ) {
+                      && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] != NULL)) ||
+                    (($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))
 
+                  ) {
                   ?>
                     <?php
                     if ($ligne_liste_rdv['contrat'] == 'signe') {
