@@ -133,6 +133,12 @@ mysqli_set_charset($session, "utf-8");
         </div>
     </main>
 
+    <main>
+        <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+            <canvas id="graphe3" class="chartjs-render-monitor"></canvas>
+        </div>
+    </main>
+
     <?php
     $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM  GROUP BY materiel.CategorieM";
     $resultat_stat1 = mysqli_query($session, $stat1);
@@ -233,8 +239,8 @@ mysqli_set_charset($session, "utf-8");
     WHEN 10 THEN 'octobre'
     WHEN 11 THEN 'novembre'
     ELSE 'décembre'
-END)  as 'mois', materiel.CategorieM as 'categorie' 
-FROM emprunt, materiel 
+END)  as 'mois', materiel.CategorieM as 'categorie'
+FROM emprunt, materiel
 WHERE emprunt.IdentifiantM = materiel.IdentifiantM
 AND materiel.CategorieM = '$categorie'
 GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
@@ -298,10 +304,147 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                         beginAtZero: true
                     }
                 }
+              tooltip:{
+                callbacks:{
+                  label: function(tooltipItem, data) {
+      //get the concerned dataset
+      var dataset = data.datasets[tooltipItem.datasetIndex];
+      //calculate the total of this data set
+      var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+        return previousValue + currentValue;
+      });
+      //get the current items value
+      var currentValue = dataset.data[tooltipItem.index];
+      //calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
+      var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+
+      return percentage + "%";
+    }
+  }
+}
             }
         });
     </script>
 
+    <?php
+      $stat = "SELECT AVG(TIMESTAMPDIFF(DAY, DateProbleme, DateResolution)) as 'moyenne' FROM probleme, materiel WHERE probleme.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM != 'DSI'";
+      $resultat = mysqli_query($session, $stat);
+      $tps = mysqli_fetch_array($resultat);
+     ?>
+
+     <main>
+         <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+           <div><p>Temps moyen de résolution des problèmes par le vacataire (en jours) :</p></div>
+           <div><?php echo $tps['moyenne']?></div>
+         </div>
+     </main>
+
+<?php
+     $stat2 ="SELECT AVG(DATEDIFF(now(), DateRetour)) as 'moyenne2' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM = 'Non dispo' AND emprunt.EtatE = 'Rendu'";
+     $resultat_2 = mysqli_query($session, $stat2);
+     $moyenne = mysqli_fetch_array($resultat_2);
+?>
+
+<main>
+    <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+      <div><p>Temps moyen de remise en service RAZ (en jours) :</p></div>
+      <div><?php echo $moyenne['moyenne2']?></div>
+    </div>
+</main>
+
+
+<form action="" method="POST">
+    <label style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" for="">Type de matériel</label>
+    <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+        <?php
+        $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
+        $result_categories = mysqli_query($session, $categories);
+        foreach ($result_categories as $row) {
+        ?>
+            <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+        <?php
+        }
+        ?>
+    </SELECT>
+    <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider" value="Valider">
+</form>
+
+<script>
+    function nouvelleCategorie() {
+        return document.getElementById('categorie').value;
+    }
+</script>
+
+<?php
+$categorie = "Ordinateur";
+if (isset($_POST['valider'])) {
+    $categorie = $_POST['type'];
+}
+
+  $stat3 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour', WEEKOFYEAR(emprunt.DateEmprunt) as 'semaine', materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM GROUP BY WEEKOFYEAR(emprunt.DateEmprunt), materiel.CategorieM";
+  $resultat3 = mysqli_query($session, $stat3);
+
+  $semaine = array();
+  $jour =  array();
+  $categorie = array();
+
+  foreach ($resultat3 as $row) {
+      array_push($semaine, $row['semaine']);
+      array_push($jour, $row['Nombre de jour']);
+      array_push($categorie, $row['categorie']);
+  }
+
+?>
+
+<script>
+    var lb = <?php echo json_encode($jour); ?>;
+    var dt = <?php echo json_encode($categorie); ?>;
+    var dt_semaine = <?php echo json_encode($semaine); ?>;
+
+
+
+    var ctx = document.getElementById('graphe3').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+
+        data: {
+            labels: dt_mois,
+            datasets: [{
+                data: lb,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(15, 69, 98, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(15, 69, 98, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Nombre de jours de réservation par semaine pour le matériel sélectionné "
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+          }
+      });
+  </script>
 </body>
 
 </html>
