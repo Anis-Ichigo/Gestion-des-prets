@@ -170,7 +170,8 @@ date_default_timezone_set('Europe/Paris');
 
         $query_liste_rdv = "
                             SELECT 	p.IdentifiantPe as ide, p.PrenomPe as prenom, p.NomPe as nom, e.DateEmprunt as date_rdv,
-                                    cal.HoraireCal as heure, e.IdentifiantM as idm, m.CategorieM as type, cal.IdentifiantCal as idc, e.motif as motif, e.IdentifiantE as idemprunt, e.Horaire_modif as horaire_modif, e.Contrat as contrat
+                                    cal.HoraireCal as heure, e.IdentifiantM as idm, m.CategorieM as type, cal.IdentifiantCal as idc, 
+                                    e.motif as motif, e.IdentifiantE as idemprunt, e.Horaire_modif as horaire_modif, e.Contrat as contrat, e.DateRetour as date_retour
                             FROM 	materiel m, emprunt e, personne p, calendrier cal
                             WHERE 	p.IdentifiantPe= e.IdentifiantPe
                             AND		e.IdentifiantM = m.IdentifiantM
@@ -201,9 +202,21 @@ date_default_timezone_set('Europe/Paris');
                 <td>
                   <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['nom'] ?>" name='nom' readonly>
                 </td>
-                <td>
-                  <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['date_rdv'] ?>" name='date_rdv' readonly>
-                </td>
+                <?php
+                if ($ligne_liste_rdv['motif'] == 'Pret') {
+                ?>
+                  <td>
+                    <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['date_rdv'] ?>" name='date_rdv' readonly>
+                  </td>
+                <?php
+                } else if ($ligne_liste_rdv['motif'] == 'Retour') {
+                ?>
+                  <td>
+                    <input type='text' class='form-control-plaintext' value="<?php echo $ligne_liste_rdv['date_retour'] ?>" name='date_rdv' readonly>
+                  </td>
+                <?php
+                }
+                ?>
                 <?php
                 if ($ligne_liste_rdv['horaire_modif'] != '') {
                 ?>
@@ -232,7 +245,6 @@ date_default_timezone_set('Europe/Paris');
                     ($ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now"))) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now"))
                       && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] != NULL)) ||
                     (($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))
-
                   ) {
                   ?>
                     <?php
@@ -251,7 +263,7 @@ date_default_timezone_set('Europe/Paris');
                     }
                   }
 
-                  if ($ligne_liste_rdv['contrat'] != 'a signer' && $ligne_liste_rdv['contrat'] != 'signe') {
+                  if (($ligne_liste_rdv['contrat'] != 'a signer' && $ligne_liste_rdv['contrat'] != 'signe') || $ligne_liste_rdv['motif'] == 'Retour') {
                     ?>
                     <input type="submit" class="btn btn-primary" value="Modifier" name="Modifier_RDV">
                   <?php
@@ -493,8 +505,15 @@ date_default_timezone_set('Europe/Paris');
 </script>";
           } else {
 
-            $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
-            $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
+            if($_POST['motif'] == 'Pret'){
+              $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateEmprunt = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
+              $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
+            }if($_POST['motif'] == 'Retour'){
+              $modifier_RDV = ("UPDATE emprunt SET IdentifiantM = '$nouveau_idm', DateRetour = '$nouvelle_date_rdv', Horaire_modif = '$nouvelle_heure' WHERE IdentifiantPe = '$ide' AND IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm'");
+              $result_modifier_RDV = mysqli_query($session, $modifier_RDV);
+            }
+            
+
             $modifier_id_nouveau_materiel = ("UPDATE materiel SET EtatM = 'Non Dispo' WHERE IdentifiantM = '$nouveau_idm'");
             $result_modifier_id_nouveau_materiel = mysqli_query($session, $modifier_id_nouveau_materiel);
 
