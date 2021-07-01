@@ -55,7 +55,7 @@ date_default_timezone_set('Europe/Paris');
                             Un <b><?php echo $CategorieM.' '.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
 
                             <?php } else{ ?>
-                            Une <b><?php echo $CategorieM.' '.$modele ?></b> de la marque : <b><?php echo $marque ?></b> et une sacoche.
+                            Une <b><?php echo $CategorieM.' '.$modele ?></b> de la marque : <b><?php echo $marque ?></b>.
                             <?php }  ?>
 
 

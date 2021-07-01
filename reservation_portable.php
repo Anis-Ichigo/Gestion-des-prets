@@ -323,7 +323,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 <input type="button" style="text-align: center; font-weight:bold" name="date_lundi" class="accordion" value="<?php
                                                                                                                                 $premierJour = strftime("%d/%m/%Y", strtotime("last monday"));
                                                                                                                                 echo TXT_LUNDI . " $premierJour";
-                                                                                                                                ?>">
+                                                                                                                                ?>" disabled>
 
         <?php
             }
@@ -445,7 +445,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 <input type="button" style="text-align: center; font-weight:bold" name="date_mardi" class="accordion" value="<?php
                                                                                                                                 $premierJour = strftime("%d/%m/%Y", strtotime("last tuesday"));
                                                                                                                                 echo TXT_MARDI . " $premierJour";
-                                                                                                                                ?>">
+                                                                                                                                ?>" disabled>
         <?php
             }
         }
@@ -549,7 +549,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 <input type="button" style="text-align: center; font-weight:bold" name="date_mercredi" class="accordion" value="<?php
                                                                                                                                 $premierJour = strftime("%d/%m/%Y", strtotime("last wednesday"));
                                                                                                                                 echo TXT_MERCREDI . " $premierJour";
-                                                                                                                                ?>">
+                                                                                                                                ?>" disabled>
         <?php
             }
         }
@@ -653,7 +653,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 <input type="button" style="text-align: center; font-weight:bold" name="date_jeudi" class="accordion" value="<?php
                                                                                                                                 $premierJour = strftime("%d/%m/%Y", strtotime("last thursday"));
                                                                                                                                 echo TXT_JEUDI . " $premierJour";
-                                                                                                                                ?>">
+                                                                                                                                ?>" disabled>
         <?php
             }
         }
@@ -766,7 +766,7 @@ AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                 <input type="button" style="text-align: center; font-weight:bold" name="date_vendredi" class="accordion" value="<?php
                                                                                                                                 $premierJour = strftime("%d/%m/%Y", strtotime("last Friday"));
                                                                                                                                 echo TXT_VENDREDI . " $premierJour";
-                                                                                                                                ?>">
+                                                                                                                                ?>" disabled>
         <?php
             }
         }

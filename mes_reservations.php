@@ -176,15 +176,15 @@ date_default_timezone_set('Europe/Paris');
                                 $nom = $row['NomPe'];
                             ?>
 
-                                    <?php
+                                <?php
 
-                                    if ($i % 3 != 0) {
-                                    ?>
-                                        <td>
+                                if ($i % 3 != 0) {
+                                ?>
+                                    <td>
 
-                                            <div class="card mb-2">
-                                                <div class="card-body">
-                                                    <form action="" method="post">
+                                        <div class="card mb-2">
+                                            <div class="card-body">
+                                                <form action="" method="post">
                                                     <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
                                                     <p class="card-text">
                                                     <table>
@@ -244,29 +244,29 @@ date_default_timezone_set('Europe/Paris');
                                                     <?php
                                                     }
                                                     ?>
-                                                    </form>
+                                                </form>
 
-                                                    <form action="pdf.php" method="post">
-                                                        <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
-                                                        <button type="submit" name="valider_contrat">Voir le contrat</button>
-                                                    </form>
-                                                </div>
+                                                <form action="pdf.php" method="post">
+                                                    <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
+                                                    <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                                </form>
                                             </div>
-                                        </td>
+                                        </div>
+                                    </td>
 
-                            <?php
-                                    } else if ($i % 3 == 0) {
+                                <?php
+                                } else if ($i % 3 == 0) {
 
-                            ?>
+                                ?>
 
                         <tr>
 
-                                <td>
-                                    <div class="card mb-2">
-                                        <div class="card-body">
+                            <td>
+                                <div class="card mb-2">
+                                    <div class="card-body">
 
-                                    <form action="" method="POST">
-                                    <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
+                                        <form action="" method="POST">
+                                            <input type="hidden" name="IdentifiantE" value="<?php echo $row['IdentifiantE']; ?>">
                                             <h5 class="card-title"><?php echo $row['CategorieM'] ?></h5>
                                             <p class="card-text">
                                             <table>
@@ -325,24 +325,24 @@ date_default_timezone_set('Europe/Paris');
                                             <?php
                                             }
                                             ?>
-                                    </form>
-                                            <form action="pdf.php" method="post">
-                                                <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
-                                                <button type="submit" name="valider_contrat">Voir le contrat</button>
-                                            </form>
+                                        </form>
+                                        <form action="pdf.php" method="post">
+                                            <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
+                                            <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                        </form>
 
-                                        </div>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
 
 
                     <?php
 
-                                    }
-
-                                    $i += 1;
                                 }
+
+                                $i += 1;
+                            }
                     ?>
                         </tr>
 
@@ -727,7 +727,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_lundi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_lundi, $date_Y));
 
                                 ?>
-                                <input type="hidden" name="dt_lundi" value="<?php echo $date_lundi; ?>">
+                                <input type="hidden" name="dt_lundi" value="<?php echo $dt_lundi; ?>">
                                 <input type="button" name="date_lundi" class="accordion" value="<?php echo TXT_LUNDI . " $date_lundi"; ?>">
 
 
@@ -811,7 +811,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_mardi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mardi, $date_Y));
 
                                 ?>
-                                <input type="text" name="dt_mardi" value="<?php echo $date_mardi; ?>">
+                                <input type="text" name="dt_mardi" value="<?php echo $dt_mardi; ?>">
                                 <input type="button" name="date_mardi" class="accordion" value="<?php echo TXT_MARDI . " $date_mardi"; ?>">
 
 
@@ -882,7 +882,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_mercredi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mercredi, $date_Y));
 
                                 ?>
-                                <input type="hidden" name="dt_mercredi" value="<?php echo $date_mercredi; ?>">
+                                <input type="hidden" name="dt_mercredi" value="<?php echo $dt_mercredi; ?>">
                                 <input type="button" name="date_mercredi" class="accordion" value="<?php echo TXT_MERCREDI . " $date_mercredi"; ?>">
 
                                 <div class="panel">
@@ -950,7 +950,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_jeudi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_jeudi, $date_Y));
 
                                 ?>
-                                <input type="text" name="dt_jeudi" value="<?php echo $date_jeudi; ?>">
+                                <input type="text" name="dt_jeudi" value="<?php echo $dt_jeudi; ?>">
                                 <input type="button" name="date_jeudi" class="accordion" value="<?php echo TXT_JEUDI . " $date_jeudi"; ?>">
 
                                 <div class="panel">
@@ -1024,7 +1024,7 @@ date_default_timezone_set('Europe/Paris');
                                 $date_vendredi = strftime("%d/%m/%Y", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_vendredi, $date_Y));
 
                                 ?>
-                                <input type="hidden" name="dt_vendredi" value="<?php echo $date_vendredi; ?>">
+                                <input type="hidden" name="dt_vendredi" value="<?php echo $dt_vendredi; ?>">
                                 <input type="button" name="date_vendredi" class="accordion" value="<?php echo TXT_VENDREDI . " $date_vendredi"; ?>">
 
 
@@ -1138,7 +1138,7 @@ date_default_timezone_set('Europe/Paris');
             } else if (isset($_POST['Mardi'])) {
                 $jour = "Mardi";
                 $horaire = $_POST['Mardi'];
-                $date_retour =$_POST['dt_mardi'];
+                $date_retour = $_POST['dt_mardi'];
             } else if (isset($_POST['Mercredi'])) {
                 $jour = "Mercredi";
                 $horaire = $_POST['Mercredi'];
@@ -1146,13 +1146,14 @@ date_default_timezone_set('Europe/Paris');
             } else if (isset($_POST['Jeudi'])) {
                 $jour = "Jeudi";
                 $horaire = $_POST['Jeudi'];
-                $date_retour =$_POST['dt_jeudi'];
+                $date_retour = $_POST['dt_jeudi'];
             } else if (isset($_POST['Vendredi'])) {
                 $jour = "Vendredi";
                 $horaire = $_POST['Vendredi'];
                 $date_retour = $_POST['dt_vendredi'];
             }
-            $date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
+            //$date_emprunt = strftime("%d/%m/%Y", strtotime($_POST['DateEmprunt']));
+            $date_emprunt = $_POST['DateEmprunt'];
             $categorieM = $_POST['CategorieM'];
 
             /*$id_materiel = ("SELECT * FROM materiel WHERE EtatM LIKE 'Dispo' AND StatutM LIKE 'Existant' AND CategorieM = '$categorieM' LIMIT 1");
@@ -1209,7 +1210,7 @@ date_default_timezone_set('Europe/Paris');
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col col-form-label"><?php echo TXT_DATER; ?> : </label>
                                     <div class="col">
-                                        <input type="text" class="form-control-plaintext" name="date_retour" value="<?php echo strftime('%Y-%m-%d',strtotime($date_retour)); ?>" readonly>
+                                        <input type="text" class="form-control-plaintext" name="date_retour" value="<?php echo strftime("%Y-%m-%d", strtotime($date_retour)); ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -1254,19 +1255,19 @@ date_default_timezone_set('Europe/Paris');
 
             <?php
             if (isset($_POST['confirmer_restitution'])) {
-                echo $date_Retour = $_POST['DateRetour'].";";
-                echo $dateRetour =strftime('%Y-%m-%d',strtotime($date_Retour)).";";
+                echo $date_Retour = $_POST['DateRetour'];
+                //echo $dateRetour = strftime('%Y-%m-%d', strtotime($date_Retour)) . ";";
 
-                echo $horaire = $_POST['horaire'].";";
-                echo $jour = $_POST['jour'].";";
-                echo $date_Emprunt = $_POST['date_emprunt'].";";
-                echo $dateEmprunt =strftime("%Y-%m-%d",strtotime($date_Emprunt)).";";
+                echo $horaire = $_POST['horaire'];
+                echo $jour = $_POST['jour'];
+                echo $date_Emprunt = $_POST['date_emprunt'];
+                //echo $dateEmprunt = strftime("%Y-%m-%d", strtotime($date_Emprunt)) . ";";
 
-                echo $categorie = $_POST['CategorieM'].";";
-                echo $identifiantM = $_POST['IdentifiantM'].";";
-                echo $identifiantCal = $_POST['IdentifiantCal'].";";
+                echo $categorie = $_POST['CategorieM'];
+                echo $identifiantM = $_POST['IdentifiantM'];
+                echo $identifiantCal = $_POST['IdentifiantCal'];
 
-                echo $identifiantPe = $identifiant.";";
+                echo $identifiantPe = $identifiant;
 
 
                 $restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
@@ -1281,7 +1282,7 @@ date_default_timezone_set('Europe/Paris');
 
 
                 $insert_rdv = ("INSERT INTO `emprunt`(`DateEmprunt`, `DateRetour`, `DateProlongation`, `Motif`, `IdentifiantM`, `IdentifiantPe`, `IdentifiantCal`, `Contrat`)
-                    VALUES ('$dateEmprunt', '$dateRetour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$identifiantCal', 'signe')");
+                    VALUES ('$date_Emprunt', '$date_Retour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$identifiantCal', 'signe')");
 
                 $result_insert_rdv = mysqli_query($session, $insert_rdv);
 

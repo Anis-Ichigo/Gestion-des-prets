@@ -3,7 +3,7 @@ require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 require('decide-lang.php');
 require('fpdf183/fpdf.php');
-header( 'content-type: text/html; charset=utf-8' );
+header('content-type: text/html; charset=utf-8');
 date_default_timezone_set('Europe/Paris');
 
 ?>
@@ -614,13 +614,28 @@ date_default_timezone_set('Europe/Paris');
                                                                     <?php echo TXT_DATE; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
-                                                                    <?php $dt = $row['DateEmprunt'];
-                                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                                    $dateAffichee = $date->format('d/m/Y');
-                                                                    echo $dateAffichee; ?>
+                                                                    <?php
+                                                                    if ($row['Motif'] == 'Retour') {
+                                                                    ?>
+                                                                        <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
+                                                                        <?php $dt = $row['DateRetour'];
+                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                        $dateAffichee = $date->format('d/m/Y');
+                                                                        echo $dateAffichee; ?>
+                                                                    <?php
+                                                                    } else {
+                                                                    ?>
+                                                                        <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                                        <?php $dt = $row['DateEmprunt'];
+                                                                        $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                                        $dateAffichee = $date->format('d/m/Y');
+                                                                        echo $dateAffichee; ?>
+                                                                    <?php
+                                                                    } ?>
                                                                 </td>
                                                             </tr>
+
+
 
                                                             <tr>
                                                                 <td style="text-align : left">
@@ -692,13 +707,27 @@ date_default_timezone_set('Europe/Paris');
                                                 <?php echo TXT_DATE; ?>
                                             </td>
                                             <td>
-                                                <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
-                                                <?php $dt = $row['DateEmprunt'];
-                                                $date = DateTime::createFromFormat('Y-m-d', $dt);
-                                                $dateAffichee = $date->format('d/m/Y');
-                                                echo $dateAffichee; ?>
+                                                <?php
+                                                if ($row['Motif'] == 'Retour') {
+                                                ?>
+                                                    <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
+                                                    <?php $dt = $row['DateRetour'];
+                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                    $dateAffichee = $date->format('d/m/Y');
+                                                    echo $dateAffichee; ?>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+                                                    <?php $dt = $row['DateEmprunt'];
+                                                    $date = DateTime::createFromFormat('Y-m-d', $dt);
+                                                    $dateAffichee = $date->format('d/m/Y');
+                                                    echo $dateAffichee; ?>
+                                                <?php
+                                                } ?>
                                             </td>
                                         </tr>
+
 
                                         <tr>
                                             <td style="text-align : left">
@@ -1532,7 +1561,7 @@ date_default_timezone_set('Europe/Paris');
                                         AND emprunt.IdentifiantPe = personne.IdentifiantPe
                                         AND materiel.IdentifiantMo = modele.IdentifiantMo
                                         AND emprunt.Contrat LIKE 'a signer'
-                                        GROUP BY emprunt.IdentifiantE, materiel.IdentifiantM, materiel.CategorieM, emprunt.DateRetour, modele.IdentifiantMo, modele.Marque, emprunt.DateEmprunt, emprunt.IdentifiantE, personne.PrenomPe, personne.NomPe" ;
+                                        GROUP BY emprunt.IdentifiantE, materiel.IdentifiantM, materiel.CategorieM, emprunt.DateRetour, modele.IdentifiantMo, modele.Marque, emprunt.DateEmprunt, emprunt.IdentifiantE, personne.PrenomPe, personne.NomPe";
                     $result = mysqli_query($session, $informations);
 
                     $IdentifiantE = $_POST['IdentifiantE'];
