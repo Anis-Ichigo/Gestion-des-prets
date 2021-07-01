@@ -745,7 +745,8 @@ date_default_timezone_set('Europe/Paris');
             AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                 FROM emprunt, calendrier
                                                 WHERE calendrier.JourCal = 'Lundi'
-                                                AND emprunt.DateEmprunt = '$dt_lundi'
+                                                AND (emprunt.DateEmprunt = '$dt_lundi'
+                                                    OR emprunt.DateRetour = '$dt_lundi')
                                                 AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -757,7 +758,8 @@ date_default_timezone_set('Europe/Paris');
             AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                 FROM emprunt, calendrier
                                                 WHERE calendrier.JourCal = 'Lundi'
-                                                AND emprunt.DateEmprunt = '$dt_lundi'
+                                                AND (emprunt.DateEmprunt = '$dt_lundi'
+                                                    OR emprunt.DateRetour = '$dt_lundi')
                                                 AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -832,7 +834,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mardi'
-                                                        AND emprunt.DateEmprunt = '$dt_mardi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mardi'
+                                                            OR emprunt.DateRetour = '$dt_mardi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -844,7 +847,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mardi'
-                                                        AND emprunt.DateEmprunt = '$dt_mardi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mardi'
+                                                            OR emprunt.DateRetour = '$dt_mardi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -900,7 +904,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mercredi'
-                                                        AND emprunt.DateEmprunt = '$dt_mercredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mercredi'
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -912,7 +917,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Mercredi'
-                                                        AND emprunt.DateEmprunt = '$dt_mercredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_mercredi'
+                                                            OR emprunt.DateRetour = '$dt_mercredi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -967,7 +973,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Jeudi'
-                                                        AND emprunt.DateEmprunt = '$dt_jeudi'
+                                                        AND (emprunt.DateEmprunt = '$dt_jeudi'
+                                                            OR emprunt.DateRetour = '$dt_jeudi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -979,7 +986,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Jeudi'
-                                                        AND emprunt.DateEmprunt = '$dt_jeudi'
+                                                        AND (emprunt.DateEmprunt = '$dt_jeudi'
+                                                            OR emprunt.DateRetour = '$dt_jeudi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -1044,7 +1052,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Vendredi'
-                                                        AND emprunt.DateEmprunt = '$dt_vendredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_vendredi'
+                                                            OR emprunt.DateRetour = '$dt_vendredi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -1056,7 +1065,8 @@ date_default_timezone_set('Europe/Paris');
                     AND calendrier.IdentifiantCal NOT IN (SELECT emprunt.IdentifiantCal
                                                         FROM emprunt, calendrier
                                                         WHERE calendrier.JourCal = 'Vendredi'
-                                                        AND emprunt.DateEmprunt = '$dt_vendredi'
+                                                        AND (emprunt.DateEmprunt = '$dt_vendredi'
+                                                            OR emprunt.DateRetour = '$dt_vendredi')
                                                         AND emprunt.Statut_RDV LIKE 'a venir');";
                                             $res = mysqli_query($session, $sql);
                                             $num = mysqli_num_rows($res);
@@ -1267,7 +1277,7 @@ date_default_timezone_set('Europe/Paris');
 
                 $identifiantPe = $identifiant;
 
-                $rdv_retour=("
+                $rdv_retour = ("
                     SELECT *
                     FROM emprunt
                     WHERE IdentifiantPe='$identifiantPe'
@@ -1283,8 +1293,8 @@ date_default_timezone_set('Europe/Paris');
 
 
                 if ($nb_lignes == 0) {
-                    $restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
-                    $result_restitution = mysqli_query($session, $restitution);
+                    /*$restitution = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
+                    $result_restitution = mysqli_query($session, $restitution);*/
 
                     $creneau = ("SELECT * FROM calendrier WHERE calendrier.JourCal LIKE '$jour' AND calendrier.HoraireCal = '$horaire'");
                     $result_creneau = mysqli_query($session, $creneau);
@@ -1298,7 +1308,7 @@ date_default_timezone_set('Europe/Paris');
                     VALUES ('$date_Emprunt', '$date_Retour', NULL, 'Retour', '$identifiantM', '$identifiantPe', '$IdentifiantCal', 'signe')");
 
                     $result_insert_rdv = mysqli_query($session, $insert_rdv);
-                    ?>
+            ?>
 
                     <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -1331,9 +1341,9 @@ date_default_timezone_set('Europe/Paris');
 
                     ?>
 
-                    <?php
+                <?php
                 } else if ($nb_lignes > 0) {
-                    ?>
+                ?>
                     <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -1356,13 +1366,12 @@ date_default_timezone_set('Europe/Paris');
                             </div>
                         </div>
                     </div>
-                    <?php
+            <?php
                     echo "<script>
         $(window).load(function() {
             $('#alerte').modal('show');
         });
     </script>";
-
                 }
             }
 
@@ -1419,7 +1428,7 @@ date_default_timezone_set('Europe/Paris');
 
 
 
-    <!--
+            <!--
         <form action="" method="POST">
             <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
             <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">

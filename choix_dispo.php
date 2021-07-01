@@ -407,16 +407,80 @@ AND calendrier.EtatCal = 'Indisponible'";
             $horaire = $_POST['Vendredi_dispo'];
         }
 
+        $verif_creneau = "SELECT *
+                            FROM calendrier, emprunt, personne
+                            WHERE calendrier.JourCal='$jour'
+                            AND emprunt.IdentifiantPe = personne.IdentifiantPe
+                            AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
+                            AND calendrier.IdentifiantCal IN (SELECT emprunt.IdentifiantCal
+                                                                FROM emprunt, calendrier
+                                                                WHERE calendrier.JourCal = '$jour'
+                                                                AND emprunt.DateEmprunt >= NOW()
+                                                                AND emprunt.Statut_RDV LIKE 'a venir'
+                                                                AND emprunt.IdentifiantPe = personne.IdentifiantPe
+                                                                AND emprunt.IdentifiantCal = calendrier.IdentifiantCal)";
+        $res_verif_creneau = mysqli_query($session, $verif_creneau);
+        $rdv = mysqli_fetch_array($res_verif_creneau);
+
+        if (mysqli_num_rows($res_verif_creneau) > 0) {
+    ?>
+            <form action="" method="POST">
+
+                <input type="hidden" value="<?php echo $jour ?>" name="jour">
+                <input type="hidden" value="<?php echo $horaire ?>" name="horaire">
+
+                <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                                    </svg>
+                                    <div>
+                                        <?php if ($rdv['Motif'] == 'Pret') {
+                                            $date_RDV = strftime("%d/%m/%Y", strtotime($rdv['DateEmprunt']));
+                                        }
+                                        if ($rdv['Motif'] == 'Retour') {
+                                            $date_RDV = strftime("%d/%m/%Y", strtotime($rdv['DateRetour']));
+                                        }
+                                        ?>
+                                        <?php echo "Attention, vous avez un rendez-vous de prévu pour ce créneau avec " . $rdv['PrenomPe'] . " " . $rdv['NomPe'] . " le " . $date_RDV . " que vous pouvez prévenir à l'adresse : " . $rdv['IdentifiantPe']; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col text-center">
+                                    <input type="button" class="btn btn-primary" onclick='document.location.href="choix_dispo.php"' value="Annuler">
+                                    <input type="submit" class="btn btn-primary" name="confirmer_choix" value="Confirmer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <?php
+            echo "<script>
+        $(window).load(function() {
+            $('#alerte').modal('show');
+        });
+    </script>";
+        }
+    }
+
+
+    if (isset($_POST['confirmer_choix'])) {
+        $jour = $_POST['jour'];
+        $horaire = $_POST['horaire'];
 
         $calendrier = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE JourCal = '$jour' AND HoraireCal = '$horaire'");
         $result_calendrier = mysqli_query($session, $calendrier);
-    ?>
+        ?>
         <script type="text/javascript">
             document.location.href = 'choix_dispo.php';
         </script>
-        <?php
+    <?php
     }
-
 
     if (isset($_POST['Lundi']) || isset($_POST['Mardi']) || isset($_POST['Mercredi']) || isset($_POST['Jeudi']) || isset($_POST['Vendredi'])) {
 
@@ -437,60 +501,13 @@ AND calendrier.EtatCal = 'Indisponible'";
             $horaire = $_POST['Vendredi'];
         }
 
-        $verif_creneau = "SELECT *
-                            FROM calendrier, emprunt, personne
-                            WHERE calendrier.JourCal='$jour'
-                            AND emprunt.IdentifiantPe = personne.IdentifiantPe
-                            AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
-                            AND calendrier.IdentifiantCal IN (SELECT emprunt.IdentifiantCal
-                                                                FROM emprunt, calendrier
-                                                                WHERE calendrier.JourCal = '$jour'
-                                                                AND emprunt.DateEmprunt >= NOW()
-                                                                AND emprunt.Statut_RDV LIKE 'a venir'
-                                                                AND emprunt.IdentifiantPe = personne.IdentifiantPe
-                                                                AND emprunt.IdentifiantCal = calendrier.IdentifiantCal)";
-        $res_verif_creneau = mysqli_query($session, $verif_creneau);
-        $rdv = mysqli_fetch_array($res_verif_creneau);
 
-        if (mysqli_num_rows($res_verif_creneau) > 0) {
-        ?>
-            <div class="modal fade" id="alerte" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                                </svg>
-                                <div>
-
-                                    <?php echo "Attention, vous avez un rendez-vous de prévu pour ce créneau avec " . $rdv['PrenomPe'] . " " . $rdv['NomPe'] . " que vous pouvez prévenir à l'adresse : " . $rdv['IdentifiantPe']; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="col text-center">
-                                <input type="button" class="btn btn-primary" onclick='document.location.href="choix_dispo.php"' value="<?php echo TXT_OK; ?> ">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php
-            echo "<script>
-        $(window).load(function() {
-            $('#alerte').modal('show');
-        });
-    </script>";
-        } else {
-
-            $calendrier = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE JourCal = '$jour' AND HoraireCal = '$horaire'");
-            $result_calendrier = mysqli_query($session, $calendrier);
-        ?>
-            <script type="text/javascript">
-                document.location.href = 'choix_dispo.php';
-            </script>
+        $calendrier = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE JourCal = '$jour' AND HoraireCal = '$horaire'");
+        $result_calendrier = mysqli_query($session, $calendrier);
+    ?>
+        <script type="text/javascript">
+            document.location.href = 'choix_dispo.php';
+        </script>
     <?php
-        }
     }
     ?>

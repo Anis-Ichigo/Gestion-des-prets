@@ -307,8 +307,8 @@ date_default_timezone_set('Europe/Paris');
 
           $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'termine' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_update_RDV = mysqli_query($session, $update_RDV);
-          $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
-          $result_update_cal = mysqli_query($session, $update_cal);
+          /*$update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+          $result_update_cal = mysqli_query($session, $update_cal);*/
         } else if ($_POST['motif'] == 'Retour') {
           $ide = $_POST['ide'];
           $idm = $_POST['idm'];
@@ -316,8 +316,8 @@ date_default_timezone_set('Europe/Paris');
 
           $update_RDV = ("UPDATE emprunt SET Statut_RDV = 'termine' WHERE IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_update_RDV = mysqli_query($session, $update_RDV);
-          $update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
-          $result_update_cal = mysqli_query($session, $update_cal);
+          /*$update_cal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+          $result_update_cal = mysqli_query($session, $update_cal);*/
           $rendu = ("UPDATE emprunt SET EtatE = 'Rendu' WHERE IdentifiantPe = '$ide' AND IdentifiantM = '$idm'");
           $result_rendu = mysqli_query($session, $rendu);
         }
@@ -527,10 +527,10 @@ date_default_timezone_set('Europe/Paris');
               $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
             }
 
-            if (($nouvelle_date_rdv != $date_rdv) || ($nouvelle_heure != $heure)) {
+            /*if (($nouvelle_date_rdv != $date_rdv) || ($nouvelle_heure != $heure)) {
               $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
               $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
-            }
+            }*/
 
           ?>
 
@@ -618,8 +618,8 @@ date_default_timezone_set('Europe/Paris');
 
           $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
           $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
-          $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
-          $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
+          /*$modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
+          $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);*/
 
         ?>
           <script type="text/javascript">
