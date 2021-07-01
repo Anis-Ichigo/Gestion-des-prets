@@ -601,6 +601,7 @@ date_default_timezone_set('Europe/Paris');
                                                         <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
                                                         <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
                                                         <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
+                                                        <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
 
 
 
@@ -727,6 +728,8 @@ date_default_timezone_set('Europe/Paris');
                                     <input type="hidden" name="DateRetour" value="<?php echo $row['DateRetour']; ?>">
                                     <input type="hidden" name="motif" value="<?php echo $row['Motif']; ?>">
                                     <input type="hidden" name="horaire_modif" value="<?php echo $row['Horaire_modif']; ?>">
+                                    <input type="hidden" name="DateEmprunt" value="<?php echo $row['DateEmprunt']; ?>">
+
 
 
                                     <table>
@@ -1155,6 +1158,7 @@ date_default_timezone_set('Europe/Paris');
                     <input type="hidden" name="DateRetour" value="<?php echo $_POST['DateRetour']; ?>">
                     <input type="hidden" name="CategorieM" value="<?php echo $_POST['CategorieM']; ?>">
                     <input type="hidden" name="motif" value="<?php echo $_POST['motif']; ?>">
+                    <input type="hidden" name="horaire_modif" value="<?php echo $_POST['horaire_modif']; ?>">
 
 
 
@@ -1220,30 +1224,42 @@ date_default_timezone_set('Europe/Paris');
                                     //echo $_POST['DateRetour'];
                                     //echo strftime('%A', strtotime($_POST['DateRetour']));
                                     //echo strftime("%d/%m/%Y", strtotime($_POST['DateRetour']));
-                                    $date_retour = date_create($_POST['DateRetour']);
-                                    $date_emprunt = date_create($_POST['DateEmprunt']);
+                                    $date_ret = date_create($_POST['DateRetour']);
+                                    $date_emp = date_create($_POST['DateEmprunt']);
+
+                                    //echo $date_retour;
+                                    //echo $date_emprunt;
 
                                     if ($_POST['motif'] == 'Pret') {
-                                        $date_m = $date_emprunt->format('m');
-                                        $date_d = $date_emprunt->format('d');
-                                        $date_Y = $date_emprunt->format('Y');
+                                        $date_m = $date_emp->format('m');
+                                        $date_d = $date_emp->format('d');
+                                        $date_Y = $date_emp->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Monday") {
+                                            $nb_jours_lundi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Tuesday") {
+                                            $nb_jours_lundi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Wednesday") {
+                                            $nb_jours_lundi = 2;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Thursday") {
+                                            $nb_jours_lundi = 3;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Friday") {
+                                            $nb_jours_lundi = 4;
+                                        }
                                     } else if ($_POST['motif'] == 'Retour') {
-                                        $date_m = $date_retour->format('m');
-                                        $date_d = $date_retour->format('d');
-                                        $date_Y = $date_retour->format('Y');
-                                    }
-
-
-                                    if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
-                                        $nb_jours_lundi = 0;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
-                                        $nb_jours_lundi = 1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
-                                        $nb_jours_lundi = 2;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
-                                        $nb_jours_lundi = 3;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
-                                        $nb_jours_lundi = 4;
+                                        $date_m = $date_ret->format('m');
+                                        $date_d = $date_ret->format('d');
+                                        $date_Y = $date_ret->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
+                                            $nb_jours_lundi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
+                                            $nb_jours_lundi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
+                                            $nb_jours_lundi = 2;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
+                                            $nb_jours_lundi = 3;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
+                                            $nb_jours_lundi = 4;
+                                        }
                                     }
 
 
@@ -1318,18 +1334,40 @@ date_default_timezone_set('Europe/Paris');
         </div>
         -->
                                     <?php
-                                    if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
-                                        $nb_jours_mardi = -1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
-                                        $nb_jours_mardi = 0;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
-                                        $nb_jours_mardi = 1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
-                                        $nb_jours_mardi = 2;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
-                                        $nb_jours_mardi = 3;
-                                    }
 
+
+
+                                    if ($_POST['motif'] == 'Pret') {
+                                        $date_m = $date_emp->format('m');
+                                        $date_d = $date_emp->format('d');
+                                        $date_Y = $date_emp->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Monday") {
+                                            $nb_jours_mardi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Tuesday") {
+                                            $nb_jours_mardi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Wednesday") {
+                                            $nb_jours_mardi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Thursday") {
+                                            $nb_jours_mardi = 2;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Friday") {
+                                            $nb_jours_mardi = 3;
+                                        }
+                                    } else if ($_POST['motif'] == 'Retour') {
+                                        $date_m = $date_ret->format('m');
+                                        $date_d = $date_ret->format('d');
+                                        $date_Y = $date_ret->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
+                                            $nb_jours_mardi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
+                                            $nb_jours_mardi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
+                                            $nb_jours_mardi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
+                                            $nb_jours_mardi = 2;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
+                                            $nb_jours_mardi = 3;
+                                        }
+                                    }
 
                                     $dt_mardi = strftime("%Y-%m-%d", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_mardi, $date_Y));
 
@@ -1389,16 +1427,37 @@ date_default_timezone_set('Europe/Paris');
                                     </div>
 
                                     <?php
-                                    if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
-                                        $nb_jours_mercredi = -2;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
-                                        $nb_jours_mercredi = -1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
-                                        $nb_jours_mercredi = 0;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
-                                        $nb_jours_mercredi = 1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
-                                        $nb_jours_mercredi = 2;
+
+                                    if ($_POST['motif'] == 'Pret') {
+                                        $date_m = $date_emp->format('m');
+                                        $date_d = $date_emp->format('d');
+                                        $date_Y = $date_emp->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Monday") {
+                                            $nb_jours_mercredi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Tuesday") {
+                                            $nb_jours_mercredi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Wednesday") {
+                                            $nb_jours_mercredi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Thursday") {
+                                            $nb_jours_mercredi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Friday") {
+                                            $nb_jours_mercredi = 2;
+                                        }
+                                    } else if ($_POST['motif'] == 'Retour') {
+                                        $date_m = $date_ret->format('m');
+                                        $date_d = $date_ret->format('d');
+                                        $date_Y = $date_ret->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
+                                            $nb_jours_mercredi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
+                                            $nb_jours_mercredi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
+                                            $nb_jours_mercredi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
+                                            $nb_jours_mercredi = 1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
+                                            $nb_jours_mercredi = 2;
+                                        }
                                     }
 
 
@@ -1457,16 +1516,39 @@ date_default_timezone_set('Europe/Paris');
                                     </div>
 
                                     <?php
-                                    if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
-                                        $nb_jours_jeudi = -3;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
-                                        $nb_jours_jeudi = -2;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
-                                        $nb_jours_jeudi = -1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
-                                        $nb_jours_jeudi = 0;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
-                                        $nb_jours_jeudi = 1;
+
+
+
+                                    if ($_POST['motif'] == 'Pret') {
+                                        $date_m = $date_emp->format('m');
+                                        $date_d = $date_emp->format('d');
+                                        $date_Y = $date_emp->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Monday") {
+                                            $nb_jours_jeudi = -3;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Tuesday") {
+                                            $nb_jours_jeudi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Wednesday") {
+                                            $nb_jours_jeudi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Thursday") {
+                                            $nb_jours_jeudi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Friday") {
+                                            $nb_jours_jeudi = 1;
+                                        }
+                                    } else if ($_POST['motif'] == 'Retour') {
+                                        $date_m = $date_ret->format('m');
+                                        $date_d = $date_ret->format('d');
+                                        $date_Y = $date_ret->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
+                                            $nb_jours_jeudi = -3;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
+                                            $nb_jours_jeudi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
+                                            $nb_jours_jeudi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
+                                            $nb_jours_jeudi = 0;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
+                                            $nb_jours_jeudi = 1;
+                                        }
                                     }
 
 
@@ -1532,16 +1614,37 @@ date_default_timezone_set('Europe/Paris');
         </button>
         -->
                                     <?php
-                                    if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
-                                        $nb_jours_vendredi = -4;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
-                                        $nb_jours_vendredi = -3;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
-                                        $nb_jours_vendredi = -2;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
-                                        $nb_jours_vendredi = -1;
-                                    } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
-                                        $nb_jours_vendredi = 0;
+
+                                    if ($_POST['motif'] == 'Pret') {
+                                        $date_m = $date_emp->format('m');
+                                        $date_d = $date_emp->format('d');
+                                        $date_Y = $date_emp->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Monday") {
+                                            $nb_jours_vendredi = -4;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Tuesday") {
+                                            $nb_jours_vendredi = -3;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Wednesday") {
+                                            $nb_jours_vendredi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Thursday") {
+                                            $nb_jours_vendredi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateEmprunt'])) == "Friday") {
+                                            $nb_jours_vendredi = 0;
+                                        }
+                                    } else if ($_POST['motif'] == 'Retour') {
+                                        $date_m = $date_ret->format('m');
+                                        $date_d = $date_ret->format('d');
+                                        $date_Y = $date_ret->format('Y');
+                                        if (strftime('%A', strtotime($_POST['DateRetour'])) == "Monday") {
+                                            $nb_jours_vendredi = -4;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Tuesday") {
+                                            $nb_jours_vendredi = -3;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Wednesday") {
+                                            $nb_jours_vendredi = -2;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Thursday") {
+                                            $nb_jours_vendredi = -1;
+                                        } else if (strftime('%A', strtotime($_POST['DateRetour'])) == "Friday") {
+                                            $nb_jours_vendredi = 0;
+                                        }
                                     }
 
                                     $dt_vendredi = strftime("%Y-%m-%d", mktime(0, 0, 0, $date_m, $date_d - $nb_jours_vendredi, $date_Y));
@@ -1652,6 +1755,7 @@ date_default_timezone_set('Europe/Paris');
 
             <?php
             if (isset($_POST['Lundi']) || isset($_POST['Mardi']) || isset($_POST['Mercredi']) || isset($_POST['Jeudi']) || isset($_POST['Vendredi'])) {
+                
                 if (isset($_POST['Lundi'])) {
                     $jour = "Lundi";
                     $horaire = $_POST['Lundi'];
