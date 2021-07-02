@@ -65,45 +65,45 @@ date_default_timezone_set('Europe/Paris');
                     <?php
                     if ($role_user == "Responsable") {
                     ?>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV;?></a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET;?> </a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS;?></a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="profil.php"  style="background-color: none; color: black"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?> </a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
-                    </li>
-                    <li class="nav-item  text-center">
-                        <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
-                    </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET; ?> </a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="profil.php" style="background-color: none; color: black"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?> </a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
+                        </li>
                     <?php
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-              <a class="nav-link" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN; ?></a>
-            </li>
-            <li class="nav-item  text-center">
-              <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
-            </li>
-            <li class="nav-item  text-center">
-              <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
-            </li>
-            <li class="nav-item  text-center">
-              <a class="nav-link active" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
-            </li>
-            <li class="nav-item  text-center">
-              <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
-            </li>
+                            <a class="nav-link" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link active" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
+                        </li>
+                        <li class="nav-item  text-center">
+                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
+                        </li>
                         </li>
                     <?php
                     } else if ($role_user == "Emprunteur") {
@@ -148,13 +148,13 @@ date_default_timezone_set('Europe/Paris');
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL;?> </a>
+                <a class="nav-link active" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL; ?> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE;?> </a>
+                <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE; ?> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="choix_dispo.php"><?php echo DISPONIBLE;?></a>
+                <a class="nav-link" href="choix_dispo.php"><?php echo DISPONIBLE; ?></a>
             </li>
         </ul>
 
@@ -625,7 +625,7 @@ date_default_timezone_set('Europe/Paris');
                                                         ?>
                                                             <tr>
                                                                 <td style="text-align : left">
-                                                                  <?php echo MOTIF;?>
+                                                                    <?php echo MOTIF; ?>
                                                                 </td>
                                                                 <td>
                                                                     <?php echo "  " . $row['Motif'] ?>
@@ -752,7 +752,7 @@ date_default_timezone_set('Europe/Paris');
                                                             ?>
                                                                 <tr>
                                                                     <td style="text-align : left">
-                                                                        <?php echo MOTIF;?>
+                                                                        <?php echo MOTIF; ?>
                                                                     </td>
                                                                     <td>
                                                                         <?php echo "  " . $row['Motif'] ?>
@@ -2015,8 +2015,163 @@ date_default_timezone_set('Europe/Paris');
 
         </div>
 
+        <?php
+
+        if (isset($_POST['valider_contrat'])) {
+
+            $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe'
+                    FROM personne, materiel, emprunt, modele
+                    WHERE emprunt.IdentifiantM = materiel.IdentifiantM
+                    AND emprunt.IdentifiantPe = personne.IdentifiantPe
+                    AND materiel.IdentifiantMo = modele.IdentifiantMo
+                    AND emprunt.Contrat LIKE 'a signer'
+                    GROUP BY emprunt.IdentifiantE, materiel.IdentifiantM, materiel.CategorieM, emprunt.DateRetour, modele.IdentifiantMo, modele.Marque, emprunt.DateEmprunt, emprunt.IdentifiantE, personne.PrenomPe, personne.NomPe";
+            $result = mysqli_query($session, $informations);
+
+            $IdentifiantE = $_POST['IdentifiantE'];
+            $validation = "UPDATE emprunt SET Contrat = 'signe' WHERE emprunt.IdentifiantE = '$IdentifiantE'";
+            $result_validation = mysqli_query($session, $validation);
+
+            foreach ($result as $row) {
+                $IdentifiantM = $row['IdentifiantM'];
+                $CategorieM = $row['CategorieM'];
+                $date_retour = strftime('%d/%m/%Y', strtotime($row['DateRetour']));;
+                $modele = $row['IdentifiantMo'];
+                $marque = $row['Marque'];
+                $date_emprunt = strftime('%d/%m/%Y', strtotime($row['DateEmprunt']));
+                $IdentifiantE = $row['IdentifiantE'];
+                $prenom = $row['PrenomPe'];
+                $nom = $row['NomPe'];
+            }
 
 
+            if ($CategorieM == 'Ordinateur') {
+                $var = "un";
+            } else {
+                $var = "une";
+            }
+            /*
+class PDF extends FPDF
+{
+    protected $B = 0;
+    protected $I = 0;
+    protected $U = 0;
+    protected $HREF = '';
+
+    function WriteHTML($html)
+    {
+        // HTML parser
+        $html = str_replace("\n", ' ', $html);
+        $a = preg_split('/<(.*)>/U', $html, -1, PREG_SPLIT_DELIM_CAPTURE);
+        foreach ($a as $i => $e) {
+            if ($i % 2 == 0) {
+                // Text
+                if ($this->HREF)
+                    $this->PutLink($this->HREF, $e);
+                else
+                    $this->Write(10, $e);
+            } else {
+                // Tag
+                if ($e[0] == '/')
+                    $this->CloseTag(strtoupper(substr($e, 1)));
+                else {
+                    // Extract attributes
+                    $a2 = explode(' ', $e);
+                    $tag = strtoupper(array_shift($a2));
+                    $attr = array();
+                    foreach ($a2 as $v) {
+                        if (preg_match('/([^=]*)=["\']?([^"\']*)/', $v, $a3))
+                            $attr[strtoupper($a3[1])] = $a3[2];
+                    }
+                    $this->OpenTag($tag, $attr);
+                }
+            }
+        }
+    }
+
+    function OpenTag($tag, $attr)
+    {
+        // Opening tag
+        if ($tag == 'B' || $tag == 'I' || $tag == 'U')
+            $this->SetStyle($tag, true);
+        if ($tag == 'A')
+            $this->HREF = $attr['HREF'];
+        if ($tag == 'BR')
+            $this->Ln(10);
+    }
+
+    function CloseTag($tag)
+    {
+        // Closing tag
+        if ($tag == 'B' || $tag == 'I' || $tag == 'U')
+            $this->SetStyle($tag, false);
+        if ($tag == 'A')
+            $this->HREF = '';
+    }
+
+    function SetStyle($tag, $enable)
+    {
+        // Modify style and select corresponding font
+        $this->$tag += ($enable ? 1 : -1);
+        $style = '';
+        foreach (array('B', 'I', 'U') as $s) {
+            if ($this->$s > 0)
+                $style .= $s;
+        }
+        $this->SetFont('', $style);
+    }
+
+    function PutLink($URL, $txt)
+    {
+        // Put a hyperlink
+        $this->SetTextColor(0, 0, 255);
+        $this->SetStyle('U', true);
+        $this->Write(5, $txt, $URL);
+        $this->SetStyle('U', false);
+        $this->SetTextColor(0);
+    }
+}
+
+
+$pdf = new PDF();
+$pdf->SetLeftMargin(30);
+$pdf->SetRightMargin(15);
+$pdf->AddPage();
+$pdf->Image('miage.jpg', 10, 6, 30);
+$pdf->Ln(60);
+$pdf->SetFont('Helvetica', '', 14);
+
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je soussigné(e) <b>{$prenom} {$nom} </b>, déclare recevoir {$var} <b>{$CategorieM} N°{$IdentifiantM}.</b> Je m’engage à restituer le matériel à tout moment si le responsable de la formation en a besoin ou avant le <b>{$date_retour}</b> dans le pire des cas."));
+$pdf->Ln(15);
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Le prêt comprend :<br>{$var} <b>{$CategorieM} {$modele}</b> de la marque <b>{$marque}</b> et une sacoche."));
+
+
+$pdf->Ln(40);
+$pdf->SetLeftMargin(145);
+$pdf->MultiCell(0, 10, iconv('UTF-8', 'windows-1252', "Fait le {$date_emprunt}"));
+
+$pdf->SetLeftMargin(30);
+$pdf->SetRightMargin(15);
+$pdf->Ln(15);
+$pdf->Image('box.png', 31, 192, 5, 0, '');
+$pdf->SetLeftMargin(40);
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "Je certifie sur l'honneur être d'accord avec le présent contrat."));
+$pdf->Ln(15);
+$pdf->Image('box.png', 31, 206, 5, 0, '');
+$pdf->SetLeftMargin(40);
+$pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consent à l'utilisation de ma signature électronique, je certifie qu'elle est valide et a le même effet qu'une signature écrite sur une copie papier de ce document."));
+
+
+$pdf->Output();
+
+/*$verif_contrat = "SELECT * 
+                    FROM emprunt, personne
+                    WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
+                    AND personne.IdentifiantPe = '$identifiantPe'
+                    AND emprunt.IdentifiantE = '$IdentifiantE'";
+$result_verif_contrat = mysqli_query($session, $verif_contrat);*/
+        }
+        ?>
 
 
 </body>
