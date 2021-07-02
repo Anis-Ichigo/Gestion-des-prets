@@ -53,27 +53,27 @@ date_default_timezone_set('Europe/Paris');
                     <?php
                     if ($role_user == "Responsable") {
                     ?>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> Liste des rendez-vous</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> Suivi des prêts</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> Statistiques</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> Profil</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" style="background-color: none; color:black" aria-current="page" href="reservation_portable"><i class=" fi-rr-add"></i> Nouvelle réservation</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> Mes emprunts</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> Réglages</a>
-                        </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV;?></a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET;?> </a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS;?></a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" aria-current="page" href="reservation_portable.php" style="background-color: none; color: black"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?> </a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link" href="mes_reservations.php" ><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
+                    </li>
+                    <li class="nav-item  text-center">
+                        <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
+                    </li>
                     <?php
                     } else if ($role_user == "Vacataire") {
                     ?>

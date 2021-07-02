@@ -387,6 +387,10 @@ define('TXT_RAZ_TERMINE','RAZ Terminée');
 define('TXT_REPONDRE','Répondre');
 define('TXT_TRANSFERER','Transférer');
 
-
-
+//secretaire
+define('LISTE_RDV', 'Liste des rendez-vous');
+define('SUIVI_PRET', 'Suivi des prêts');
+define('STATS', 'Statistiques');
+define('VACATAIRE', 'Vacataire');
+define('DISPONIBLE', 'Choix disponibilités');
  ?>

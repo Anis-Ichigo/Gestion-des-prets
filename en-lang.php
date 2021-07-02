@@ -383,3 +383,10 @@ define('TXT_RAZ_TERMINE','Reset completed');
 
 define('TXT_REPONDRE','Reply');
 define('TXT_TRANSFERER','Transfer');
+
+//secretaire
+define('LISTE_RDV', 'Appointments list');
+define('SUIVI_PRET', 'Loans monitoring');
+define('STATS', 'Statistics');
+define('VACATAIRE', 'Temporary');
+define('DISPONIBLE', 'Choose availability');
