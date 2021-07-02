@@ -63,7 +63,7 @@ define('TXT_ALERTE_SUCCES_MODIFIER', 'Your slot has been modified');
 define('TXT_ACCUEIL_RESERVATION', 'My loans');
 define('TXT_RETRAIT', 'Date of withdrawal');
 define('TXT_DATER', 'Return date');
-define('TXT_PROLONGER', 'Extend');
+define('TXT_PROLONGER', 'Modify return date');
 define('TXT_PROBLEME', 'Report a probleme');
 define('TXT_RESTITUER', 'Return equipment');
 define('TXT_DATERA', 'Current return date');

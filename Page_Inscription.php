@@ -171,7 +171,7 @@ if (isset($_SESSION['lang'])) {
 
             <TD align=right>
               <div class="form-floating mb-2">
-                <input type="password" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="motPasse" value="" required>
+                <input type="password" class="form-control" id="floatingInput" minlength="4" placeholder=" " autocomplete="off" name="motPasse" value="" required>
                 <label for="floatingInput"><?php echo TXT_MDP_INS; ?> : </label>
               </div>
             </TD>
@@ -182,7 +182,7 @@ if (isset($_SESSION['lang'])) {
 
             <TD align=right>
               <div class="form-floating mb-2">
-                <input type="password" class="form-control" id="floatingInput" placeholder=" " autocomplete="off" name="motPasse2" value="" required>
+                <input type="password" class="form-control" id="floatingInput" minlength="4" placeholder=" " autocomplete="off" name="motPasse2" value="" required>
                 <label for="floatingInput"><?php echo TXT_CONFIRMER_MDP_INS; ?> : </label>
               </div>
             </TD>

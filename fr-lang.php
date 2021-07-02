@@ -67,7 +67,7 @@ define('TXT_ALERTE_SUCCES_MODIFIER', 'Votre créneau a bien été modifié');
 define('TXT_ACCUEIL_RESERVATION', 'Mes emprunts');
 define('TXT_RETRAIT', 'Date de retrait');
 define('TXT_DATER', 'Date de retour');
-define('TXT_PROLONGER', 'Prolonger');
+define('TXT_PROLONGER', 'Modifier date retour');
 define('TXT_PROBLEME', 'Déclarer un problème');
 define('TXT_RESTITUER', 'Restituer le matériel');
 define('TXT_DATERA', 'Date de retour actuelle');

@@ -476,8 +476,8 @@ date_default_timezone_set('Europe/Paris');
             </div>
             <div class="modal-footer">
               <div class="col text-center">
-                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_OUI; ?>">
-                <input type="submit" class="btn btn-primary" name="supprimer_materiel" value="<?php echo TXT_NON; ?>">
+                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="<?php echo TXT_NON; ?>">
+                <input type="submit" class="btn btn-primary" name="supprimer_materiel" value="<?php echo TXT_OUI; ?>">
               </div>
             </div>
           </div>
