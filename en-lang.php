@@ -119,7 +119,7 @@ define('ALERTE_ERREUR_MDP', 'The passwords do not match. Please try again !');
 define('ERREUR_MDP_COURT', 'The password is too short !');
 define('TXT_MAIL_INCORRECT', 'Please enter your universitary mail');
 define('TXT_BTN_URG', 'An emergency ?');
-define('TXT_RES_URG',"For an emergency, please take the first slot available and see directly with the person in charge Mrs BALLABRIGA Lydie office XXXX.");
+define('TXT_RES_URG',"For an emergency, please take the first slot available and see directly with the person in charge Mrs BALLABRIGA Lydie office");
 define('PLUS_INFORMATION', "More information");
 define('MAIL_EXISTE', 'This mail is already used');
 
