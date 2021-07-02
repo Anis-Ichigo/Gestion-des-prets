@@ -222,7 +222,7 @@ if (isset($_SESSION['lang'])) {
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Plus d'informations</h4>
+          <h4 class="modal-title"><?php echo PLUS_INFORMATION;?></h4>
           <button type="button" class="close closemodal">
             <span>&times;</span>
           </button>
@@ -465,7 +465,7 @@ if (isset($_SESSION['lang'])) {
                     <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                   </svg>
                   <div style="margin-left: auto; margin-right: auto;">
-                    <?php echo "Ce mail est déjà utilisé"; ?>
+                    <?php echo MAIL_EXISTE; ?>
                   </div>
                 </div>
               </div>

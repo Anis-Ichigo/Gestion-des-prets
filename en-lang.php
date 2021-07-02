@@ -39,6 +39,7 @@ define('TXT_NUMERO', 'Equipment No');
 define('TXT_TYPE', 'Equipment type');
 define('TXT_DATE', 'Date');
 define('TXT_HEURE', 'Hour');
+define('MOTIF', 'Reason for appointment :');
 
 //buttons
 define('TXT_RETOUR', 'Return');
@@ -84,7 +85,9 @@ define('TXT_CONFIRMATION_RDV', 'Do you want to confirm the appointment ?');
 define('TXT_BUREAU', 'Office');
 define('TXT_CONFIRMER_RDV', 'Confirm appointment');
 define('TXT_ALERTE_SUCCES_CRENEAU', 'Your time slot has been reserved');
-
+define('NO_EMPRUNT',"There are no outstanding loans");
+define('CONTRAT', 'View the contract');
+define('RDV_RETOUR_EXISTANT', 'You have already made the return appointment.');
 
 // reservation_portable.php
 define('TXT_ACCUEIL_NOUVELLER', 'New reservation');
@@ -99,6 +102,7 @@ define('MDP_COURT', 'Password is too short!');
 define('MDP_CHAMPS', 'Please complete all fields!');
 define('TXT_CHOIX_CRENEAU','Please select a time slot to gather the equipment');
 define('TXT_ERREUR_JOUR', 'Please, choose an other date than Saturday or Sunday');
+define('DATE_RETOUR', "The return date must be later than the date of the appointment.");
 
 
 //Page_inscription.php
@@ -116,6 +120,8 @@ define('ERREUR_MDP_COURT', 'The password is too short !');
 define('TXT_MAIL_INCORRECT', 'Please enter your universitary mail');
 define('TXT_BTN_URG', 'An emergency ?');
 define('TXT_RES_URG',"For an emergency, please take the first slot available and see directly with the person in charge Mrs BALLABRIGA Lydie office XXXX.");
+define('PLUS_INFORMATION', "More information");
+define('MAIL_EXISTE', 'This mail is already used');
 
 
 //FAQ.php
@@ -141,7 +147,7 @@ define('TXT_REPONSE5_B', 'here');
 define('TXT_QUESTION6', "Review the terms and conditions of use of the data");
 define('TXT_REPONSE6', "Please find the General Terms of Use");
 define('TXT_QUESTION7', 'Do you have another question?');
-define('TXT_REPONSE7', "If you have any other questions or would like more information on any point, we are at your disposal for any request. You can contact us via the page My Reservations that you will find");
+define('TXT_REPONSE7', "If you have any other questions or would like more information on any point, we are at your disposal for any request. You can contact Mrs BALLABRIGA, the person in charge of the management of the loans of material, or in case of technical problem you can declare a problem in the page 'My loans', in this case, a person will deal with your question.");
 
 //CGU.php
 
@@ -366,6 +372,8 @@ define('TXT_OUI','Yes');
 define('TXT_NON','No');
 define('TXT_ENTRETIEN','Maintenance');
 define('TXT_AJOUTER','ADD');
+define('TXT_MAT_EXISTE', 'This material number already exists');
+define('DATE_RECEPTION', 'Receipt date');
 
 //RAZ.PHP
 
@@ -375,6 +383,3 @@ define('TXT_RAZ_TERMINE','Reset completed');
 
 define('TXT_REPONDRE','Reply');
 define('TXT_TRANSFERER','Transfer');
-
-
-

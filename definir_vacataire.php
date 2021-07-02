@@ -149,7 +149,7 @@ date_default_timezone_set('Europe/Paris');
         <a class="nav-link active" href="definir_vacataire.php">Vacataire </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="choix_dispo.php">Choix disponibilitée</a>
+        <a class="nav-link" href="choix_dispo.php">Choix disponibilités</a>
       </li>
     </ul>
 
@@ -363,8 +363,8 @@ date_default_timezone_set('Europe/Paris');
                   <OPTION>Enseignant</OPTION>
                   <OPTION>Personnel Administratif</OPTION>
                 </SELECT>
-                <label for="formation"><?php echo TXT_FORMATION; ?> : </label>
-                <SELECT id="formation" name="formation" class="form-select">
+                <label for="formation" style="display: block;" id="formation"><?php echo TXT_FORMATION; ?> : </label>
+                <SELECT id="formation" name="formation" class="form-select" style="display: block;">
                   <OPTION>L3 MIASHS TI</OPTION>
                   <OPTION>LICENCE PRO RTAI</OPTION>
                   <OPTION>M1 MIAGE IM</OPTION>
@@ -652,6 +652,19 @@ date_default_timezone_set('Europe/Paris');
   }
   ?>
 
+  <script>
+    function changementStatut() {
+
+      var statut = document.getElementById('statut').value;
+      if (statut == 'Personnel Administratif' || statut == 'Enseignant') {
+        document.getElementById('formation').style.display = 'none';
+      } else {
+        document.getElementById('formation').style.display = 'block';
+      }
+
+    }
+  </script>
+  
 </body>
 
 </html>

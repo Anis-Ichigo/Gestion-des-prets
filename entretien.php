@@ -173,7 +173,7 @@ date_default_timezone_set('Europe/Paris');
                 </svg>
 
                 <div>
-                  <?php echo "Ce numéro de matériel existe déjà"; ?>
+                  <?php echo TXT_MAT_EXISTE; ?>
                 </div>
               </div>
             </div>
@@ -404,7 +404,7 @@ date_default_timezone_set('Europe/Paris');
                   <label for="floatingInput"><?php echo TXT_NOUVELLECAT; ?> :</label>
                 </div>
 
-                <label for="">Date de réception</label>
+                <label for=""><?php echo DATE_RECEPTION;?></label>
                 <input type='date' class='form-control mb-3' placeholder=" " name='date' required>
 
                 <div class="form-floating mb-3">

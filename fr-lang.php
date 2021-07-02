@@ -40,6 +40,7 @@ define('TXT_NUMERO', 'N° de matériel');
 define('TXT_TYPE', 'Type de matériel');
 define('TXT_DATE', 'Date');
 define('TXT_HEURE', 'Heure');
+define('MOTIF', 'Motif RDV :');
 
 //Bouton
 define('TXT_RETOUR', 'Retour');
@@ -85,6 +86,9 @@ define('TXT_CONFIRMATION_RDV', 'Souhaitez-vous confirmer le RDV ?');
 define('TXT_BUREAU', 'Bureau');
 define('TXT_CONFIRMER_RDV', 'Confirmer RDV');
 define('TXT_ALERTE_SUCCES_CRENEAU', 'Votre créneau a bien été réservé');
+define('NO_EMPRUNT',"Il n'y a aucun emprunt en cours");
+define('CONTRAT', 'Voir le contrat');
+define('RDV_RETOUR_EXISTANT', 'Vous avez déjà pris le RDV de retour.');
 
 //reservation_portable.php
 
@@ -102,6 +106,7 @@ define('TXT_CHOIX_CRENEAU','Veuillez choisir un créneau pour récuperer le mat�
 define('TXT_ERREUR_JOUR', 'Veuillez choisir une date autre que le samedi ou le dimanche');
 define('TXT_BTN_URG', 'Une urgence ?');
 define('TXT_RES_URG',"Pour une urgence merci de prendre le premier créneau disponible et de voir directement avec la responsable Mme BALLABRIGA Lydie bureau ");
+define('DATE_RETOUR', "La date de retour doit être supérieure à la date du RDV");
 
 //Page_Inscription.php
 
@@ -117,8 +122,8 @@ define('VALIDER', 'Valider');
 define('ALERTE_ERREUR_MDP', 'Les mots de passes ne correspondent pas. Veuillez recommencer !');
 define('ERREUR_MDP_COURT', 'Le mot de passe choisi est trop court !');
 define('TXT_MAIL_INCORRECT', 'Veuillez saisir votre adresse universitaire');
-
-
+define('PLUS_INFORMATION', "Plus d'informations");
+define('MAIL_EXISTE', 'Ce mail est déjà utilisé');
 //FAQ.php
 
 define('TXT_ACCUEIL_FAQ', 'Foire Aux Questions');
@@ -370,6 +375,8 @@ define('TXT_OUI','Oui');
 define('TXT_NON','Non');
 define('TXT_ENTRETIEN','Entretien');
 define('TXT_AJOUTER','Ajouter');
+define('TXT_MAT_EXISTE', 'Ce numéro de matériel existe déjà');
+define('DATE_RECEPTION', 'Date de réception');
 
 //RAZ.PHP
 

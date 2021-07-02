@@ -356,7 +356,7 @@ date_default_timezone_set('Europe/Paris');
           if ($nb_lignes > 0) {
             $destinataire = $row["IdentifiantPe"];
             $objet = "Remise du matériel";
-            $message = "Veuillez rendre le matériel emprunté";
+            $message = "Bonjour, Veuillez prendre rendez-vous afin de rendre le matériel emprunté. Cordialement, ";
             $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
               'Reply-To: Responsable des prêts de matériels' . "\r\n" .
               'X-Mailer: PHP/' . phpversion();
@@ -370,7 +370,7 @@ date_default_timezone_set('Europe/Paris');
           if ($nb_lignes_depasse > 0) {
             $destinataire = $row['IdentifiantPe'];
             $objet = "Date de retour dépassée";
-            $message = "Veuillez rendre le matériel emprunté";
+            $message = "Bonjour, la date de remise est dépassée veuillez prendre rendez-vous afin de rendre le matériel emprunté dans les plus brefs délais. Cordialement,";
             $headers = 'From: Responsable des prêts de matériels' . "\r\n" .
               'Reply-To: Responsable des prêts de matériels' . "\r\n" .
               'X-Mailer: PHP/' . phpversion();

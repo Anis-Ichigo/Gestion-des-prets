@@ -145,16 +145,16 @@ date_default_timezone_set('Europe/Paris');
                 <?php echo TXT_NUM_MAT;?>
                 </th>
                 <th>
-                <?php echo TXT_EMAIL;?> 
+                <?php echo TXT_EMAIL;?>
                 </Th>
                 <th>
-                <?php echo TXT_TEL;?> 
+                <?php echo TXT_TEL;?>
                 </Th>
                 <th>
-                <?php echo TXT_TYPEMAT;?> 
+                <?php echo TXT_TYPEMAT;?>
                 </Th>
                 <th>
-                <?php echo TXT_DESCRIPTION;?>   
+                <?php echo TXT_DESCRIPTION;?>
                 </Th>
                 <th>
 
@@ -232,7 +232,7 @@ date_default_timezone_set('Europe/Paris');
 
         $destinataire = $_POST["IdentifiantPe"];
         $objet = "Remise du matériel pour panne";
-        $message = "Veuillez prendre un RDV pour effectuer un nouvel emprunt et pour ramener le matériel deffectueux";
+        $message = "Bonjour, Veuillez prendre un RDV pour effectuer un nouvel emprunt et pour ramener le matériel deffectueux merci. Cordialement,";
         $headers = 'From: vacataire' . "\r\n" .
             'Reply-To: vacataire' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
@@ -241,7 +241,7 @@ date_default_timezone_set('Europe/Paris');
 
         $destinataire = "responsable@ut-capitole.fr";
         $objet = "Remise du matériel pour panne";
-        $message = "Le matériel '$identifiantM', emprunté par '$prenom' ' ' '$nom' doit être envoyé à la DSI pour réparation. Le problème est le suivant : '$description'";
+        $message = "Bonjour, Le matériel '$identifiantM', emprunté par '$prenom' ' ' '$nom' doit être envoyé à la DSI pour réparation. Le problème est le suivant : '$description'. Pouvez-vous faire le nécessaire s'il vous plaît ? Merci. Cordialement,";
         $headers = 'From: vacataire' . "\r\n" .
             'Reply-To: vacataire' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();

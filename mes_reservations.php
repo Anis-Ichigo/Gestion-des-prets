@@ -153,7 +153,7 @@ date_default_timezone_set('Europe/Paris');
     $nb_lignes = mysqli_num_rows($result_reservations);
 
     if ($nb_lignes == 0) {
-        echo ("<p style='text-align: center; font-size: 20px'>Il n'y a aucun emprunt en cours</p>");
+        echo ("<p style='text-align: center; font-size: 20px'>"NO_EMPRUNT"</p>");
     } else if ($nb_lignes > 0) {
 
 
@@ -248,7 +248,7 @@ date_default_timezone_set('Europe/Paris');
 
                                                 <form action="pdf.php" method="post">
                                                     <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
-                                                    <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                                    <button type="submit" name="valider_contrat"><?php echo CONTRAT;?></button>
                                                 </form>
                                             </div>
                                         </div>
@@ -328,7 +328,7 @@ date_default_timezone_set('Europe/Paris');
                                         </form>
                                         <form action="pdf.php" method="post">
                                             <input type="hidden" name="IdentifiantE" value="<?php echo $IdentifiantE; ?>">
-                                            <button type="submit" name="valider_contrat">Voir le contrat</button>
+                                            <button type="submit" name="valider_contrat"><?php echo CONTRAT;?></button>
                                         </form>
 
                                     </div>
@@ -366,7 +366,7 @@ date_default_timezone_set('Europe/Paris');
 
             <form action="" method="POST">
                 <input type="hidden" name="IdentifiantE" value="<?php echo $_POST['IdentifiantE']; ?>">
-                <?php //echo $_POST['IdentifiantE']; 
+                <?php //echo $_POST['IdentifiantE'];
                 ?>
 
                 <input type="hidden" name="IdentifiantM" value="<?php echo $_POST['IdentifiantM']; ?>">
@@ -1354,7 +1354,7 @@ date_default_timezone_set('Europe/Paris');
                                             <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
                                         </svg>
                                         <div>
-                                            <?php echo 'Vous avez déjà pris le RDV de retour.'; ?>
+                                            <?php echo RDV_RETOUR_EXISTANT; ?>
                                         </div>
                                     </div>
                                 </div>
