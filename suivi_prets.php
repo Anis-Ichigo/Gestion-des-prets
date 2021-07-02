@@ -138,8 +138,6 @@ date_default_timezone_set('Europe/Paris');
       </div>
     </nav>
 
-    <br><br>
-
     <?php
     $nb_demande_prolongation = ("SELECT * FROM emprunt WHERE DateProlongation <> ''");
     $result_nb_demande_prolongation = mysqli_query($session, $nb_demande_prolongation);
@@ -223,7 +221,7 @@ date_default_timezone_set('Europe/Paris');
     ?>
 
 
-    <br><br>
+    <br>
 
     <div class="contenu">
       <?php
