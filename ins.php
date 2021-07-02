@@ -42,7 +42,7 @@ if (is_mobile()) {
 
     header("HTTP/1.1 301 Moved Permanently");
 
-    header("Location: ../portable/Page_Inscription.php");
+    header("Location: ../gestion-des-reservation-portable/Page_Inscription.php");
 
 
 } else {
