@@ -1,8 +1,9 @@
 <?php
-session_start();
+require('decide-lang.php');
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
+
 
 ?>
 <!DOCTYPE html>
