@@ -2,6 +2,9 @@
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 require('decide-lang.php');
+if (!$_SESSION['identifiant']) {
+    header("Location: Index.html");
+}
 require('fpdf183/fpdf.php');
 date_default_timezone_set('Europe/Paris');
 

@@ -1,4 +1,9 @@
-<?php require('decide-lang.php'); ?>
+<?php 
+require('decide-lang.php'); 
+if (!$_SESSION['identifiant']) {
+    header("Location: Index.html");
+} 
+?>
 
 <!DOCTYPE html>
 <html>

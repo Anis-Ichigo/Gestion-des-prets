@@ -1,5 +1,8 @@
 <?php
 require('decide-lang.php');
+if (!$_SESSION['identifiant']) {
+    header("Location: Index.html");
+}
 require('Connexion_BD.php');
 mysqli_set_charset($session, "utf-8");
 

@@ -1,6 +1,9 @@
 <?php
 require('decide-lang.php');
 require('Connexion_BD.php');
+if (!$_SESSION['identifiant']) {
+  header("Location: Index.html");
+}
 mysqli_set_charset($session, "utf8");
 date_default_timezone_set('Europe/Paris');
 
