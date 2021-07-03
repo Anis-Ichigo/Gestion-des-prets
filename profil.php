@@ -2055,7 +2055,7 @@ date_default_timezone_set('Europe/Paris');
 
             $nb_contrats = "SELECT * FROM emprunt WHERE IdentifiantPe = '$identifiantPe' AND Contrat = 'a signer'";
             $result_nb_contrats = mysqli_query($session, $nb_contrats);
-            echo mysqli_num_rows($result_nb_contrats);
+            //echo mysqli_num_rows($result_nb_contrats);
 
             if (mysqli_num_rows($result_nb_contrats) > 0) {
         ?>
