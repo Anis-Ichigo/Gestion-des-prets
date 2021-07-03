@@ -530,10 +530,10 @@ date_default_timezone_set('Europe/Paris');
               $result_modifier_id_materiel = mysqli_query($session, $modifier_id_materiel);
             }
 
-            /*if (($nouvelle_date_rdv != $date_rdv) || ($nouvelle_heure != $heure)) {
-              $modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
-              $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);
-            }*/
+            if (($nouvelle_date_rdv != $date_rdv) || ($nouvelle_heure != $heure)) {
+              $modifier_idCal = ("UPDATE emprunt SET IdentifiantCal = 161 WHERE IdentifiantE = '$idemprunt'");
+              $result_modifier_idCal = mysqli_query($session, $modifier_idCal);
+            }
 
           ?>
 

@@ -65,13 +65,13 @@ date_default_timezone_set('Europe/Paris');
                     if ($role_user == "Responsable") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV?></a>
+                            <a class="nav-link" href="liste_RDV.php"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET?></a>
+                            <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS?></a>
+                            <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS ?></a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" style="background-color: none; color:black" href="profil.php"><i class=" fi-rr-user"></i><?php echo PROFIL; ?></a>
@@ -145,13 +145,13 @@ date_default_timezone_set('Europe/Paris');
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL;?> </a>
+                <a class="nav-link" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL; ?> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE;?> </a>
+                <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE; ?> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="background-color: none; color: black" href="choix_dispo.php"><?php echo DISPONIBLE;?></a>
+                <a class="nav-link" style="background-color: none; color: black" href="choix_dispo.php"><?php echo DISPONIBLE; ?></a>
             </li>
         </ul>
 
@@ -468,6 +468,14 @@ AND calendrier.EtatCal = 'Indisponible'";
             $('#alerte').modal('show');
         });
     </script>";
+        } else {
+            $calendrier = ("UPDATE calendrier SET EtatCal = 'Indisponible' WHERE JourCal = '$jour' AND HoraireCal = '$horaire'");
+            $result_calendrier = mysqli_query($session, $calendrier);
+        ?>
+            <script type="text/javascript">
+                document.location.href = 'choix_dispo.php';
+            </script>
+        <?php
         }
     }
 
