@@ -134,21 +134,33 @@ mysqli_set_charset($session, "utf-8");
 
             <div class="form-group" align="center" style="font-size: 1.1em">
 
-                <input id="fr" type="radio" name="lang" value="fr" checked>
+                <input id="fr" type="radio" name="lang" value="fr" <?php
+                                                                    if($_SESSION['lang']=="fr"){
+                                                                        echo "checked";
+                                                                    }
+                                                                    ?>>
                 <label for="fr">
                     &nbsp;&nbsp;
-                    <span class="flag-icon flag-icon-fr"></span>
+                    <span class="flag-icon flag-icon-fr" ></span>
                     Français
                 </label>
                 &nbsp;&nbsp;
-                <input id="en" type="radio" name="lang" value="en">
+                <input id="en" type="radio" name="lang" value="en"<?php
+                                                                    if($_SESSION['lang']=="en"){
+                                                                        echo "checked";
+                                                                    }
+                                                                    ?>>
                 <label for="en">
                     &nbsp; &nbsp;
                     <span class="flag-icon flag-icon-um"></span>
                     English
                 </label><br><br>
 
-                <input id="cn" type="radio" name="lang" value="cn">
+                <input id="cn" type="radio" name="lang" value="cn"<?php
+                                                                    if($_SESSION['lang']=="cn"){
+                                                                        echo "checked";
+                                                                    }
+                                                                    ?>>
                 <label for="cn">
                     &nbsp; &nbsp;
                     <span class="flag-icon flag-icon-cn"></span>
