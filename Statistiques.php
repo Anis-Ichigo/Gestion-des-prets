@@ -136,7 +136,6 @@ mysqli_set_charset($session, "utf-8");
         </div>
     </main>
 
-
     <?php
     $stat1 = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour',materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM  GROUP BY materiel.CategorieM";
     $resultat_stat1 = mysqli_query($session, $stat1);
@@ -224,7 +223,7 @@ mysqli_set_charset($session, "utf-8");
         $categorie = $_POST['type'];
     }
 
-    $stat1 = "SELECT COUNT(materiel.IdentifiantM) as 'nombre',  ( SELECT CASE MONTH(emprunt.DateEmprunt)
+    $stat2 = "SELECT COUNT(materiel.IdentifiantM) as 'nombre',  ( SELECT CASE MONTH(emprunt.DateEmprunt)
     WHEN 1 THEN 'janvier'
     WHEN 2 THEN 'février'
     WHEN 3 THEN 'mars'
@@ -244,11 +243,11 @@ AND materiel.CategorieM = '$categorie'
 GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
 
 
-    $resultat_stat1 = mysqli_query($session, $stat1);
+    $resultat_stat2 = mysqli_query($session, $stat2);
     $date = array();
     $categorie = array();
     $mois = array();
-    foreach ($resultat_stat1 as $row) {
+    foreach ($resultat_stat2 as $row) {
         array_push($date, $row['nombre']);
         array_push($categorie, $row['categorie']);
         array_push($mois, $row['mois']);
@@ -304,34 +303,122 @@ GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
                     }
                 }
             }
+
         });
+    </script>
+    <main>
+        <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+            <canvas id="graphe4" class="chartjs-render-monitor"></canvas>
+        </div>
+    </main>
+
+    <form action="" method="POST">
+        <label style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" for="">Type de matériel</label>
+        <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type3" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+            <?php
+            $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
+            $result_categories = mysqli_query($session, $categories);
+            foreach ($result_categories as $row) {
+            ?>
+                <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+            <?php
+            }
+            ?>
+        </SELECT>
+        <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider3" value="Valider">
+    </form>
+
+    <script>
+        function nouvelleCategorie() {
+            return document.getElementById('categorie').value;
+        }
     </script>
 
     <?php
-      $stat = "SELECT AVG(TIMESTAMPDIFF(DAY, DateProbleme, DateResolution)) as 'moyenne' FROM probleme, materiel WHERE probleme.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM != 'DSI'";
-      $resultat = mysqli_query($session, $stat);
-      $tps = mysqli_fetch_array($resultat);
-     ?>
+    $categorie = "Ordinateur";
+    if (isset($_POST['valider3'])) {
+        $categorie = $_POST['type3'];
+    }
 
-     <main>
-         <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
-           <div><p>Temps moyen de résolution des problèmes par le vacataire (en jours) :</p></div>
-           <div><?php echo $tps['moyenne']?></div>
-         </div>
-     </main>
+      $stat2_bis = "SELECT SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour', ( SELECT CASE MONTH(emprunt.DateEmprunt)
+      WHEN 1 THEN 'janvier'
+      WHEN 2 THEN 'février'
+      WHEN 3 THEN 'mars'
+      WHEN 4 THEN 'avril'
+      WHEN 5 THEN 'mai'
+      WHEN 6 THEN 'juin'
+      WHEN 7 THEN 'juillet'
+      WHEN 8 THEN 'août'
+      WHEN 9 THEN 'septembre'
+      WHEN 10 THEN 'octobre'
+      WHEN 11 THEN 'novembre'
+      ELSE 'décembre'
+    END)  as 'mois', materiel.CategorieM as 'categorie'
+    FROM emprunt, materiel
+    WHERE emprunt.IdentifiantM = materiel.IdentifiantM
+    AND materiel.CategorieM = '$categorie'
+    GROUP BY materiel.CategorieM, month(emprunt.DateEmprunt)";
+    $resultat_stat2_bis = mysqli_query($session, $stat2_bis);
+    $date = array();
+    $categorie = array();
+    $mois = array();
+    foreach ($resultat_stat2_bis as $row) {
+        array_push($date, $row['Nombre de jour']);
+        array_push($categorie, $row['categorie']);
+        array_push($mois, $row['mois']);
+    }
 
-<?php
-     $stat2 ="SELECT AVG(DATEDIFF(now(), DateRetour)) as 'moyenne2' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM = 'Non dispo' AND emprunt.EtatE = 'Rendu'";
-     $resultat_2 = mysqli_query($session, $stat2);
-     $moyenne = mysqli_fetch_array($resultat_2);
-?>
+    ?>
 
-<main>
-    <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
-      <div><p>Temps moyen de remise en service RAZ (en jours) :</p></div>
-      <div><?php echo $moyenne['moyenne2']?></div>
-    </div>
-</main>
+    <script>
+        var lb = <?php echo json_encode($date); ?>;
+        var dt = <?php echo json_encode($categorie); ?>;
+        var dt_mois = <?php echo json_encode($mois); ?>;
+
+
+
+        var ctx = document.getElementById('graphe4').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+
+            data: {
+                labels: dt_mois,
+                datasets: [{
+                    data: lb,
+                    label: 'Nb de jours de réservation de ce matériel pour ce mois',
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(15, 69, 98, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(15, 69, 98, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: "Nombre de jours de réservation par mois pour le matériel sélectionné "
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 <main>
     <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
@@ -435,6 +522,134 @@ if (isset($_POST['valider2'])) {
 
 
   </script>
+
+  <main>
+      <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+          <canvas id="graphe5" class="chartjs-render-monitor"></canvas>
+      </div>
+  </main>
+
+  <form action="" method="POST">
+      <label style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" for="">Type de matériel</label>
+      <SELECT size="1" style="width: 10%; margin-right:auto; margin-left:auto;" name="type4" onchange="nouvelleCategorie()" id="categorie" class="form-select mb-3">
+          <?php
+          $categories = ("SELECT * FROM materiel GROUP BY CategorieM");
+          $result_categories = mysqli_query($session, $categories);
+          foreach ($result_categories as $row) {
+          ?>
+              <OPTION><?php echo $row['CategorieM']; ?></OPTION>
+          <?php
+          }
+          ?>
+      </SELECT>
+      <input type="submit" style="width: 10%; margin-right:auto; margin-left:auto; text-align:center; display:block" name="valider4" value="Valider">
+  </form>
+
+  <script>
+      function nouvelleCategorie() {
+          return document.getElementById('categorie').value;
+      }
+  </script>
+
+  <?php
+  $categorie = "Ordinateur";
+  if (isset($_POST['valider4'])) {
+      $categorie = $_POST['type4'];
+  }
+
+    $stat3_bis = "SELECT WEEKOFYEAR(emprunt.DateEmprunt) as 'semaine', SUM(DATEDIFF(DateRetour, DateEmprunt)) as 'Nombre de jour', materiel.CategorieM as 'categorie' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.CategorieM = '$categorie' GROUP BY WEEKOFYEAR(emprunt.DateEmprunt), materiel.CategorieM ";
+    $resultat3_bis = mysqli_query($session, $stat3_bis);
+
+    $semaine = array();
+    $jour =  array();
+    $categorie = array();
+
+    foreach ($resultat3_bis as $row) {
+        array_push($semaine, $row['semaine']);
+        array_push($jour, $row['Nombre de jour']);
+        array_push($categorie, $row['categorie']);
+    }
+
+  ?>
+
+  <script>
+      var lb = <?php echo json_encode($jour); ?>;
+      var dt = <?php echo json_encode($categorie); ?>;
+      var dt_semaine = <?php echo json_encode($semaine); ?>;
+
+
+
+      var ctx = document.getElementById('graphe5').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+
+          data: {
+              labels: dt_semaine,
+              datasets: [{
+                  data: lb,
+                  label: 'Nombre de jours matériel emprunté cette semaine',
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(15, 69, 98, 0.2)',
+                      'rgba(54, 162, 235, 0.2)'
+
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(15, 69, 98, 1)',
+                      'rgba(54, 162, 235, 1)'
+                  ],
+                  borderWidth: 1
+
+              }]
+          },
+          options: {
+              plugins: {
+                  legend: {
+                      display: false
+                  },
+                  title: {
+                      display: true,
+                      text: "Nombre de jours de réservation par semaine pour le matériel sélectionné "
+                  }
+              },
+
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+            }
+        });
+    </script>
+
+  <?php
+    $stat = "SELECT AVG(TIMESTAMPDIFF(DAY, DateProbleme, DateResolution)) as 'moyenne' FROM probleme, materiel WHERE probleme.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM != 'DSI'";
+    $resultat = mysqli_query($session, $stat);
+    $tps = mysqli_fetch_array($resultat);
+   ?>
+
+   <main>
+       <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+         <div><p>Temps moyen de résolution des problèmes par le vacataire (en jours) :</p></div>
+         <div><?php echo $tps['moyenne']?></div>
+       </div>
+   </main>
+
+<?php
+   $stat2 ="SELECT AVG(DATEDIFF(now(), DateRetour)) as 'moyenne2' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM = 'Non dispo' AND emprunt.EtatE = 'Rendu'";
+   $resultat_2 = mysqli_query($session, $stat2);
+   $moyenne = mysqli_fetch_array($resultat_2);
+?>
+
+<main>
+  <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
+    <div><p>Temps moyen de remise en service RAZ (en jours) :</p></div>
+    <div><?php echo $moyenne['moyenne2']?></div>
+  </div>
+</main>
+
+
 </body>
 
 </html>

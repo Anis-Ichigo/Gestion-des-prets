@@ -135,7 +135,7 @@ define('TXT_QUESTION2', 'Can I borrow more than one piece of equipment?');
 define('TXT_REPONSE2', "Yes, it is possible! In this case, you will just have to fill in several loan requests. Each time you will choose the equipment, the desired return date and the time of the appointment. The procedure is the same for all loans.");
 define('TXT_QUESTION3', 'May I extend my loan?');
 define('TXT_REPONSE3_A', 'Yes, it is possible! In this case, all you have to do is click on the button');
-define('TXT_REPONSE3_B', 'Extend');
+define('TXT_REPONSE3_B', 'Modify return date');
 define('TXT_REPONSE3_C', "on the loan whose contract you wish to extend.");
 define('TXT_QUESTION4', 'What should I do if my equipment malfunctions?');
 define('TXT_REPONSE4_A', 'When the equipment no longer works, or has a malfunction, you must');
