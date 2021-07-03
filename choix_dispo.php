@@ -415,9 +415,11 @@ AND calendrier.EtatCal = 'Indisponible'";
                             WHERE calendrier.JourCal='$jour'
                             AND emprunt.IdentifiantPe = personne.IdentifiantPe
                             AND emprunt.IdentifiantCal = calendrier.IdentifiantCal
+                            AND calendrier.HoraireCal = '$horaire'
                             AND calendrier.IdentifiantCal IN (SELECT emprunt.IdentifiantCal
                                                                 FROM emprunt, calendrier
                                                                 WHERE calendrier.JourCal = '$jour'
+                                                                AND calendrier.HoraireCal = '$horaire'
                                                                 AND emprunt.DateEmprunt >= NOW()
                                                                 AND emprunt.Statut_RDV LIKE 'a venir'
                                                                 AND emprunt.IdentifiantPe = personne.IdentifiantPe
