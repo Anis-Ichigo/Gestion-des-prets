@@ -498,7 +498,7 @@ date_default_timezone_set('Europe/Paris');
   if (isset($_POST['supprimer_materiel'])) {
     $numero = $_POST['numero_materiel'];
 
-    $supprimer = "UPDATE materiel SET StatutM = 'Supprimé' WHERE IdentifiantM = ?";
+    $supprimer = "UPDATE materiel SET StatutM = 'Supprimé', EtatM = 'Non Dispo' WHERE IdentifiantM = ?";
     if ($stmt = mysqli_prepare($session, $supprimer)) {
       mysqli_stmt_bind_param($stmt, 's', $numero);
       mysqli_stmt_execute($stmt);

@@ -2019,6 +2019,8 @@ date_default_timezone_set('Europe/Paris');
 
         if (isset($_POST['valider_contrat'])) {
 
+            $identifiantPe = $_SESSION['identifiant'];
+
             $informations = "SELECT MAX(emprunt.IdentifiantE) AS 'DernierContrat', materiel.IdentifiantM AS 'IdentifiantM', materiel.CategorieM AS 'CategorieM', emprunt.DateRetour AS 'DateRetour', modele.IdentifiantMo AS 'IdentifiantMo', modele.Marque AS 'Marque', emprunt.DateEmprunt AS 'DateEmprunt', emprunt.IdentifiantE AS 'IdentifiantE', personne.PrenomPe AS 'PrenomPe', personne.NomPe AS 'NomPe'
                     FROM personne, materiel, emprunt, modele
                     WHERE emprunt.IdentifiantM = materiel.IdentifiantM
@@ -2050,6 +2052,19 @@ date_default_timezone_set('Europe/Paris');
             } else {
                 $var = "une";
             }
+
+            $nb_contrats = "SELECT * FROM emprunt WHERE IdentifiantPe = '$identifiantPe' AND Contrat = 'a signer'";
+            $result_nb_contrats = mysqli_query($session, $nb_contrats);
+            echo mysqli_num_rows($result_nb_contrats);
+
+            if (mysqli_num_rows($result_nb_contrats) > 0) {
+        ?>
+                <script type="text/javascript">
+                    document.location.href = 'contrat.php';
+                </script>
+        <?php
+            }
+
             /*
 class PDF extends FPDF
 {
