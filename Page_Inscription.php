@@ -137,7 +137,7 @@ if (isset($_SESSION['lang'])) {
             <TD>
               <label for="statut"><?php echo TXT_IDENTITE; ?> : </label>
 
-              <SELECT id="statut" name="statut" onchange="changementStatut()" class="form-select">
+              <SELECT id="statut" name="statut" onchange="changementStatut()" class="form-select mb-2">
                 <OPTION>Etudiant</OPTION>
                 <OPTION>Enseignant</OPTION>
                 <OPTION>Personnel Administratif</OPTION>
@@ -147,10 +147,10 @@ if (isset($_SESSION['lang'])) {
 
           <TR>
             <TD>
-              <label for="formation" style="display: block;" id="formation"><?php echo TXT_FORMATION; ?> : </label>
+              <label for="formation" style="display: block;" id="formation" ><?php echo TXT_FORMATION; ?> : </label>
 
 
-              <SELECT id="formation" name="formation" class="form-select" style="display: block;">
+              <SELECT id="formation_select" name="formation" class="form-select mb-2" style="display: block;">
                 <OPTION>L3 MIASHS TI</OPTION>
                 <OPTION>LICENCE PRO RTAI</OPTION>
                 <OPTION>M1 MIAGE IM</OPTION>
@@ -525,8 +525,10 @@ if (isset($_SESSION['lang'])) {
       var statut = document.getElementById('statut').value;
       if (statut == 'Personnel Administratif' || statut == 'Enseignant') {
         document.getElementById('formation').style.display = 'none';
+        document.getElementById('formation_select').style.display = 'none';
       } else {
         document.getElementById('formation').style.display = 'block';
+        document.getElementById('formation_select').style.display = 'block';
       }
 
     }
