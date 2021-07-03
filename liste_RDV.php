@@ -616,9 +616,13 @@ date_default_timezone_set('Europe/Paris');
         if (isset($_POST['Annuler_emprunt'])) {
           $ide = $_POST['ide'];
           $idemprunt = $_POST['idemprunt'];
+          $idm = $_POST['idm'];
 
           $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantE = '$idemprunt'");
           $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
+
+          $materiel_dispo = ("UPDATE materiel SET EtatM = 'Dispo' WHERE IdentifiantM = '$idm'");
+          $result_materiel_dispo = mysqli_query($session, $materiel_dispo);
           /*$modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);*/
 
