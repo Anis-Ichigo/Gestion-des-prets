@@ -169,13 +169,13 @@ date_default_timezone_set('Europe/Paris');
         <td>
           <input list="choix_vac" id="vacataire" name="vacataire" value="" autocomplete="off" />
 
-          <datalist id="choix_vac">
+          <datalist id="choix_vac" >
             <?php
             $liste_vac = "SELECT *  FROM personne WHERE RolePe != 'Vacataire'";
             $res = mysqli_query($session, $liste_vac);
             foreach ($res as $row) {
             ?>
-              <option value="<?php echo $row['NomPe'] . ' ' . $row['PrenomPe'] . ' ' . $row['IdentifiantPe'] ?>">
+              <option value="<?php echo $row['NomPe'] . ' ' . $row['PrenomPe'] . ' ' . $row['IdentifiantPe'] ?>" >
               <?php
             }
               ?>
@@ -197,10 +197,10 @@ date_default_timezone_set('Europe/Paris');
 
 
     $ajouter_vac = "UPDATE personne SET RolePe = 'Vacataire' WHERE  IdentifiantPe = ?";
-    if ($stmt = mysqli_prepare($session, $ajouter_vac)) {
-      mysqli_stmt_bind_param($stmt, 's', $id_vac);
-      mysqli_stmt_execute($stmt);
-    }
+    $stmt = mysqli_prepare($session, $ajouter_vac);
+    mysqli_stmt_bind_param($stmt, 's', $id_vac);
+    mysqli_stmt_execute($stmt);
+
   ?>
 
     <div class="modal fade" id="succes_ajouter_vac" tabindex="-1" aria-hidden="true">

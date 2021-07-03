@@ -47,7 +47,7 @@ date_default_timezone_set('Europe/Paris');
 
     <p style="margin: 1% 7% 5% 7%; font-size: 1.10em; text-align: justify">
         Je soussigné(e) <b><?php echo $_SESSION['nom'] ?></b> , déclare recevoir <b><?php if ($CategorieM == "Ordinateur") { ?>
-                un<?php echo $CategorieM; ?>
+                un <?php echo $CategorieM; ?>
             <?php } else { ?>
                 une <?php echo $CategorieM; ?>
             <?php }  ?>
