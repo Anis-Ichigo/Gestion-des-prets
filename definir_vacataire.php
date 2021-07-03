@@ -167,7 +167,7 @@ date_default_timezone_set('Europe/Paris');
       <tr>
         <td><label for="vacataire">Veuillez choisir un nouveau vacataire :</label></td>
         <td>
-          <input list="choix_vac" id="vacataire" name="vacataire" value="" />
+          <input list="choix_vac" id="vacataire" name="vacataire" value="" autocomplete="off" />
 
           <datalist id="choix_vac">
             <?php
@@ -516,7 +516,7 @@ date_default_timezone_set('Europe/Paris');
         VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', '$role')";
             $result = mysqli_query($session, $query);
 
-          
+
     ?>
             <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
