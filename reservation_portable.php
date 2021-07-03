@@ -84,7 +84,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link active" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
+                            <a class="nav-link" style="background-color: none; color: black" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>

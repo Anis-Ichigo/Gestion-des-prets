@@ -71,7 +71,7 @@ date_default_timezone_set('Europe/Paris');
                     } else if ($role_user == "Vacataire") {
                     ?>
                         <li class="nav-item  text-center">
-                            <a class="nav-link active" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN;?></a>
+                            <a class="nav-link" style="background-color: none; color: black" href="entretien.php"><i class=" fi-rr-computer"></i> <?php echo TXT_ACCUEIL_ENTRETIEN;?></a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER;?></a>
@@ -128,7 +128,7 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link " href="entretien.php"><?php echo TXT_MAJ_PARC;?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_RAZ;?></a>
+                <a class="nav-link" style="background-color: none; color: black" aria-current="page" href="#"><?php echo TXT_RAZ;?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="SAV.php"><?php echo TXT_SAV;?></a>

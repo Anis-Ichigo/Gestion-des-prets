@@ -89,7 +89,7 @@ mysqli_set_charset($session, "utf-8");
               <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link active " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
+              <a class="nav-link "  style="background-color: none; color: black" href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
             </li>
                         <?php
                         } else if ($role_user == "Emprunteur") {

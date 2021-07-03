@@ -151,7 +151,7 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE;?> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="choix_dispo.php"><?php echo DISPONIBLE;?></a>
+                <a class="nav-link" style="background-color: none; color: black" href="choix_dispo.php"><?php echo DISPONIBLE;?></a>
             </li>
         </ul>
 

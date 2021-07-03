@@ -99,7 +99,7 @@ date_default_timezone_set('Europe/Paris');
                             <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
                         </li>
                         <li class="nav-item  text-center">
-                            <a class="nav-link active" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
+                            <a class="nav-link" style="background-color: none; color: black" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
                         </li>
                         <li class="nav-item  text-center">
                             <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
@@ -148,7 +148,7 @@ date_default_timezone_set('Europe/Paris');
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL; ?> </a>
+                <a class="nav-link" style="background-color: none; color: black" href="profil.php"><?php echo TXT_ACCUEIL_PROFIL; ?> </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="definir_vacataire.php"><?php echo VACATAIRE; ?> </a>
@@ -2164,7 +2164,7 @@ $pdf->WriteHTML(iconv('UTF-8', 'windows-1252', "En cochant cette case, je consen
 
 $pdf->Output();
 
-/*$verif_contrat = "SELECT * 
+/*$verif_contrat = "SELECT *
                     FROM emprunt, personne
                     WHERE emprunt.IdentifiantPe = personne.IdentifiantPe
                     AND personne.IdentifiantPe = '$identifiantPe'

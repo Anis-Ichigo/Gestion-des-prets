@@ -137,7 +137,7 @@ date_default_timezone_set('Europe/Paris');
                 <a class="nav-link" href="RAZ.php"><?php echo TXT_RAZ;?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><?php echo TXT_SAV;?></a>
+                <a class="nav-link" style="background-color: none; color: black" aria-current="page" href="#"><?php echo TXT_SAV;?></a>
             </li>
         </ul>
 
@@ -197,7 +197,7 @@ date_default_timezone_set('Europe/Paris');
 
                             </TD>
                             <TD>
-                                <input type="text" name="probleme" class="form-control-plaintext" value="<?php echo $ligne['Description'] ?>" readonly>
+                                <textarea name="probleme" class="form-control-plaintext" value="" readonly><?php echo $ligne['Description'] ?></textarea>
                             </TD>
                             <td>
                                 <input type="submit" class="btn btn-primary btn-sm" name="repondre" value="<?php echo TXT_REPONDRE; ?>">

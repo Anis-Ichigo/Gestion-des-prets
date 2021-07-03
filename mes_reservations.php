@@ -97,7 +97,7 @@ date_default_timezone_set('Europe/Paris');
               <a class="nav-link " aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?></a>
             </li>
             <li class="nav-item  text-center">
-              <a class="nav-link active" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
+              <a class="nav-link" style="background-color: none; color: black" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
             </li>
             <li class="nav-item  text-center">
               <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
