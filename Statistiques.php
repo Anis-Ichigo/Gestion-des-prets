@@ -637,17 +637,18 @@ if (isset($_POST['valider2'])) {
    </main>
 
 <?php
-   $stat2 ="SELECT AVG(DATEDIFF(now(), DateRetour)) as 'moyenne2' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM = 'Non dispo' AND emprunt.EtatE = 'Rendu'";
-   $resultat_2 = mysqli_query($session, $stat2);
-   $moyenne = mysqli_fetch_array($resultat_2);
+  // $stat2 ="SELECT AVG(TIMESTAMPDIFF(day, DateRetour, now())) as 'moyenne2', emprunt.IdentifiantE as 'numero' FROM emprunt, materiel WHERE emprunt.IdentifiantM = materiel.IdentifiantM AND materiel.EtatM = 'Non dispo' AND emprunt.EtatE = 'Rendu' AND materiel.StatutM = 'Existant' GROUP BY emprunt.IdentifiantE;";
+  // $resultat_2 = mysqli_query($session, $stat2);
+  // $moyenne = mysqli_fetch_array($resultat_2);
 ?>
-
+<!--
 <main>
   <div style="width:45%; text-align:center; margin-right:auto; margin-left:auto;">
     <div><p>Temps moyen de remise en service RAZ (en jours) :</p></div>
-    <div><?php echo $moyenne['moyenne2']?></div>
+    <div><?php //echo $moyenne['moyenne2'];?></div>
   </div>
 </main>
+-->
 
 
 </body>
