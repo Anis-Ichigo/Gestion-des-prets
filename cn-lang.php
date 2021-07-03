@@ -40,6 +40,7 @@ define('TXT_NUMERO', '设备号码');
 define('TXT_TYPE', '设备类型');
 define('TXT_DATE', '日期');
 define('TXT_HEURE', '时间');
+define('MOTIF', '原因');
 
 //Bouton
 define('TXT_RETOUR', '返回');
@@ -85,6 +86,9 @@ define('TXT_CONFIRMATION_RDV', '是否确认预约?');
 define('TXT_BUREAU', '地点');
 define('TXT_CONFIRMER_RDV', '确认预约');
 define('TXT_ALERTE_SUCCES_CRENEAU', '恭喜您，已预约成功！');
+define('NO_EMPRUNT',"无正在进行的预约");
+define('CONTRAT', '查看合同');
+define('RDV_RETOUR_EXISTANT', '您已预约归还时间。');
 
 //reservation_portable.php
 
@@ -102,6 +106,7 @@ define('TXT_CHOIX_CRENEAU','请选择领取时间：');
 define('TXT_ERREUR_JOUR', '请选择工作日时间');
 define('TXT_BTN_URG', '紧急情况？');
 define('TXT_RES_URG',"如有紧急情况，您可以选择最早的可用时间并直接去往 XXX，找负责人Mme BALLABRIGA Lydie。");
+define('DATE_RETOUR', "归还时间必须大于借入时间");
 
 //Page_Inscription.php
 
@@ -117,7 +122,8 @@ define('VALIDER', '确认');
 define('ALERTE_ERREUR_MDP', '两次密码不一致，请重新输入。');
 define('ERREUR_MDP_COURT', '密码太短了！');
 define('TXT_MAIL_INCORRECT', '请输入学校邮箱');
-
+define('PLUS_INFORMATION', "更多信息");
+define('MAIL_EXISTE', '此邮箱已注册');
 //FAQ.php
 
 define('TXT_ACCUEIL_FAQ', '常见问题');
@@ -129,7 +135,7 @@ define('TXT_QUESTION2', '我可以借用多个设备吗？');
 define('TXT_REPONSE2', "当然可以！您只需填写多个借用申请，在每个申请中选择您所需的设备类型，期望的归还日期并预约领取时间。所有的借用流程都是相同的。");
 define('TXT_QUESTION3', '我可以延长借用时间吗？');
 define('TXT_REPONSE3_A', '当然可以！如果您希望延长借用时间，只需在<我的借用>里选择您想进行延期归还的设备，点击按钮');
-define('TXT_REPONSE3_B', '延期');
+define('TXT_REPONSE3_B', '更改归还时间');
 define('TXT_REPONSE3_C', "，选择新的归还日期，便可完成延期。");
 define('TXT_QUESTION4', '我的设备出问题了怎么办？');
 define('TXT_REPONSE4_A', '当设备不再运转，或者有任何功能上的问题，您都可以在<我的借用>里点击按钮');
@@ -343,4 +349,48 @@ define('DECONNEXION', '退出');
 define('FAQ', '常见问题');
 define('PROFIL', '个人信息');
 
- ?>
+//entretien.php
+
+define('TXT_ACCUEIL_ENTRETIEN','设备维护');
+define('TXT_MAJ_PARC','更新库存');
+define('TXT_RAZ','恢复初始设置');
+define('TXT_SAV','售后服务');
+define('TXT_NUM_MAT','设备号码');
+define('TXT_TYPEMAT','设备类型');
+define('TXT_MODELE','设备型号');
+define('TXT_MARQUE','品牌');
+define('TXT_RAM',' 内存 (G)');
+define('TXT_PROCESS','处理器');
+define('TXT_CAPS','存储容量 (G)');
+define('TXT_DATERECEP','入库日期');
+define('TXT_ETAT','状态 ');
+define('TXT_NOUVEAU','新的 ');
+define('TXT_ALERTESUPP','您确定删除此设备吗？ ');
+define('TXT_ALERTESUPP2','请注意, 此设备将不会被借用但所有信息仍然储存在数据库中。 ');
+define('TXT_ALERTEMAT','设备已添加成功。');
+define('TXT_NOUVELLECAT','新的类型 ');
+define('TXT_NUM_BON','订单号码');
+define('TXT_OUI','是');
+define('TXT_NON','否');
+define('TXT_ENTRETIEN','维修');
+define('TXT_AJOUTER','添加');
+define('TXT_MAT_EXISTE', '此设备号码已存在');
+define('DATE_RECEPTION', '入库日期');
+
+//RAZ.PHP
+
+define('TXT_RAZ_TERMINE','恢复初始设置成功');
+
+//SAV.PHP
+
+define('TXT_REPONDRE','回复');
+define('TXT_TRANSFERER','转移');
+
+//secretaire
+define('LISTE_RDV', '所有预约');
+define('SUIVI_PRET', '跟踪借用');
+define('STATS', '统计');
+define('VACATAIRE', '维修人员');
+define('DISPONIBLE', '选择可用预约时间');
+?>
+
