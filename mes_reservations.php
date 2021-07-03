@@ -1332,7 +1332,7 @@ date_default_timezone_set('Europe/Paris');
                                 </div>
                                 <div class="modal-footer">
                                     <div class="col text-center">
-                                        <input type="button" class="btn btn-primary" onclick='document.location.href="profil.php"' value="<?php echo TXT_OK; ?> ">
+                                        <input type="button" class="btn btn-primary" onclick='document.location.href="mes_reservations.php"' value="<?php echo TXT_OK; ?> ">
                                     </div>
                                 </div>
                             </div>
