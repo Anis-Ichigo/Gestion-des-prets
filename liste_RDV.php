@@ -62,27 +62,27 @@ date_default_timezone_set('Europe/Paris');
             <?php
             if ($role_user == "Responsable") {
             ?>
-            <li class="nav-item  text-center">
-                <a class="nav-link" href="liste_RDV.php" style="background-color: none; color: black"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV;?></a>
-            </li>
-            <li class="nav-item  text-center">
-                <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET;?> </a>
-            </li>
-            <li class="nav-item  text-center">
-                <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS;?></a>
-            </li>
-            <li class="nav-item  text-center">
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="liste_RDV.php" style="background-color: none; color: black"><i class="  fi-rr-calendar"></i> <?php echo LISTE_RDV; ?></a>
+              </li>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="suivi_prets.php"><i class=" fi-rr-info"></i> <?php echo SUIVI_PRET; ?> </a>
+              </li>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="Statistiques.php"><i class=" fi-rr-stats"></i> <?php echo STATS; ?></a>
+              </li>
+              <li class="nav-item  text-center">
                 <a class="nav-link" href="profil.php"><i class=" fi-rr-user"></i> <?php echo PROFIL; ?></a>
-            </li>
-            <li class="nav-item  text-center">
+              </li>
+              <li class="nav-item  text-center">
                 <a class="nav-link" aria-current="page" href="reservation_portable.php"><i class=" fi-rr-add"></i> <?php echo TXT_ACCUEIL_NOUVELLER; ?> </a>
-            </li>
-            <li class="nav-item  text-center">
-                <a class="nav-link" href="mes_reservations.php" ><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
-            </li>
-            <li class="nav-item  text-center">
+              </li>
+              <li class="nav-item  text-center">
+                <a class="nav-link" href="mes_reservations.php"><i class="fi-rr-file-check"></i> <?php echo TXT_ACCUEIL_RESERVATION; ?></a>
+              </li>
+              <li class="nav-item  text-center">
                 <a class="nav-link " href="reglage.php"><i class=" fi-rr-settings"></i> <?php echo TXT_ACCUEIL_REGLAGE; ?></a>
-            </li>
+              </li>
             <?php
             } else if ($role_user == "Vacataire") {
             ?>
@@ -247,12 +247,10 @@ date_default_timezone_set('Europe/Paris');
                   <?php if ($ligne_liste_rdv['motif'] == 'Pret' && (
                     ($ligne_liste_rdv['date_rdv'] < strftime("%Y-%m-%d", strtotime("now"))) || ($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now"))
                       && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] != NULL)) ||
-                    (($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))
-                  ) || ($ligne_liste_rdv['motif'] == 'Retour' && (
+                    (($ligne_liste_rdv['date_rdv'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))) || ($ligne_liste_rdv['motif'] == 'Retour' && (
                     ($ligne_liste_rdv['date_retour'] < strftime("%Y-%m-%d", strtotime("now"))) || ($ligne_liste_rdv['date_retour'] == strftime("%Y-%m-%d", strtotime("now"))
                       && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['horaire_modif']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] != NULL)) ||
-                    (($ligne_liste_rdv['date_retour'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))
-                  ))){
+                    (($ligne_liste_rdv['date_retour'] == strftime("%Y-%m-%d", strtotime("now")) && (date("H:i:s", strtotime("-15 minutes", strtotime($ligne_liste_rdv['heure']))) <= date("H:i:s")) && ($ligne_liste_rdv['horaire_modif'] == NULL)))))) {
                   ?>
                     <?php
                     if ($ligne_liste_rdv['contrat'] == 'signe') {
@@ -577,6 +575,8 @@ date_default_timezone_set('Europe/Paris');
             <input type='hidden' class='form-control' value="<?php echo $_POST['idc'] ?>" name='idc'>
             <input type='hidden' class='form-control' value="<?php echo $_POST['ide'] ?>" name='ide'>
             <input type='hidden' class='form-control' value="<?php echo $_POST['idm'] ?>" name='idm'>
+            <input type='hidden' class='form-control' value="<?php echo $_POST['idemprunt'] ?>" name='idemprunt'>
+
 
             <div class="modal fade" id="succes_mdp" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
@@ -615,11 +615,9 @@ date_default_timezone_set('Europe/Paris');
 
         if (isset($_POST['Annuler_emprunt'])) {
           $ide = $_POST['ide'];
-          $idm = $_POST['idm'];
-          $idc = $_POST['idc'];
           $idemprunt = $_POST['idemprunt'];
 
-          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantE = '$idemprunt' AND IdentifiantM = '$idm' AND IdentifiantPe = '$ide'");
+          $annuler_emprunt = ("UPDATE emprunt SET Statut_RDV = 'annule', Motif='annule', EtatE = 'annule', Contrat = 'non signe' WHERE IdentifiantE = '$idemprunt'");
           $result_annuler_emprunt = mysqli_query($session, $annuler_emprunt);
           /*$modifier_etatCal = ("UPDATE calendrier SET EtatCal = 'Disponible' WHERE IdentifiantCal = '$idc'");
           $result_modifier_etatCal = mysqli_query($session, $modifier_etatCal);*/
