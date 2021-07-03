@@ -510,7 +510,7 @@ date_default_timezone_set('Europe/Paris');
             $statut = $_POST['statut'];
             $formation = $_POST['formation'];
             $role = $_POST['role'];
-            echo $role;
+            //echo $role;
 
             $query = "INSERT INTO personne (IdentifiantPe, NomPe, PrenomPe, EmailPe, Mot_de_passePe, TelPe, Statut, Formation, RolePe)
         VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', '$role')";
