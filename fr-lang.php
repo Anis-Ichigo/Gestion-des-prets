@@ -135,7 +135,7 @@ define('TXT_QUESTION2', 'Puis-je emprunter plusieurs matériels?');
 define('TXT_REPONSE2', "Oui, cela est tout à fait possible! Dans ce cas, il vous suffira de remplir plusieurs demandes d'emprunt. A chaque fois vous choisirez le matériel, la date de retour souhaitée ainsi que le créneau du rendez-vous. La procédure est la même pour tous les emprunts.");
 define('TXT_QUESTION3', 'Puis-je prolonger mon prêt?');
 define('TXT_REPONSE3_A', 'Oui, cela est tout à fait possible! Dans ce cas, il vous suffira de cliquer sur le bouton');
-define('TXT_REPONSE3_B', 'Prolongation');
+define('TXT_REPONSE3_B', 'Modifier date retour');
 define('TXT_REPONSE3_C', "sur l'emprunt dont vous souhaitez prolonger le contrat.");
 define('TXT_QUESTION4', 'Que faire en cas de dysfonctionnement de mon matériel?');
 define('TXT_REPONSE4_A', 'Lorsque le matériel ne fonctionne plus, ou présente un défaut de fonctionnement, il vous faut');
