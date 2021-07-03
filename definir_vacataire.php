@@ -516,14 +516,7 @@ date_default_timezone_set('Europe/Paris');
         VALUES ('$email', '$nom', '$prenom', '$email', '$mdp_crypté', '$tel', '$statut', '$formation', '$role')";
             $result = mysqli_query($session, $query);
 
-            $_SESSION['user'] = $email;
-            $_SESSION['nom'] = "$prenom $nom";
-            $_SESSION['identifiant'] = $email;
-            $_SESSION['psw'] = $mdp_crypté;
-            $_SESSION['tel'] = $tel;
-            $_SESSION['statut'] = $statut;
-            $_SESSION['formation'] = $formation;
-            $_SESSION['role'] = $role;
+          
     ?>
             <div class="modal fade" id="succes_ajouter" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
