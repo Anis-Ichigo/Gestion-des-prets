@@ -143,6 +143,17 @@ a {
     text-decoration: none;
 }
 
+#pwd{
+	text-decoration:underline;
+	background-color:  #F0EDFD;
+    color: blue;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+    font-size: 1em;
+    text-align: center;
+}
+
 button:hover {
     opacity: 0.6;
 }

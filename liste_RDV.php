@@ -263,7 +263,7 @@ date_default_timezone_set('Europe/Paris');
                     <?php
                     } else if ($ligne_liste_rdv['contrat'] == NULL) {
                     ?>
-                      <input type="submit" class="btn btn-primary" onclick="actualiseimages()" value="Générer contrat" name="generer_contrat">
+                      <input type="submit" class="btn btn-primary mb-2" onclick="actualiseimages()" value="Générer contrat" name="generer_contrat">
                     <?php
                     }
                   }

@@ -367,7 +367,7 @@ date_default_timezone_set('Europe/Paris');
                   <OPTION>Personnel Administratif</OPTION>
                 </SELECT>
                 <label for="formation" style="display: block;" id="formation"><?php echo TXT_FORMATION; ?> : </label>
-                <SELECT id="formation" name="formation" class="form-select" style="display: block;">
+                <SELECT id="formation_select" name="formation" class="form-select mb-2" style="display: block;">
                   <OPTION>L3 MIASHS TI</OPTION>
                   <OPTION>LICENCE PRO RTAI</OPTION>
                   <OPTION>M1 MIAGE IM</OPTION>
@@ -654,8 +654,10 @@ date_default_timezone_set('Europe/Paris');
       var statut = document.getElementById('statut').value;
       if (statut == 'Personnel Administratif' || statut == 'Enseignant') {
         document.getElementById('formation').style.display = 'none';
+        document.getElementById('formation_select').style.display = 'none';
       } else {
         document.getElementById('formation').style.display = 'block';
+        document.getElementById('formation_select').style.display = 'block';
       }
 
     }
